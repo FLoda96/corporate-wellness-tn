@@ -2,45 +2,52 @@ import * as React from 'react';
 import { Button, View } from 'react-native';
 import { createDrawerNavigator, DrawerContentComponentProps, DrawerNavigationProp } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import * as NavigationTypes from './NavigationTypes'
+import {ProfileScreen} from './Profile'
 
 
-type RootDrawerParamList = {
-  Home: undefined;
-  Notifications: undefined;
-  // Add other screens as needed
-};
 
-// Define the type for the navigation prop
-type HomeScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Home'>;
-
-// Use the defined type for your component
-interface HomeScreenProps {
-  navigation: HomeScreenNavigationProp;
-}
-
-type NotificationScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Notifications'>;
-
-// Use the defined type for your component
-interface NotificationScreenProps {
-  navigation: HomeScreenNavigationProp;
-}
-
-
-function HomeScreen({ navigation }: HomeScreenProps): JSX.Element {
+function Login({ navigation }: NavigationTypes.LoginScreenProps): JSX.Element {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Button
-        onPress={() => navigation.navigate('Notifications')}
+        onPress={() => navigation.navigate('MainPage')}
         title="Go to notifications"
       />
     </View>
   );
 }
 
-function NotificationsScreen({ navigation }: NotificationScreenProps): JSX.Element {
+function AboutUs({ navigation }: NavigationTypes.AboutUsScreenProps): JSX.Element {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button onPress={() => navigation.goBack()} title="Go back home" />
+      <Button
+        onPress={() => navigation.navigate('MainPage')}
+        title="Go to notifications"
+      />
+    </View>
+  );
+}
+
+function MainPage({ navigation }: NavigationTypes.MainPageScreenProps): JSX.Element {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        onPress={() => navigation.navigate('MainPage')}
+        title="Go to notifications"
+      />
+    </View>
+  );
+}
+
+
+function NavigationPage({ navigation }: NavigationTypes.NavigationPageScreenProps): JSX.Element {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Button
+        onPress={() => navigation.navigate('MainPage')}
+        title="Go to notifications"
+      />
     </View>
   );
 }
@@ -51,8 +58,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Notifications" component={NotificationsScreen} />
+        <Drawer.Screen name="Login" component={Login} />
+        <Drawer.Screen name="Profile" component={ProfileScreen} />
+        <Drawer.Screen name="AboutUs" component={AboutUs} />
+        <Drawer.Screen name="MainPage" component={MainPage} />
+        <Drawer.Screen name="NavigationPage" component={NavigationPage} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
