@@ -1,7 +1,9 @@
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { DrawerNavigationProp, createDrawerNavigator } from '@react-navigation/drawer';
+import { StackNavigationProp, createStackNavigator } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 type RootDrawerParamList = {
-  Login: undefined;
+  Auth: undefined;
   Profile: undefined;
   AboutUs: undefined;
   MainPage: undefined;
@@ -9,16 +11,18 @@ type RootDrawerParamList = {
   // Add other screens as needed
 };
 
+export const HomeDrawer = createDrawerNavigator<RootDrawerParamList>();
+
 // Define the type for the navigation prop
-type LoginScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Login'>;
+type AuthNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Auth'>;
 type ProfileScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Profile'>;
 type AboutUsScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'AboutUs'>;
 type MainPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'MainPage'>;
 type NavigationPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'NavigationPage'>;
 
 // Use the defined type for your component
-export interface LoginScreenProps {
-  navigation: LoginScreenNavigationProp;
+export interface AuthProps {
+  navigation: AuthNavigationProp;
 }
 
 export interface ProfileScreenProps {
@@ -35,4 +39,27 @@ export interface MainPageScreenProps {
 
 export interface NavigationPageScreenProps {
   navigation: NavigationPageScreenNavigationProp;
+}
+
+
+type RootStackParamList = {
+  Login: undefined;
+  Register: undefined;
+  // Add other screens as needed
+};
+
+// Create the navigator
+export const AuthStack = createStackNavigator<RootStackParamList>();
+
+// Define the type for the navigation prop
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type RegisterScreenScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
+
+// Use the defined type for your component
+export interface LoginScreenProps {
+  navigation: LoginScreenNavigationProp;
+}
+
+export interface RegisterScreenProps {
+  navigation: RegisterScreenScreenNavigationProp;
 }
