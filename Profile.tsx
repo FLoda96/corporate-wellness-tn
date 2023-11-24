@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import {ProfileScreenProps} from './NavigationTypes'
 
-export const ProfileScreen: React.FC<ProfileScreenProps> = () => {
+export function ProfileScreen({ navigation }: ProfileScreenProps): JSX.Element {
   // State variables for profile parameters
   const [name, setName] = useState<string>('John');
   const [surname, setSurname] = useState<string>('Doe');
