@@ -11,8 +11,10 @@ import {NavigationPage} from './NavigationPage'
 import {AboutUsPage} from './AboutUsPage'
 import {MainPage} from './MainPage'
 
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+
   return (
     <NavigationContainer>
       {isAuthenticated ? (
