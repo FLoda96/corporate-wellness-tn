@@ -6,8 +6,8 @@ type RootDrawerParamList = {
   Auth: undefined;
   Profile: undefined;
   AboutUs: undefined;
-  MainPage: undefined;
-  NavigationPage: undefined;
+  Main: undefined;
+  Navigation: undefined;
   // Add other screens as needed
 };
 
@@ -16,9 +16,9 @@ export const HomeDrawer = createDrawerNavigator<RootDrawerParamList>();
 // Define the type for the navigation prop
 type AuthNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Auth'>;
 type ProfileScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Profile'>;
-type AboutUsScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'AboutUs'>;
-type MainPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'MainPage'>;
-type NavigationPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'NavigationPage'>;
+type AboutUsPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'AboutUs'>;
+type MainPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Main'>;
+type NavigationPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Navigation'>;
 
 // Use the defined type for your component
 export interface AuthProps {
@@ -29,8 +29,8 @@ export interface ProfileScreenProps {
   navigation: ProfileScreenNavigationProp;
 }
 
-export interface AboutUsScreenProps {
-  navigation: AboutUsScreenNavigationProp;
+export interface AboutUsPageScreenProps {
+  navigation: AboutUsPageScreenNavigationProp;
 }
 
 export interface MainPageScreenProps {
