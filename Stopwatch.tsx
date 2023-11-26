@@ -42,7 +42,7 @@ useEffect(() => {
   }
 
   return (
-    <Text style={{color: 'black'}}>Time passed: {secondsPassed.toFixed(3)}</Text> 
+    <Text style={{color: 'black'}}>Time passed: {secondsPassed.toFixed(2)}</Text> 
   );
 };
 

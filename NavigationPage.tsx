@@ -4,12 +4,15 @@ import {NavigationPageScreenProps} from './NavigationTypes'
 import { Camera, CameraDevice, useCameraDevice, useCameraPermission, useCodeScanner, Code } from "react-native-vision-camera"
 import {showPermissionAlert, showDeviceAlert} from './Alert'
 import {Stopwatch} from './Stopwatch'
+import {StepCounter} from './StepCounter'
+
 
 export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.Element {
     const { hasPermission, requestPermission } = useCameraPermission();
     const [cameraIsVisible, setCameraIsVisible] = useState(false);
     const [isCounting, setIsCounting] = useState(false);
     const [isStopwatchVisible, setIsStopwatchVisible] = useState(false);
+    const [isStepcounterVisible, setIsStepcounterVisible] = useState(false);
     const [isStartButtonVisible, setIsStartButtonVisible] = useState(true);
     const [buttonTitle, setButtonTitle] = useState('Start Route');
     const [isRouting, setIsRouting] = useState(false);
@@ -45,6 +48,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
                 setButtonTitle('End Route')
                 setIsStartButtonVisible(true);
                 setIsStopwatchVisible(true);
+                setIsStepcounterVisible(true);
                 setIsCounting(true);
                 setIsRouting(true);
                 console.log('Routing')
@@ -54,6 +58,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
                 setButtonTitle('Start Route')
                 setIsStartButtonVisible(true);
                 setIsStopwatchVisible(false);
+                setIsStepcounterVisible(false);
                 setIsCounting(false);
                 setIsRouting(false);
                 console.log('Ended Routing')
@@ -67,6 +72,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
             setCameraIsVisible(true);
             setIsStartButtonVisible(false);
             setIsStopwatchVisible(false);
+            setIsStepcounterVisible(false);
         } else if (!hasPermission) {
             showPermissionAlert();
         } else if (device === undefined) {
@@ -88,6 +94,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         </>
         }
         {isStopwatchVisible && <Stopwatch isCounting={isCounting}></Stopwatch>}
+        {isStepcounterVisible && <StepCounter isCounting={isCounting}></StepCounter>}
         {isStartButtonVisible && <Button onPress={() => StartRoute()} title={buttonTitle} />}
       </View>
     );
