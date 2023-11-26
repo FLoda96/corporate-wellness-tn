@@ -16,7 +16,6 @@ import {
         const [granted, setGranted] = useState(false);
         const [steps, setSteps] = useState(0);
         const [distance, setDistance] = useState(0);
-        //const [calories, setCalories] = useState(0);
 
         useEffect(() => {
             askPermission();
@@ -28,7 +27,6 @@ import {
                     console.debug(parseStepData(data));
                     setSteps(data.steps);
                     setDistance(data.distance);
-                    //setCalories(data.calories);
                     });
             } else {
                 stopStepCounterUpdate();
@@ -43,7 +41,6 @@ import {
             });
         }
 
-        //<Text style={{color: 'black'}}>Calories : {calories}</Text>
         return ( <>
             <Text style={{color: 'black'}}>Steps : {steps}</Text>
             <Text style={{color: 'black'}}>Distance : {distance.toFixed(1)}m</Text>

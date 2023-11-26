@@ -21,16 +21,12 @@ export const Sensors: React.FC<SensorshProps> = ({ isCounting }) => {
     setUpdateIntervalForType(SensorTypes.accelerometer, 200); // defaults to 100ms
 
     useEffect(() => {
-        console.log('Sensor is effecting + isCounting ' + isCounting)
-        console.log('accelerometerSubscription ' + accelerometerSubscription)
         if (isCounting) {
             if (accelerometerSubscription === undefined) {
-                console.log('Sensor is counting')
                 accelerometerSubscription = accelerometer.subscribe(({ x, y, z }) => {setX(x); setY(y); setZ(z)});
         }
         } else {
             if (accelerometerSubscription !== undefined) {
-                console.log('Sensor is not counting')
                 accelerometerSubscription.unsubscribe();
             }
         }
