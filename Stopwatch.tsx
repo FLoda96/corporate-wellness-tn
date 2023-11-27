@@ -3,11 +3,12 @@ import { Text } from "react-native";
 
 interface StopwatchProps {
     isCounting: boolean;
+    setFinalTime: Function;
   }
 
-export const Stopwatch: React.FC<StopwatchProps> = ({isCounting}) => {
-  const [startTime, setStartTime] = useState(Date.now());
-  const [now, setNow] = useState(Date.now());
+export const Stopwatch: React.FC<StopwatchProps> = ({isCounting, setFinalTime}) => {
+  const [startTime, setStartTime] = useState(0);
+  const [now, setNow] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
 useEffect(() => {
@@ -31,6 +32,10 @@ useEffect(() => {
   }
 
   function handleStop() {
+    if (startTime != null && now != null) {
+      let Final = (now - startTime) / 1000;
+      setFinalTime(Final);
+    }
     if (intervalRef.current !== null) {
         clearInterval(intervalRef.current);
       }

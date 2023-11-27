@@ -13,8 +13,11 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const [cameraIsVisible, setCameraIsVisible] = useState(false);
     const [isCounting, setIsCounting] = useState(false);
     const [isStopwatchVisible, setIsStopwatchVisible] = useState(false);
+    const [finalTime, setFinalTime] = useState(0);
     const [isStepcounterVisible, setIsStepcounterVisible] = useState(false);
+    const [finalSteps, setFinalSteps] = useState(0);
     const [isSensorsVisible, setIsSensorsVisible] = useState(false);
+    const [isFinalStatsVisible, setIsFinalStatsVisible] = useState(false);
     const [isStartButtonVisible, setIsStartButtonVisible] = useState(true);
     const [buttonTitle, setButtonTitle] = useState('Start Route');
     const [isRouting, setIsRouting] = useState(false);
@@ -43,46 +46,63 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     });
 
     function VerifyCode(codes: Code[]) {
+        try {
         for (const code of codes) {
             console.log('QR Code value : ' + code.value)
             if (code.value === 'Starting Route' && !(isRouting)) {
+                setIsRouting(true);
+                setIsCounting(true);
                 setCameraIsVisible(false);
                 setButtonTitle('End Route')
                 setIsStartButtonVisible(true);
                 setIsStopwatchVisible(true);
                 setIsStepcounterVisible(true);
                 setIsSensorsVisible(true);
-                setIsCounting(true);
-                setIsRouting(true);
-                console.log('Routing')
+                setIsFinalStatsVisible(false);
+                console.log('Started Routing');
             }
             if (code.value === 'Starting Route' && isRouting) {
+                setIsRouting(false);
+                setIsCounting(false);
                 setCameraIsVisible(false);
                 setButtonTitle('Start Route')
                 setIsStartButtonVisible(true);
                 setIsStopwatchVisible(false);
                 setIsStepcounterVisible(false);
                 setIsSensorsVisible(false);
-                setIsCounting(false);
-                setIsRouting(false);
-                console.log('Ended Routing')
+                setIsFinalStatsVisible(true);
+                console.log('Ended Routing');
             }
+        } 
 
+        } catch (error) {
+            console.error('Error processing scanned code:', error);
         }
     }
 
     function StartRoute () {
         if (hasPermission && device !== undefined) {
+            setIsCounting(false);
             setCameraIsVisible(true);
             setIsStartButtonVisible(false);
             setIsStopwatchVisible(false);
             setIsStepcounterVisible(false);
             setIsSensorsVisible(false);
+            setIsFinalStatsVisible(false);
         } else if (!hasPermission) {
             showPermissionAlert();
         } else if (device === undefined) {
             showDeviceAlert();
         }
+    }
+
+    function FinalStats () {
+        return ( <>
+            <Text style={{color: 'black'}}> Your final stats are : </Text>
+            <Text style={{color: 'black'}}> Your final time is : {finalTime.toFixed(2)} </Text>
+            <Text style={{color: 'black'}}> Your final number of steps is : {finalSteps} </Text>
+            </>
+        )
     }
 
     return (
@@ -98,10 +118,11 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
             />
         </>
         }
-        {isStopwatchVisible && <Stopwatch isCounting={isCounting}></Stopwatch>}
-        {isStepcounterVisible && <StepCounter isCounting={isCounting}></StepCounter>}
-        {isSensorsVisible && <Sensors isCounting={isCounting}></Sensors>}
+        <View style={!isStopwatchVisible && {display: 'none'}}><Stopwatch isCounting={isRouting} setFinalTime={setFinalTime}></Stopwatch></View>
+        <View style={!isStepcounterVisible && {display: 'none'}}><StepCounter isCounting={isCounting} setFinalSteps={setFinalSteps}></StepCounter></View>
+        <View style={!isSensorsVisible && {display: 'none'}}><Sensors isCounting={isCounting}></Sensors></View>
         {isStartButtonVisible && <Button onPress={() => StartRoute()} title={buttonTitle} />}
+        {isFinalStatsVisible && <FinalStats></FinalStats>}
       </View>
     );
   };
