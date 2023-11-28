@@ -1,22 +1,27 @@
-import React from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import React, {useState, useContext} from 'react';
+import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {RegisterScreenProps} from './NavigationTypes'
+import {UserContext, UserContextType, LoginContext, LoginContextType} from './AuthContext'
 
 export function RegisterScreen({ navigation }: RegisterScreenProps): JSX.Element {
+  const [name, setName] = useState('test-name');
+  const {User, SetUser} = useContext(UserContext) as UserContextType;
+  const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 
-  const handleRegister = () => {
-    // Add register logic here
-    // If registration is successful, navigate to the main screen
-    // Currently commented cuz i have no idea of how to make it beahave
-    // navigation.navigate('MainPage');
+  function handleRegister () {
+    // TO DO : Add actual Register logic here
+    SetUser(name);
+    SetIsAuthenticated(true);
   };
 
   return (
     <View>
+      <Text style={styles.label}>Name:</Text>
+      <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
       <TextInput style={styles.input} placeholder="Username" placeholderTextColor="grey" />
       <TextInput style={styles.input} placeholder="Password" placeholderTextColor="grey" secureTextEntry />
       {/* Add more registration fields as needed */}
-      <Button title="Register" onPress={handleRegister} />
+      <Button title="Register" onPress={() => handleRegister()} />
       <Button title="Already Registered ?" onPress={() => navigation.navigate('Login')} />
 
     </View>
@@ -31,6 +36,10 @@ const styles = StyleSheet.create({
       marginBottom: 10,
       paddingHorizontal: 10,
       color: 'black', // Set text color to black
+    },
+    label: {
+      color: 'black', // Set label color to black
+      marginBottom: 5,
     },
   });
 
