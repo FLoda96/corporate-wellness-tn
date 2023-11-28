@@ -11,15 +11,33 @@ import {NavigationPage} from './NavigationPage'
 import {AboutUsPage} from './AboutUsPage'
 import {MainPage} from './MainPage'
 import {UserContext, LoginContext} from './AuthContext'
+import {retrieveUserSession} from './EncryptedStorageUtility'
 
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
+  const sessionAuthName = 'user_auth'
 
-  // TO DO : Add actual logic for like retrieving saved credentials
+
   useEffect(() => {
-    setUser('Test-User');
+    const fetchData = async () => {
+      try {
+        const session = await retrieveUserSession(sessionAuthName);
+        if (session !== undefined) {
+          const parsedSession = JSON.parse(session);
+          // TO DO : Try to login directly with saved credentials
+          if ((parsedSession.user !== null) && (parsedSession.user !== null) && (parsedSession.user !== '')) {
+            setUser(parsedSession.user);
+            setIsAuthenticated(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error retrieving session: ' + error);
+      }
+    };
+    // Roundabout way to call the above but async TO DO : search a library that does this
+    fetchData();
   }, []);
   
   return (

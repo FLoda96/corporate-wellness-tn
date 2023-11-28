@@ -2,15 +2,25 @@ import React, {useContext, useState} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {LoginScreenProps} from './NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType} from './AuthContext'
+import CheckBox from '@react-native-community/checkbox';
+import EncryptedStorage from 'react-native-encrypted-storage';
+import {saveUserSession, removeUserSession} from './EncryptedStorageUtility'
 
 export function LoginScreen({ navigation }: LoginScreenProps): JSX.Element {
+  const [toggleRememberData, setToggleRememberData] = useState(false)
   const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
+  const sessionAuthName = 'user_auth'
 
   
-  function handleLogin () {
+  async function handleLogin () {
     // TO DO : Add actual login logic here
+    if (toggleRememberData) {
+      await removeUserSession(sessionAuthName);
+      saveUserSession(sessionAuthName, {user : User, username : name, password : "password"})
+    }
+
     SetUser(name);
     SetIsAuthenticated(true);
   };
@@ -23,6 +33,16 @@ export function LoginScreen({ navigation }: LoginScreenProps): JSX.Element {
       <TextInput style={styles.input} placeholder="Username" placeholderTextColor="grey" />
       <TextInput style={styles.input} placeholder="Password" placeholderTextColor="grey" secureTextEntry />
       <Button title="Login" onPress={() => handleLogin()} />
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <CheckBox
+          disabled={false}
+          value={toggleRememberData}
+          tintColors={{ true: '#17202a', false: 'black' }}
+          onValueChange={(newValue) => setToggleRememberData(newValue)}
+        />
+        <Text style={{ color: 'black', marginLeft: 8 }}>Remember credentials</Text>
+      </View>
+      <Button title="Remove saved credentials" onPress={() => removeUserSession(sessionAuthName)} />
       <Button title="Need to Register Instead ?" onPress={() => navigation.navigate('Register')} />
     </View>
   );
