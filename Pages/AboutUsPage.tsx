@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import {AboutUsPageScreenProps} from './NavigationTypes'
+import {AboutUsPageScreenProps} from '../Utils/NavigationTypes'
 
 export function AboutUsPage({ navigation }: AboutUsPageScreenProps): JSX.Element {
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import {ProfileScreenProps} from './NavigationTypes'
+import {ProfilePageProps} from '../Utils/NavigationTypes'
 
-export function ProfileScreen({ navigation }: ProfileScreenProps): JSX.Element {
+export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   // State variables for profile parameters
   const [name, setName] = useState<string>('John');
   const [surname, setSurname] = useState<string>('Doe');
@@ -71,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+export default ProfilePage;

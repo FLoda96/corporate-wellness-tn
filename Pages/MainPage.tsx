@@ -1,8 +1,8 @@
 import React, {useContext} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import {MainPageScreenProps} from './NavigationTypes'
-import {UserContext, UserContextType, LoginContext, LoginContextType} from './AuthContext'
-import {saveUserSession, removeUserSession} from './EncryptedStorageUtility'
+import {MainPageScreenProps} from '../Utils/NavigationTypes'
+import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
+import {saveUserSession, removeUserSession} from '../Utils/EncryptedStorageUtility'
 
 
 export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {

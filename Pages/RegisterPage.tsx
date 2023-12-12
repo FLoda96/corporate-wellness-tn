@@ -1,9 +1,9 @@
 import React, {useState, useContext} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import {RegisterScreenProps} from './NavigationTypes'
-import {UserContext, UserContextType, LoginContext, LoginContextType} from './AuthContext'
+import {RegisterPageProps} from '../Utils/NavigationTypes'
+import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
 
-export function RegisterScreen({ navigation }: RegisterScreenProps): JSX.Element {
+export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
@@ -13,7 +13,7 @@ export function RegisterScreen({ navigation }: RegisterScreenProps): JSX.Element
     SetUser(name);
     SetIsAuthenticated(true);
   };
-
+  // TO DO : Add confirm password field and related label
   return (
     <View>
       <Text style={styles.label}>Name:</Text>
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default RegisterScreen;
+export default RegisterPage;

@@ -2,16 +2,16 @@ import {useState, useContext, useEffect} from 'react';
 import { Button, View } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
-import {HomeDrawer, AuthStack} from './NavigationTypes'
+import {HomeDrawer, AuthStack} from './Utils/NavigationTypes'
 
-import {ProfileScreen} from './Profile'
-import {LoginScreen} from './LoginScreen'
-import {RegisterScreen} from './RegisterScreen'
-import {NavigationPage} from './NavigationPage'
-import {AboutUsPage} from './AboutUsPage'
-import {MainPage} from './MainPage'
-import {UserContext, LoginContext} from './AuthContext'
-import {retrieveUserSession} from './EncryptedStorageUtility'
+import {ProfilePage} from './Pages/ProfilePage'
+import {LoginPage} from './Pages/LoginPage'
+import {RegisterPage} from './Pages/RegisterPage'
+import {NavigationPage} from './Pages/NavigationPage'
+import {AboutUsPage} from './Pages/AboutUsPage'
+import {MainPage} from './Pages/MainPage'
+import {UserContext, LoginContext} from './Utils/AuthContext'
+import {retrieveUserSession} from './Utils/EncryptedStorageUtility'
 
 
 export default function App() {
@@ -46,15 +46,15 @@ export default function App() {
       <LoginContext.Provider value={{IsAuthenticated : isAuthenticated, SetIsAuthenticated : setIsAuthenticated}}>
       {isAuthenticated ? (
         <HomeDrawer.Navigator initialRouteName="Main">
-          <HomeDrawer.Screen name="Profile" component={ProfileScreen} />
+          <HomeDrawer.Screen name="Profile" component={ProfilePage} />
           <HomeDrawer.Screen name="AboutUs" component={AboutUsPage} />
           <HomeDrawer.Screen name="Main" component={MainPage} />
           <HomeDrawer.Screen name="Navigation" component={NavigationPage} />
         </HomeDrawer.Navigator>
       ) : (
         <AuthStack.Navigator initialRouteName="Register">
-          <AuthStack.Screen name="Register" component={RegisterScreen} />
-          <AuthStack.Screen name="Login" component={LoginScreen} />
+          <AuthStack.Screen name="Register" component={RegisterPage} />
+          <AuthStack.Screen name="Login" component={LoginPage} />
         </AuthStack.Navigator>
       )}
       </LoginContext.Provider>

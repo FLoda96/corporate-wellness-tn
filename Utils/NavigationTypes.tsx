@@ -15,7 +15,7 @@ export const HomeDrawer = createDrawerNavigator<RootDrawerParamList>();
 
 // Define the type for the navigation prop
 type AuthNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Auth'>;
-type ProfileScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Profile'>;
+type ProfilePageNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Profile'>;
 type AboutUsPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'AboutUs'>;
 type MainPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Main'>;
 type NavigationPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Navigation'>;
@@ -25,8 +25,8 @@ export interface AuthProps {
   navigation: AuthNavigationProp;
 }
 
-export interface ProfileScreenProps {
-  navigation: ProfileScreenNavigationProp;
+export interface ProfilePageProps {
+  navigation: ProfilePageNavigationProp;
 }
 
 export interface AboutUsPageScreenProps {
@@ -52,14 +52,14 @@ type RootStackParamList = {
 export const AuthStack = createStackNavigator<RootStackParamList>();
 
 // Define the type for the navigation prop
-type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
-type RegisterScreenScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
+type LoginPageNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type RegisterPageScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
 
 // Use the defined type for your component
-export interface LoginScreenProps {
-  navigation: LoginScreenNavigationProp;
+export interface LoginPageProps {
+  navigation: LoginPageNavigationProp;
 }
 
-export interface RegisterScreenProps {
-  navigation: RegisterScreenScreenNavigationProp;
+export interface RegisterPageProps {
+  navigation: RegisterPageScreenNavigationProp;
 }

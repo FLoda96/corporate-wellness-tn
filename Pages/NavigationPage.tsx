@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, ScrollView, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
-import {NavigationPageScreenProps} from './NavigationTypes'
+import {NavigationPageScreenProps} from '../Utils/NavigationTypes'
 import { Camera, CameraDevice, useCameraDevice, useCameraPermission, useCodeScanner, Code } from "react-native-vision-camera"
-import {showPermissionAlert, showDeviceAlert} from './Alert'
-import {Stopwatch} from './Stopwatch'
-import {StepCounter} from './StepCounter'
-import {Sensors} from './Sensors'
+import {showPermissionAlert, showDeviceAlert} from '../Utils/Alert'
+import {Stopwatch} from '../Utils/Stopwatch'
+import {StepCounter} from '../Utils/StepCounter'
+import {Sensors} from '../Utils/Sensors'
 
 
 export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.Element {

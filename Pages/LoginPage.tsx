@@ -1,19 +1,20 @@
 import React, {useContext, useState} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
-import {LoginScreenProps} from './NavigationTypes'
-import {UserContext, UserContextType, LoginContext, LoginContextType} from './AuthContext'
+import {LoginPageProps} from '../Utils/NavigationTypes'
+import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
 import CheckBox from '@react-native-community/checkbox';
 import EncryptedStorage from 'react-native-encrypted-storage';
-import {saveUserSession, removeUserSession} from './EncryptedStorageUtility'
+import {saveUserSession, removeUserSession} from '../Utils/EncryptedStorageUtility'
 
-export function LoginScreen({ navigation }: LoginScreenProps): JSX.Element {
+export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [toggleRememberData, setToggleRememberData] = useState(false)
   const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
   const sessionAuthName = 'user_auth'
 
-  
+  // TO DO : Add function to recover password
+  // TO DO : Add function to delete user
   async function handleLogin () {
     // TO DO : Add actual login logic here
     if (toggleRememberData) {
@@ -63,4 +64,4 @@ const styles = StyleSheet.create({
     },
   });
 
-export default LoginScreen;
+export default LoginPage;
