@@ -43,7 +43,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       const user_id = RegisterUserResponse.user_id;
       const RegisterAuthResponse = await RegisterAuth({user_id, email, password });
       if (RegisterAuthResponse == created) {
-        const LoginResponse = await Login ({user_id, email, password });
+        const LoginResponse = await Login ({email, password});
         if (LoginResponse == created) {
           SetUser(username);
           SetIsAuthenticated(true);

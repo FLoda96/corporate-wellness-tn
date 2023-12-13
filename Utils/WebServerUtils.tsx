@@ -78,8 +78,7 @@ export async function RegisterAuth ({user_id, email, password}: RegisterAuthArgu
       body: JSON.stringify({
         user_id: user_id,
         email: email,
-        hashed_password: password,
-        salt: salt
+        hashed_password: password
       }),
     });
 
@@ -102,12 +101,11 @@ export async function RegisterAuth ({user_id, email, password}: RegisterAuthArgu
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface LoginArguments {
-  user_id: number;
   email: string;
   password: string;
 }
 
-export async function Login ({user_id, email, password}: LoginArguments): Promise<number> {
+export async function Login ({email, password}: LoginArguments): Promise<number> {
   console.log("Executing Login");
   try {
     const response = await fetch(serverUrl + login, {
@@ -117,7 +115,6 @@ export async function Login ({user_id, email, password}: LoginArguments): Promis
         //'Authorization': basicAuth,
       },
       body: JSON.stringify({
-        user_id: user_id,
         email: email,
         hashed_password: password
       }),
