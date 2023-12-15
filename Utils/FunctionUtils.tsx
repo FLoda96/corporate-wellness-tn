@@ -11,7 +11,7 @@ interface HandleLoginArguments {
     setIsAuthenticated: Function;
   }
 
-export async function HandleLogin ({email, password, toggleRememberData, setUser, setIsAuthenticated}: HandleLoginArguments) {
+export async function HandleLogin ({email, password, toggleRememberData, setUser, setIsAuthenticated}: HandleLoginArguments): Promise<Boolean> {
     const LoginResponse = await Login ({email, password});
       if (LoginResponse == created) {
         if (toggleRememberData) {
@@ -20,7 +20,9 @@ export async function HandleLogin ({email, password, toggleRememberData, setUser
         }
         setUser(email);
         setIsAuthenticated(true);
+        return true;
       } else {
         console.log("Something went wrong")
+        return false;
       }
   };
