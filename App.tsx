@@ -11,25 +11,26 @@ import {NavigationPage} from './Pages/NavigationPage'
 import {AboutUsPage} from './Pages/AboutUsPage'
 import {MainPage} from './Pages/MainPage'
 import {UserContext, LoginContext} from './Utils/AuthContext'
-import {retrieveUserSession} from './Utils/EncryptedStorageUtility'
+import {retrieveSessionData} from './Utils/EncryptedStorageUtility'
+import { created, bad_request, Login } from './Utils/WebServerUtils';
+import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
+
+
 
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
-  const sessionAuthName = 'user_auth'
-
-
+  const toggleRememberDataPlaceholder = false;
+  // TO DO : Is loogin with the remembered credential the right move ? do i want the app to be accessible even offline ?
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const session = await retrieveUserSession(sessionAuthName);
+        const session = await retrieveSessionData(sessionAuthName);
         if (session !== undefined) {
           const parsedSession = JSON.parse(session);
-          // TO DO : Try to login directly with saved credentials
-          if ((parsedSession.user !== null) && (parsedSession.user !== null) && (parsedSession.user !== '')) {
-            setUser(parsedSession.user);
-            setIsAuthenticated(true);
+          if ((parsedSession.email !== null) && (parsedSession.password !== null)) {
+            HandleLogin({email : parsedSession.email, password : parsedSession.password, toggleRememberData : toggleRememberDataPlaceholder, setUser : setUser, setIsAuthenticated : setIsAuthenticated})
           }
         }
       } catch (error) {

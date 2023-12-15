@@ -3,37 +3,29 @@ import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {LoginPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
 import CheckBox from '@react-native-community/checkbox';
-import EncryptedStorage from 'react-native-encrypted-storage';
-import {saveUserSession, removeUserSession} from '../Utils/EncryptedStorageUtility'
+import { HandleLogin } from '../Utils/FunctionUtils';
+
 
 export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [toggleRememberData, setToggleRememberData] = useState(false)
+  const [email, setEmail] = useState('test@abc.com');
+  const [password, setPassword] = useState('aaaaaa');
   const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
-  const sessionAuthName = 'user_auth'
+//  const sessionAuthName = 'user_auth'
 
   // TO DO : Add function to recover password
   // TO DO : Add function to delete user
-  async function handleLogin () {
-    // TO DO : Add actual login logic here
-    if (toggleRememberData) {
-      await removeUserSession(sessionAuthName);
-      saveUserSession(sessionAuthName, {user : User, username : name, password : "password"})
-    }
-
-    SetUser(name);
-    SetIsAuthenticated(true);
-  };
 
 
   return (
     <View>
-      <Text style={styles.label}>Name:</Text>
-      <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
-      <TextInput style={styles.input} placeholder="Username" placeholderTextColor="grey" />
-      <TextInput style={styles.input} placeholder="Password" placeholderTextColor="grey" secureTextEntry />
-      <Button title="Login" onPress={() => handleLogin()} />
+      <Text style={styles.label}>Email:</Text>
+      <TextInput style={styles.input} placeholder="Email" placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
+      <Text style={styles.label}>Password:</Text>
+      <TextInput style={styles.input} placeholder="Password" placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={password} onChangeText={(text) => setPassword(text)} />
+      <Button title="Login" onPress={() => HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setIsAuthenticated : SetIsAuthenticated})} />
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <CheckBox
           disabled={false}
@@ -41,9 +33,8 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
           tintColors={{ true: '#17202a', false: 'black' }}
           onValueChange={(newValue) => setToggleRememberData(newValue)}
         />
-        <Text style={{ color: 'black', marginLeft: 8 }}>Remember credentials</Text>
+        <Text style={{ color: 'black', marginLeft: 8 }}>Remember me</Text>
       </View>
-      <Button title="Remove saved credentials" onPress={() => removeUserSession(sessionAuthName)} />
       <Button title="Need to Register Instead ?" onPress={() => navigation.navigate('Register')} />
     </View>
   );

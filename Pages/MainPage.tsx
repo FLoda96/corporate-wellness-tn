@@ -2,16 +2,18 @@ import React, {useContext} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {MainPageScreenProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
-import {saveUserSession, removeUserSession} from '../Utils/EncryptedStorageUtility'
+import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtility'
+import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
+
 
 
 export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
-  const sessionAuthName = 'user_auth'
+//  const sessionAuthName = 'user_auth'
 
   function Disconnect() {
-    removeUserSession(sessionAuthName);
+    removeSessionData(sessionAuthName);
     SetUser('');
     SetIsAuthenticated(false);
   }

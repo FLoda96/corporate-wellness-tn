@@ -1,6 +1,6 @@
 import EncryptedStorage from 'react-native-encrypted-storage';
 
-export async function saveUserSession(SessionName: string, SessionObject: any) {
+export async function saveSessionData(SessionName: string, SessionObject: any) {
     try {
         await EncryptedStorage.setItem(
             SessionName,
@@ -12,7 +12,7 @@ export async function saveUserSession(SessionName: string, SessionObject: any) {
     }
 }
 
-export async function retrieveUserSession(SessionName: string) {
+export async function retrieveSessionData(SessionName: string) {
     try {   
         const session = await EncryptedStorage.getItem(SessionName);
     
@@ -25,7 +25,7 @@ export async function retrieveUserSession(SessionName: string) {
     }
 }
 
-export async function removeUserSession(SessionName: string) {
+export async function removeSessionData(SessionName: string) {
     try {
         await EncryptedStorage.removeItem(SessionName);
         console.log('Object ' + SessionName + ' removed')
