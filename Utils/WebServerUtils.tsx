@@ -1,6 +1,7 @@
 //export const serverUrl = 'https://192.168.1.124:8443'
 export const serverUrl = 'http://192.168.1.124:8090'
 export const basicAuth = 'Basic dGVzdDp0ZXN0'
+export const ok = 200;
 export const created = 201;
 export const bad_request = 400;
 const profile = '/profile'
@@ -52,6 +53,62 @@ export async function RegisterUser ({company, email, username}: RegisterUserArgu
     console.log(err);
     return {response_code: 0, user_id: 0, email: ''}
   }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface UpdateUserArguments {
+  //user_id: number;
+  //company_id: number;
+  name: string;
+  surname: string;
+  email: string;
+  nickname: string;
+  sex: string;
+  height: number;
+  weight: number;
+  heart_rate: number;
+}
+
+export interface UpdateUserArgumentsResponse {
+  response_code: number;
+}
+
+export async function UpdateUser ({name, surname, nickname, email, sex, height, weight, heart_rate}: UpdateUserArguments): Promise<UpdateUserArgumentsResponse> {
+console.log("Executing UpdateUser");
+try {
+  const response = await fetch(serverUrl + profile, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': basicAuth,
+    },
+    body: JSON.stringify({
+      //company_id: company_id,
+      name: name,
+      surname: surname,
+      email: email,
+      nickname: nickname,
+      sex: sex,
+      height: height,
+      weight: weight,
+      heart_rate: heart_rate,
+    }),
+  });
+
+  const status = response.status;
+  console.log("Status : " + status)
+  if (status == ok) {
+    const body = await response.json();
+    console.log("Body : " + body);
+    return {response_code: status}
+  } else {
+    return {response_code: status}
+  }
+} catch (err) {
+  console.log(err);
+  return {response_code: 0}
+}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -129,6 +186,52 @@ export async function Login ({email, password}: LoginArguments): Promise<number>
       return status;
     } else {
       return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface SearchUserByEmailArguments {
+  email: string;
+}
+
+export interface SearchUserByEmailResponse {
+  user_id: number;
+  company_id: number;
+  name: string;
+  surname: string;
+  email: string;
+  nickname: string;
+  sex: string;
+  height: number;
+  weight: number;
+  heart_rate: number;
+}
+
+export async function SearchUserByEmail ({email}: SearchUserByEmailArguments): Promise<SearchUserByEmailResponse | number> {
+  console.log("Searching User By Email");
+  try {
+    const response = await fetch(serverUrl + profile + '/' + email, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status : " + status);
+    
+    if (status == ok) {
+      const body = await response.json();
+      console.log("Body : " + body);
+      return body;
+    } else {
+      return 0;
     }
   } catch (err) {
     console.log(err);
