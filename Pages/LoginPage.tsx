@@ -5,7 +5,11 @@ import {UserContext, UserContextType, LoginContext, LoginContextType} from '../U
 import CheckBox from '@react-native-community/checkbox';
 import { HandleLogin } from '../Utils/FunctionUtils';
 
-
+  // TO DO : Add function to recover password
+  // TO DO : Add function to delete user
+  // TO DO : Add warning about non existing account or something
+  // TO DO : Implement Lock or something after n login attempt ?
+  // TO DO : Implement main util page for styles
 export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [toggleRememberData, setToggleRememberData] = useState(false);
   const [loginIsFailed, setLoginIsFailed] = useState(false);
@@ -15,19 +19,13 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
-  // TO DO : Add function to recover password
-  // TO DO : Add function to delete user
-  // TO DO : Add warning about non existing account or something
-  // TO DO : Implement Lock or something after n login attempt ?
-  // TO DO : Implement main util page for styles
+
   async function Login () {
     const success = await HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setIsAuthenticated : SetIsAuthenticated});
     if (!success) {
       setLoginIsFailed(true);
     }
   }
-
-
 
   return (
     <View>

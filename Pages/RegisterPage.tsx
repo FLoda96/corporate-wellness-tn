@@ -26,6 +26,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 
   async function handleRegister () {
+    
     if (!validateEmail({email})) {
       setEmailIsWellFormatted(false);
       return;
