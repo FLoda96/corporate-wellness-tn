@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {MainPageScreenProps} from '../Utils/NavigationTypes'
-import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
+import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtility'
 import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
 
@@ -9,6 +9,7 @@ import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
 
 export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   const {User, SetUser} = useContext(UserContext) as UserContextType;
+  const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 //  const sessionAuthName = 'user_auth'
 
@@ -21,7 +22,7 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Text style={{color: 'black'}}>Main Page : the page that talks about main!</Text>
-            <Text style={{color: 'black'}}>Welcome {User}</Text>
+            <Text style={{color: 'black'}}>Welcome {User} : {UserId}</Text>
             <Button title="Disconnect" onPress={() => Disconnect()} />
       </View>
     );

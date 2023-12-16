@@ -7,6 +7,13 @@ export type UserContextType = {
     SetUser: Function;
 };
 
+export const UserIdContext = createContext<UserIdContextType | null>(null);
+
+export type UserIdContextType = {
+    UserId: string;
+    SetUserId: Function;
+};
+
 export const LoginContext = createContext<LoginContextType | null>(null);
 
 export type LoginContextType = {

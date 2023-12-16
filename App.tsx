@@ -10,7 +10,7 @@ import {RegisterPage} from './Pages/RegisterPage'
 import {NavigationPage} from './Pages/NavigationPage'
 import {AboutUsPage} from './Pages/AboutUsPage'
 import {MainPage} from './Pages/MainPage'
-import {UserContext, LoginContext} from './Utils/AuthContext'
+import {UserContext, LoginContext, UserIdContext} from './Utils/AuthContext'
 import {retrieveSessionData} from './Utils/EncryptedStorageUtility'
 import { created, bad_request, Login } from './Utils/WebServerUtils';
 import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
@@ -21,6 +21,7 @@ import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
+  const [userId, setUserId] = useState('');
   const toggleRememberDataPlaceholder = false;
   // TO DO : Is loogin with the remembered credential the right move ? do i want the app to be accessible even offline ?
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function App() {
         if (session !== undefined) {
           const parsedSession = JSON.parse(session);
           if ((parsedSession.email !== null) && (parsedSession.password !== null)) {
-            HandleLogin({email : parsedSession.email, password : parsedSession.password, toggleRememberData : toggleRememberDataPlaceholder, setUser : setUser, setIsAuthenticated : setIsAuthenticated})
+            HandleLogin({email : parsedSession.email, password : parsedSession.password, toggleRememberData : toggleRememberDataPlaceholder, setUser : setUser, setUserId : setUserId, setIsAuthenticated : setIsAuthenticated})
           }
         }
       } catch (error) {
@@ -44,6 +45,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <UserContext.Provider value={{User : user, SetUser : setUser}}>
+      <UserIdContext.Provider value={{UserId : userId, SetUserId : setUserId}}>
       <LoginContext.Provider value={{IsAuthenticated : isAuthenticated, SetIsAuthenticated : setIsAuthenticated}}>
       {isAuthenticated ? (
         <HomeDrawer.Navigator initialRouteName="Main">
@@ -59,6 +61,7 @@ export default function App() {
         </AuthStack.Navigator>
       )}
       </LoginContext.Provider>
+      </UserIdContext.Provider>
       </UserContext.Provider>
     </NavigationContainer>
   );

@@ -162,7 +162,12 @@ interface LoginArguments {
   password: string;
 }
 
-export async function Login ({email, password}: LoginArguments): Promise<number> {
+export interface LoginResponse {
+  status: number;
+  user_id: number;
+}
+
+export async function Login ({email, password}: LoginArguments): Promise<LoginResponse> {
   console.log("Executing Login");
   try {
     const response = await fetch(serverUrl + login, {
@@ -181,15 +186,15 @@ export async function Login ({email, password}: LoginArguments): Promise<number>
     console.log("Status : " + status);
     
     if (status == created) {
-      const body = await response.text();
-      console.log("Body : " + body);
-      return status;
+      const user_id = await response.text();
+      //console.log("Body : " + user_id);
+      return {status: status, user_id: parseInt(user_id)};
     } else {
-      return status;
+      return {status: status, user_id: 0};
     }
   } catch (err) {
     console.log(err);
-    return 0;
+    return {status: 0, user_id: 0};;
   }
 }
 

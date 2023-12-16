@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {LoginPageProps} from '../Utils/NavigationTypes'
-import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
+import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import CheckBox from '@react-native-community/checkbox';
 import { HandleLogin } from '../Utils/FunctionUtils';
 import { LoadingScreen } from '../Utils/LoadingScreen';
@@ -20,11 +20,12 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [password, setPassword] = useState('aaaaaa');
   const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
+  const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 
   async function Login () {
     setIsLoading(true);
-    const success = await HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setIsAuthenticated : SetIsAuthenticated});
+    const success = await HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setUserId: SetUserId, setIsAuthenticated : SetIsAuthenticated});
     if (!success) {
       setLoginIsFailed(true);
       setIsLoading(false);

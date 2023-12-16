@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
 import {RegisterPageProps} from '../Utils/NavigationTypes'
-import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
+import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import { validateEmail } from '../Utils/ValidationUtils';
 import { serverUrl, RegisterUser, RegisterAuth, created, bad_request, Login } from '../Utils/WebServerUtils';
 import { HandleLogin } from '../Utils/FunctionUtils';
@@ -25,11 +25,12 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [toggleRememberData, setToggleRememberData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {User, SetUser} = useContext(UserContext) as UserContextType;
+  const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 
   async function handleRegister () {
     setIsLoading(true);
-    
+
     if (!validateEmail({email})) {
       setEmailIsWellFormatted(false);
       setIsLoading(false);
@@ -55,7 +56,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       const user_id = RegisterUserResponse.user_id;
       const RegisterAuthResponse = await RegisterAuth({user_id, email, password });
       if (RegisterAuthResponse == created) {
-        HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setIsAuthenticated : SetIsAuthenticated});
+        HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setUserId: SetUserId, setIsAuthenticated : SetIsAuthenticated});
       } else {
         console.log("Something went wrong")
         setRegistrationIsFailed(true);
