@@ -4,7 +4,9 @@ import {ProfilePageProps} from '../Utils/NavigationTypes'
 import {retrieveSessionData} from '../Utils/EncryptedStorageUtility'
 import { sessionAuthName } from '../Utils/FunctionUtils';
 import { SearchUserByEmailResponse, SearchUserByEmail, UpdateUser, ok } from '../Utils/WebServerUtils';
-import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
+import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext';
+import { LoadingScreen } from '../Utils/LoadingScreen';
+
 
 
 export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
@@ -20,6 +22,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const [profileUpdateIsFailed, setProfileUpdateIsFailed] = useState(false);
   const [profileUpdateSuccessfully, setProfileUpdateSuccessfully] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   var user: SearchUserByEmailResponse | number;
 
@@ -33,6 +36,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   }, []);
 
   async function LoadProfile () {
+    setIsLoading(true);
     try {
       if ((User !== null)) {
         user = await SearchUserByEmail({email : User})
@@ -62,10 +66,12 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
           if (user.heart_rate != null) {
             setHeartRate(user.heart_rate.toString());
           }
+          setIsLoading(false);
         }
       }
     }
      catch (error) {
+      setIsLoading(false);
       console.error('Error retrieving session: ' + error);
     }
   }
@@ -73,6 +79,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   // Function to handle saving the profile changes
   // TO DO : If the profile is the same as before do nothing
   async function saveProfile () {
+    setIsLoading(true);
     const response = await UpdateUser({
       name: name, 
       surname: surname, 
@@ -89,10 +96,11 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       LoadProfile();
       setProfileUpdateIsFailed(false);
       setProfileUpdateSuccessfully(true);
-      LoadProfile();
+      setIsLoading(false);
     } else {
       setProfileUpdateIsFailed(true);
       setProfileUpdateSuccessfully(false);
+      setIsLoading(false);
     }
   };
 
@@ -109,6 +117,8 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
 
       <Text style={styles.label}>Email:</Text>
       <Text style={styles.label}>{email}</Text>
+
+      {isLoading && <LoadingScreen/>}
 
       <Text style={styles.label}>Nickname:</Text>
       <TextInput style={styles.input} value={nickname} editable={isEditing} onChangeText={(text) => setNickname(text)} />
@@ -129,6 +139,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       <Button title="Save" onPress={saveProfile} disabled={!isEditing} />
       {profileUpdateIsFailed && (<Text style={styles.warningText}>Failed to update Profile</Text>)}
       {profileUpdateSuccessfully && (<Text style={styles.successText}>Profile updated successfully</Text>)}
+      
     </ScrollView>
   );
 };

@@ -6,6 +6,7 @@ import { validateEmail } from '../Utils/ValidationUtils';
 import { serverUrl, RegisterUser, RegisterAuth, created, bad_request, Login } from '../Utils/WebServerUtils';
 import { HandleLogin } from '../Utils/FunctionUtils';
 import CheckBox from '@react-native-community/checkbox';
+import { LoadingScreen } from '../Utils/LoadingScreen';
 
 
 // TO DO : Loading animation during the login
@@ -22,25 +23,30 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [passwordsMinLenght, setPasswordsMinLenght] = useState(true);
   const [userId, setUserId] = useState(0);
   const [toggleRememberData, setToggleRememberData] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 
   async function handleRegister () {
+    setIsLoading(true);
     
     if (!validateEmail({email})) {
       setEmailIsWellFormatted(false);
+      setIsLoading(false);
       return;
     } else {
       setEmailIsWellFormatted(true);
     }
     if (password.length < 6) {
       setPasswordsMinLenght(false);
+      setIsLoading(false);
       return;
     } else {
       setPasswordsMinLenght(true);
     }
     if (password !== repeatPassword) {
       setPasswordsMatch(false);
+      setIsLoading(false);
       return;
     }
     
@@ -53,11 +59,13 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       } else {
         console.log("Something went wrong")
         setRegistrationIsFailed(true);
+        setIsLoading(false);
       }
 
     } else if (RegisterUserResponse.response_code == bad_request) {
       setEmailAlreadyExist(true);
       setRegistrationIsFailed(false);
+      setIsLoading(false);
       return;
     }
   };
@@ -87,7 +95,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       {registrationIsFailed && (<Text style={styles.warningText}>Registration Failed</Text>)}
       <View style={{marginBottom: 10}}></View>
       <Button title="Already Registered ?" onPress={() => navigation.navigate('Login')} />
-
+      {isLoading && <LoadingScreen/>}
     </View>
   );
 };

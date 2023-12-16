@@ -4,6 +4,7 @@ import {LoginPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext'
 import CheckBox from '@react-native-community/checkbox';
 import { HandleLogin } from '../Utils/FunctionUtils';
+import { LoadingScreen } from '../Utils/LoadingScreen';
 
   // TO DO : Add function to recover password
   // TO DO : Add function to delete user
@@ -13,6 +14,7 @@ import { HandleLogin } from '../Utils/FunctionUtils';
 export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [toggleRememberData, setToggleRememberData] = useState(false);
   const [loginIsFailed, setLoginIsFailed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, setEmail] = useState('test@abc.com');
   const [password, setPassword] = useState('aaaaaa');
@@ -21,9 +23,11 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
 
   async function Login () {
+    setIsLoading(true);
     const success = await HandleLogin({email : email, password : password, toggleRememberData : toggleRememberData, setUser : SetUser, setIsAuthenticated : SetIsAuthenticated});
     if (!success) {
       setLoginIsFailed(true);
+      setIsLoading(false);
     }
   }
 
@@ -46,6 +50,7 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
       {loginIsFailed && (<Text style={styles.warningText}>Login Failed</Text>)}
       <View style={{marginBottom: 10}}></View>
       <Button title="Need to Register Instead ?" onPress={() => navigation.navigate('Register')} />
+      {isLoading && <LoadingScreen/>}
     </View>
   );
 };
