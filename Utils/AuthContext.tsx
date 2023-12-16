@@ -10,7 +10,7 @@ export type UserContextType = {
 export const UserIdContext = createContext<UserIdContextType | null>(null);
 
 export type UserIdContextType = {
-    UserId: string;
+    UserId: number;
     SetUserId: Function;
 };
 

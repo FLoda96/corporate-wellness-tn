@@ -21,7 +21,7 @@ import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
-  const [userId, setUserId] = useState('');
+  const [userId, setUserId] = useState(0);
   const toggleRememberDataPlaceholder = false;
   // TO DO : Is loogin with the remembered credential the right move ? do i want the app to be accessible even offline ?
   useEffect(() => {
