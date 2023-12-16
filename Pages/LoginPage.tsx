@@ -5,6 +5,7 @@ import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdCont
 import CheckBox from '@react-native-community/checkbox';
 import { HandleLogin } from '../Utils/FunctionUtils';
 import { LoadingScreen } from '../Utils/LoadingScreen';
+import { styles } from '../Utils/Styles'
 
   // TO DO : Add function to recover password
   // TO DO : Add function to delete user
@@ -55,24 +56,5 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-    input: {
-      height: 40,
-      borderColor: 'gray',
-      borderWidth: 1,
-      marginBottom: 10,
-      paddingHorizontal: 10,
-      color: 'black', // Set text color to black
-    },
-    label: {
-      color: 'black', // Set label color to black
-      marginBottom: 5,
-    },
-    warningText: {
-      color: 'red',
-      marginVertical: 5,
-    },
-  });
 
 export default LoginPage;

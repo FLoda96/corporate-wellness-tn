@@ -7,6 +7,7 @@ import { serverUrl, RegisterUser, RegisterAuth, created, bad_request, Login } fr
 import { HandleLogin } from '../Utils/FunctionUtils';
 import CheckBox from '@react-native-community/checkbox';
 import { LoadingScreen } from '../Utils/LoadingScreen';
+import { styles } from '../Utils/Styles'
 
 
 // TO DO : Loading animation during the login
@@ -100,24 +101,5 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-    input: {
-      height: 40,
-      borderColor: 'gray',
-      borderWidth: 1,
-      marginBottom: 10,
-      paddingHorizontal: 10,
-      color: 'black', // Set text color to black
-    },
-    label: {
-      color: 'black', // Set label color to black
-      marginBottom: 5,
-    },
-    warningText: {
-      color: 'red',
-      marginVertical: 5,
-    },
-  });
 
 export default RegisterPage;

@@ -10,6 +10,6 @@ export function showPermissionAlert () {
 export function showDeviceAlert () {
     Alert.alert(
     'Camera Notice',
-    'It looks like your phone doesn\' have an avaliable back camera',
+    'It looks like your phone doesn\'t have an avaliable back camera',
     [{ text: 'Ok', style: 'default',}]);
 }

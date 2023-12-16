@@ -6,6 +6,7 @@ import { sessionAuthName } from '../Utils/FunctionUtils';
 import { SearchUserByEmailResponse, SearchUserByEmail, UpdateUser, ok } from '../Utils/WebServerUtils';
 import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext';
 import { LoadingScreen } from '../Utils/LoadingScreen';
+import { styles } from '../Utils/Styles'
 
 
 export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
@@ -142,32 +143,5 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    color: 'black', // Set text color to black
-  },
-  label: {
-    color: 'black', // Set label color to black
-    marginBottom: 5,
-  },
-  warningText: {
-    color: 'red',
-    marginVertical: 5,
-  },
-  successText: {
-    color: 'green',
-    marginVertical: 5,
-  },
-});
 
 export default ProfilePage;
