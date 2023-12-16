@@ -7,6 +7,7 @@ export const bad_request = 400;
 const profile = '/profile'
 const registration = '/registration'
 const login = '/login'
+const performance = '/routeperformance'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,40 +76,40 @@ export interface UpdateUserArgumentsResponse {
 }
 
 export async function UpdateUser ({name, surname, nickname, email, sex, height, weight, heart_rate}: UpdateUserArguments): Promise<UpdateUserArgumentsResponse> {
-console.log("Executing UpdateUser");
-try {
-  const response = await fetch(serverUrl + profile, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': basicAuth,
-    },
-    body: JSON.stringify({
-      //company_id: company_id,
-      name: name,
-      surname: surname,
-      email: email,
-      nickname: nickname,
-      sex: sex,
-      height: height,
-      weight: weight,
-      heart_rate: heart_rate,
-    }),
-  });
+  console.log("Executing UpdateUser");
+  try {
+    const response = await fetch(serverUrl + profile, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        //company_id: company_id,
+        name: name,
+        surname: surname,
+        email: email,
+        nickname: nickname,
+        sex: sex,
+        height: height,
+        weight: weight,
+        heart_rate: heart_rate,
+      }),
+    });
 
-  const status = response.status;
-  console.log("Status : " + status)
-  if (status == ok) {
-    const body = await response.json();
-    console.log("Body : " + body);
-    return {response_code: status}
-  } else {
-    return {response_code: status}
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      console.log("Body : " + body);
+      return {response_code: status}
+    } else {
+      return {response_code: status}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0}
   }
-} catch (err) {
-  console.log(err);
-  return {response_code: 0}
-}
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,3 +244,91 @@ export async function SearchUserByEmail ({email}: SearchUserByEmailArguments): P
     return 0;
   }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface SavePerformanceArguments {
+  route_id: number;
+  user_id: number;
+  timestamp_start: string;
+  heart_rate_start: number;
+}
+
+export interface SavePerformanceResponse {
+  response_code: number;
+  performance_id: number;
+}
+
+export async function SavePerformance ({route_id, user_id, timestamp_start, heart_rate_start}: SavePerformanceArguments): Promise<SavePerformanceResponse> {
+  console.log("Executing SavePerfromance");
+  try {
+    const response = await fetch(serverUrl + performance, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        route_id: route_id,
+        user_id: user_id,
+        timestamp_start: timestamp_start,
+        heart_rate_start: heart_rate_start
+      }),
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == created) {
+      const body = await response.json();
+      console.log("Body : " + body);
+      return {response_code: status, performance_id: body.performance_id}
+    } else {
+      return {response_code: status, performance_id: 0}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, performance_id: 0}
+  }
+}
+
+interface UpdatePerformanceArguments {
+  performance_id: number;
+  timestamp_end: string;
+  heart_rate_end: number;
+}
+
+export interface UpdatePerformanceResponse {
+  response_code: number;
+}
+
+export async function UpdatePerformance ({performance_id, timestamp_end, heart_rate_end}: UpdatePerformanceArguments): Promise<UpdatePerformanceResponse> {
+  console.log("Executing UpdatePerfromance");
+  try {
+    const response = await fetch(serverUrl + performance + '/' + performance_id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        timestamp_end: timestamp_end,
+        heart_rate_end: heart_rate_end
+      }),
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok) {
+      const body = await response.text();
+      console.log("Body : " + body);
+      return {response_code: status}
+    } else {
+      return {response_code: status}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0}
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
