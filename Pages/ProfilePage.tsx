@@ -19,6 +19,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const [heartRate, setHeartRate] = useState<string>('0.0');
   const [profileUpdateIsFailed, setProfileUpdateIsFailed] = useState(false);
   const [profileUpdateSuccessfully, setProfileUpdateSuccessfully] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   var user: SearchUserByEmailResponse | number;
 
@@ -83,7 +84,8 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       heart_rate: parseFloat(heartRate.replace(',','.')) });
     if (response.response_code == ok) {
       console.log('Profile Saved');
-      console.log('Loading Saved');
+      setIsEditing(false);
+      console.log('Loading Saved Profile');
       LoadProfile();
       setProfileUpdateIsFailed(false);
       setProfileUpdateSuccessfully(true);
@@ -100,30 +102,31 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
     <ScrollView style={styles.container}>
       {/* UI for each profile parameter */}
       <Text style={styles.label}>Name:</Text>
-      <TextInput style={styles.input} value={name} onChangeText={(text) => setName(text)} />
+      <TextInput style={styles.input} value={name} editable={isEditing} onChangeText={(text) => setName(text)} />
 
       <Text style={styles.label}>Surname:</Text>
-      <TextInput style={styles.input} value={surname} onChangeText={(text) => setSurname(text)} />
+      <TextInput style={styles.input} value={surname} editable={isEditing} onChangeText={(text) => setSurname(text)} />
 
       <Text style={styles.label}>Email:</Text>
       <Text style={styles.label}>{email}</Text>
 
       <Text style={styles.label}>Nickname:</Text>
-      <TextInput style={styles.input} value={nickname} onChangeText={(text) => setNickname(text)} />
+      <TextInput style={styles.input} value={nickname} editable={isEditing} onChangeText={(text) => setNickname(text)} />
 
       <Text style={styles.label}>Sex:</Text>
-      <TextInput style={styles.input} value={sex} onChangeText={(text) => setSex(text)} />
+      <TextInput style={styles.input} value={sex} editable={isEditing} onChangeText={(text) => setSex(text)} />
 
       <Text style={styles.label}>Height (m):</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={height} onChangeText={(text) => setHeight(text)} />
+      <TextInput style={styles.input} keyboardType="numeric" value={height} editable={isEditing} onChangeText={(text) => setHeight(text)} />
 
       <Text style={styles.label}>Weight (kg):</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={weight} onChangeText={(text) => setWeight(text)} />
+      <TextInput style={styles.input} keyboardType="numeric" value={weight} editable={isEditing} onChangeText={(text) => setWeight(text)} />
 
       <Text style={styles.label}>Heart Rate (beats/minute):</Text>
-      <TextInput style={styles.input} keyboardType="numeric" value={heartRate} onChangeText={(text) => setHeartRate(text)} />
+      <TextInput style={styles.input} keyboardType="numeric" value={heartRate} editable={isEditing} onChangeText={(text) => setHeartRate(text)} />
 
-      <Button title="Save" onPress={saveProfile} />
+      {!isEditing && (<Button title="Edit" onPress={() => setIsEditing(true)} />)}
+      <Button title="Save" onPress={saveProfile} disabled={!isEditing} />
       {profileUpdateIsFailed && (<Text style={styles.warningText}>Failed to update Profile</Text>)}
       {profileUpdateSuccessfully && (<Text style={styles.successText}>Profile updated successfully</Text>)}
     </ScrollView>
