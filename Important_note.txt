@@ -1,0 +1,4 @@
+Manually applied this :
+https://github.com/mrousavy/react-native-vision-camera/pull/2213
+to stop the camera from crashing after scanning QR code
+to revert as soon as the pull is accepted in the main branch
