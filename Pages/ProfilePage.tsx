@@ -26,6 +26,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   var user: SearchUserByEmailResponse | number;
 
+  // TO DO : Maybe a scroll view just for the variables so that the buttons are always visible ?
   // Get the profile data from DB
   useEffect(() => {
     const fetchData = async () => {

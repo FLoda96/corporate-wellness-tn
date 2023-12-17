@@ -10,8 +10,9 @@ import { UserIdContext, UserIdContextType } from '../Utils/AuthContext'
 import { ok, created, SavePerformance, UpdatePerformance, SavePerformanceResponse, UpdatePerformanceResponse } from '../Utils/WebServerUtils'
 import { styles } from '../Utils/Styles'
 
-
-
+// TO DO : Every now and then at the scan it saves multiple data, would it be better do save the result in the end ? (no problem with the scan since it's a button press)
+// TO DO : Any kind of limitations on result accepted ? like less than 3 minutes it's a no or so ?
+// TO DO : Open a notification when the user is routing like google maps
 export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.Element {
     const StartingRoute = "Starting Route";
     const StartRouteText = "Start Route";

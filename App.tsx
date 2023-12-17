@@ -17,7 +17,7 @@ import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
 
 
 
-
+// TO DO : Create a general internet connection checking function and handle lack of internet in a centralized way
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');

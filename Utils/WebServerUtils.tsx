@@ -8,6 +8,8 @@ const profile = '/profile'
 const registration = '/registration'
 const login = '/login'
 const performance = '/routeperformance'
+const user = '/user'
+const routes = '/route/all'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -332,3 +334,88 @@ export async function UpdatePerformance ({performance_id, timestamp_end, heart_r
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface GetRoutePerformanceByUserArguments {
+  user_id: number;
+}
+
+export interface GetRoutePerformanceByUserResponse {
+  response_code: number;
+  routes: RoutePerformance[] | null;
+}
+
+export interface RoutePerformance {
+  performance_id: number;
+  route_id: number;
+  user_id: number;
+  timestamp_start: string;
+  heart_rate_start: number;
+  timestamp_end: string;
+  heart_rate_end: number;
+}
+
+export async function GetRoutePerformanceByUser ({user_id}: GetRoutePerformanceByUserArguments): Promise<GetRoutePerformanceByUserResponse> {
+  console.log("Executing UpdatePerfromance");
+  try {
+    const response = await fetch(serverUrl + performance + user +'/' + user_id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      console.log("Body : " + body);
+      return {response_code: status, routes: body}
+    } else {
+      return {response_code: status, routes: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, routes: null}
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface Routes {
+  route_id: number;
+  company_id: number;
+  name: string;
+  description: number;
+}
+
+export interface RoutesResponse {
+  response_code: number;
+  routes: Routes[] | null;
+}
+
+export async function GetRoutes (): Promise<RoutesResponse> {
+  console.log("Executing UpdatePerfromance");
+  try {
+    const response = await fetch(serverUrl + routes, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      console.log("Body : " + body);
+      return {response_code: status, routes: body}
+    } else {
+      return {response_code: status, routes: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, routes: null}
+  }
+}
