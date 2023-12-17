@@ -22,9 +22,9 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const [isCounting, setIsCounting] = useState(false);
     const [isStopwatchVisible, setIsStopwatchVisible] = useState(false);
     const [finalTime, setFinalTime] = useState(0);
-    const [isStepcounterVisible, setIsStepcounterVisible] = useState(false);
-    const [finalSteps, setFinalSteps] = useState(0);
-    const [isSensorsVisible, setIsSensorsVisible] = useState(false);
+    //const [isStepcounterVisible, setIsStepcounterVisible] = useState(false);
+    //const [finalSteps, setFinalSteps] = useState(0);
+    //const [isSensorsVisible, setIsSensorsVisible] = useState(false);
     const [isFinalStatsVisible, setIsFinalStatsVisible] = useState(false);
     const [isStartButtonVisible, setIsStartButtonVisible] = useState(true);
     const [buttonTitle, setButtonTitle] = useState(StartingRoute);
@@ -83,8 +83,8 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
                         setButtonTitle(EndRouteText)
                         setIsStartButtonVisible(true);
                         setIsStopwatchVisible(true);
-                        setIsStepcounterVisible(true);
-                        setIsSensorsVisible(true);
+                        //setIsStepcounterVisible(true);
+                        //setIsSensorsVisible(true);
                         setIsFinalStatsVisible(false);
                         setIsHeartRateStartVisible(false);
                         setIsHeartRateEndVisible(false);
@@ -97,8 +97,8 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
                         setCameraIsVisible(false);
                         setIsStartButtonVisible(true);
                         setIsStopwatchVisible(false);
-                        setIsStepcounterVisible(false);
-                        setIsSensorsVisible(false);
+                        //setIsStepcounterVisible(false);
+                        //setIsSensorsVisible(false);
                         setIsFinalStatsVisible(false);
                         setIsHeartRateStartVisible(false);
                         setIsHeartRateEndVisible(false);
@@ -110,13 +110,11 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
                     setIsCounting(false);
                     setCameraIsVisible(false);
                     setButtonTitle(StartRouteText)
-                    //setIsStartButtonVisible(true);
                     setIsStartButtonVisible(false);
                     setIsStopwatchVisible(false);
-                    setIsStepcounterVisible(false);
-                    setIsSensorsVisible(false);
+                    //setIsStepcounterVisible(false);
+                    //setIsSensorsVisible(false);
                     setIsFinalStatsVisible(true);
-                    //setIsHeartRateStartVisible(true);
                     setIsHeartRateEndVisible(true);
                     setIsSaveFinalResultButtonVisible(true);
                     console.log('Ended Routing');
@@ -133,8 +131,8 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
             setCameraIsVisible(true);
             setIsStartButtonVisible(false);
             setIsStopwatchVisible(false);
-            setIsStepcounterVisible(false);
-            setIsSensorsVisible(false);
+            //setIsStepcounterVisible(false);
+            //setIsSensorsVisible(false);
             setIsFinalStatsVisible(false);
             setIsHeartRateStartVisible(false);
             setIsHeartRateEndVisible(false);
@@ -153,7 +151,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         return ( <>
             <Text style={{color: 'black'}}> Your final stats are : </Text>
             <Text style={{color: 'black'}}> Your final time is : {finalTime.toFixed(2)} </Text>
-            <Text style={{color: 'black'}}> Your final number of steps is : {finalSteps} </Text>
+            {/*<Text style={{color: 'black'}}> Your final number of steps is : {finalSteps} </Text>*/}
             </>
         )
     }
@@ -207,7 +205,6 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         { (cameraIsVisible && device !== undefined) && 
         <>
             <Camera
-            //style={{ width: 500, height: 800 }}
             style={StyleSheet.absoluteFill}
             device={device}
             isActive={true}
@@ -216,8 +213,8 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         </>
         }
         <View style={!isStopwatchVisible && {display: 'none'}}><Stopwatch isCounting={isRouting} setFinalTime={setFinalTime}></Stopwatch></View>
-        <View style={!isStepcounterVisible && {display: 'none'}}><StepCounter isCounting={isCounting} setFinalSteps={setFinalSteps}></StepCounter></View>
-        <View style={!isSensorsVisible && {display: 'none'}}><Sensors isCounting={isCounting}></Sensors></View>
+        {/*<View style={!isStepcounterVisible && {display: 'none'}}><StepCounter isCounting={isCounting} setFinalSteps={setFinalSteps}></StepCounter></View>*/}
+        {/*<View style={!isSensorsVisible && {display: 'none'}}><Sensors isCounting={isCounting}></Sensors></View>*/}
         {   isHeartRateStartVisible &&
             <>
             <Text style={styles.label}>Starting Heart Rate (beats/minute):</Text>

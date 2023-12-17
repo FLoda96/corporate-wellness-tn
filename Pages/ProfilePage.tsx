@@ -8,7 +8,7 @@ import {UserContext, UserContextType, LoginContext, LoginContextType} from '../U
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
 
-
+// TO DO : Add Age and Girovita as parameters
 export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   // State variables for profile parameters
   const [name, setName] = useState<string>('');

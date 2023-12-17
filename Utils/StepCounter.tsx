@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+/*import React, { useEffect, useState } from 'react';
 import { Text } from "react-native";
 import {
     isStepCountingSupported,
@@ -52,4 +52,4 @@ import {
             <Text style={{color: 'black'}}>Distance : {distance.toFixed(1)}m</Text>
         </>  
         )
-  }
+  }*/
