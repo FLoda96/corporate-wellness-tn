@@ -9,12 +9,14 @@ import { LoadingScreen } from '../Utils/LoadingScreen';
 import { RoutePerformanceTable } from '../Utils/RoutePerformanceTable';
 
 // TO DO : How to make the table reload every time i return to the page
+// TO DO : Move disconnect as a general function in the header or something
 export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
   const [performanceData, setPerformanceData] = useState<RoutePerformance[] | null>(null);
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
+  const greeting = 'Hi, it appears that you don\'t have any logged routes, you can start by going to the navigation page, don\'t forget to update your profile first!'
 //  const sessionAuthName = 'user_auth'
 
   useEffect(() => {
@@ -45,12 +47,16 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
 
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{color: 'black'}}>Main Page : the page that talks about main!</Text>
-            <Text style={{color: 'black'}}>Welcome {User} : {UserId}</Text>
+              {((performanceData == null) || (performanceData.length === 0)) && (
+                <Text style={{ color: 'black', textAlign: 'center', paddingHorizontal: 45, marginBottom: 10, fontSize: 20 }}>
+                  {greeting}
+                </Text>
+
+              )}
             <Button title="Disconnect" onPress={() => Disconnect()} />
             <View style={{marginBottom: 10}}></View>
             <Button title="Reload Table" onPress={() => LoadRoutePerformance()} />
-            {performanceData != null && <RoutePerformanceTable data={performanceData}></RoutePerformanceTable>}
+            {((performanceData != null) && (performanceData[0] != null)) && <RoutePerformanceTable data={performanceData}></RoutePerformanceTable>}
             {isLoading && <LoadingScreen/>}
       </View>
     );
