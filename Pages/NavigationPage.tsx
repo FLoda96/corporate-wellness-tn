@@ -4,7 +4,7 @@ import {NavigationPageScreenProps} from '../Utils/NavigationTypes'
 import { Camera, CameraDevice, useCameraDevice, useCameraPermission, useCodeScanner, Code } from "react-native-vision-camera"
 import {showPermissionAlert, showDeviceAlert, showHearthRateMissingAlert, showDataFailedToSave, showSaveHearthRateMissingAlert} from '../Utils/Alert'
 import {Stopwatch} from '../Utils/Stopwatch'
-import {StepCounter} from '../Utils/StepCounter'
+//import {StepCounter} from '../Utils/StepCounter'
 import {Sensors} from '../Utils/Sensors'
 import { UserIdContext, UserIdContextType } from '../Utils/AuthContext'
 import { ok, created, SavePerformance, UpdatePerformance, SavePerformanceResponse, UpdatePerformanceResponse } from '../Utils/WebServerUtils'
