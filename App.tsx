@@ -12,7 +12,6 @@ import {AboutUsPage} from './Pages/AboutUsPage'
 import {MainPage} from './Pages/MainPage'
 import {UserContext, LoginContext, UserIdContext} from './Utils/AuthContext'
 import {retrieveSessionData} from './Utils/EncryptedStorageUtility'
-import { created, bad_request, Login } from './Utils/WebServerUtils';
 import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
 
 

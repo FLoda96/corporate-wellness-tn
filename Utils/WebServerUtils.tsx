@@ -66,9 +66,11 @@ interface UpdateUserArguments {
   //company_id: number;
   name: string;
   surname: string;
+  date_of_birth: string;
   email: string;
   nickname: string;
   sex: string;
+  waistline: number;
   height: number;
   weight: number;
   heart_rate: number;
@@ -78,7 +80,7 @@ export interface UpdateUserArgumentsResponse {
   response_code: number;
 }
 
-export async function UpdateUser ({name, surname, nickname, email, sex, height, weight, heart_rate}: UpdateUserArguments): Promise<UpdateUserArgumentsResponse> {
+export async function UpdateUser ({name, surname, date_of_birth, nickname, email, sex, waistline, height, weight, heart_rate}: UpdateUserArguments): Promise<UpdateUserArgumentsResponse> {
   console.log("Executing UpdateUser");
   try {
     const response = await fetch(serverUrl + profile, {
@@ -91,9 +93,11 @@ export async function UpdateUser ({name, surname, nickname, email, sex, height, 
         //company_id: company_id,
         name: name,
         surname: surname,
+        date_of_birth: date_of_birth,
         email: email,
         nickname: nickname,
         sex: sex,
+        waistline: waistline,
         height: height,
         weight: weight,
         heart_rate: heart_rate,
@@ -213,9 +217,11 @@ export interface SearchUserByEmailResponse {
   company_id: number;
   name: string;
   surname: string;
+  date_of_birth: string;
   email: string;
   nickname: string;
   sex: string;
+  waistline: number;
   height: number;
   weight: number;
   heart_rate: number;

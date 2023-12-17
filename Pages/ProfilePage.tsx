@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import React, { useState, useEffect, useContext,  } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import {ProfilePageProps} from '../Utils/NavigationTypes'
 import {retrieveSessionData} from '../Utils/EncryptedStorageUtility'
 import { sessionAuthName } from '../Utils/FunctionUtils';
@@ -7,15 +7,21 @@ import { SearchUserByEmailResponse, SearchUserByEmail, UpdateUser, ok } from '..
 import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
+import DatePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import { FormatDateofBirth, parseDateString } from '../Utils/FunctionUtils'
 
-// TO DO : Add Age and Girovita as parameters
+
+// TO DO : Extensive testing on this thing here cause i don't trust dates
 export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   // State variables for profile parameters
   const [name, setName] = useState<string>('');
   const [surname, setSurname] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [dateOfBirth, setDateOfBirth] = useState<Date>(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [nickname, setNickname] = useState<string>('');
   const [sex, setSex] = useState<string>('');
+  const [waistline, setWaistline] = useState<string>('');
   const [height, setHeight] = useState<string>('0.0');
   const [weight, setWeight] = useState<string>('0.0');
   const [heartRate, setHeartRate] = useState<string>('0.0');
@@ -48,6 +54,9 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
           if (user.surname != null) {
             setSurname(user.surname);
           }
+          if (user.date_of_birth != null) {
+            setDateOfBirth(parseDateString(user.date_of_birth));
+          }
           // Tecnically it should never be updated
           if (user.email != null) {
             setEmail(user.email);
@@ -57,6 +66,9 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
           }
           if (user.sex != null) {
             setSex(user.sex);
+          }
+          if (user.waistline != null) {
+            setWaistline(user.waistline.toString());
           }
           if (user.height != null) {
             setHeight(user.height.toString());
@@ -77,6 +89,12 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
     }
   }
 
+  const handleDateChange = (event: DateTimePickerEvent, selectedDate: Date | undefined) => {
+    const currentDate = selectedDate || dateOfBirth;
+    setShowDatePicker(false);
+    setDateOfBirth(currentDate);
+  };
+
   // Function to handle saving the profile changes
   // TO DO : If the profile is the same as before do nothing
   async function saveProfile () {
@@ -84,9 +102,11 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
     const response = await UpdateUser({
       name: name, 
       surname: surname, 
+      date_of_birth: FormatDateofBirth(dateOfBirth),
       nickname: nickname, 
       email: User, 
       sex: sex, 
+      waistline: parseFloat(waistline.replace(',','.')),
       height: parseFloat(height.replace(',','.')), 
       weight: parseFloat(weight.replace(',','.')), 
       heart_rate: parseFloat(heartRate.replace(',','.')) });
@@ -105,16 +125,22 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
     }
   };
 
-  // <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
-
-  return (
+  return ( 
+    <>
     <ScrollView style={styles.container}>
-      {/* UI for each profile parameter */}
+
       <Text style={styles.label}>Name:</Text>
       <TextInput style={styles.input} value={name} editable={isEditing} onChangeText={(text) => setName(text)} />
 
       <Text style={styles.label}>Surname:</Text>
       <TextInput style={styles.input} value={surname} editable={isEditing} onChangeText={(text) => setSurname(text)} />
+
+      <Text style={styles.label}>Date of Birth:</Text>
+      <TouchableOpacity disabled={!isEditing} onPress={() => setShowDatePicker(true)}>
+        <TextInput style={styles.input} value={dateOfBirth.toDateString()} editable={false}/>
+      </TouchableOpacity>
+
+      {showDatePicker && ( <DatePicker value={dateOfBirth} mode="date" display="default" onChange={handleDateChange}/>)}
 
       <Text style={styles.label}>Email:</Text>
       <Text style={styles.label}>{email}</Text>
@@ -127,6 +153,9 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       <Text style={styles.label}>Sex:</Text>
       <TextInput style={styles.input} value={sex} editable={isEditing} onChangeText={(text) => setSex(text)} />
 
+      <Text style={styles.label}>Waistline (cm):</Text>
+      <TextInput style={styles.input} keyboardType="numeric" value={waistline} editable={isEditing} onChangeText={(text) => setWaistline(text)} />
+
       <Text style={styles.label}>Height (m):</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={height} editable={isEditing} onChangeText={(text) => setHeight(text)} />
 
@@ -135,13 +164,14 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
 
       <Text style={styles.label}>Heart Rate (beats/minute):</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={heartRate} editable={isEditing} onChangeText={(text) => setHeartRate(text)} />
-
-      {!isEditing && (<Button title="Edit" onPress={() => setIsEditing(true)} />)}
-      <Button title="Save" onPress={saveProfile} disabled={!isEditing} />
-      {profileUpdateIsFailed && (<Text style={styles.warningText}>Failed to update Profile</Text>)}
-      {profileUpdateSuccessfully && (<Text style={styles.successText}>Profile updated successfully</Text>)}
-      
-    </ScrollView>
+      </ScrollView>
+      <View>
+        {!isEditing && (<Button title="Edit" onPress={() => setIsEditing(true)} />)}
+        <Button title="Save" onPress={saveProfile} disabled={!isEditing} />
+        {profileUpdateIsFailed && (<Text style={styles.warningText}>Failed to update Profile</Text>)}
+        {profileUpdateSuccessfully && (<Text style={styles.successText}>Profile updated successfully</Text>)}
+      </View>
+      </>
   );
 };
 
