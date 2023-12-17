@@ -32,6 +32,7 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
       setIsLoading(false);
       setPerformanceData(response.routes)
     } else {
+      setIsLoading(false);
       console.log('Something went wrong')
     }
   }
@@ -47,6 +48,8 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
             <Text style={{color: 'black'}}>Main Page : the page that talks about main!</Text>
             <Text style={{color: 'black'}}>Welcome {User} : {UserId}</Text>
             <Button title="Disconnect" onPress={() => Disconnect()} />
+            <View style={{marginBottom: 10}}></View>
+            <Button title="Reload Table" onPress={() => LoadRoutePerformance()} />
             {performanceData != null && <RoutePerformanceTable data={performanceData}></RoutePerformanceTable>}
             {isLoading && <LoadingScreen/>}
       </View>
