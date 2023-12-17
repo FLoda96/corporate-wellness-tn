@@ -1,5 +1,5 @@
 import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtility'
-import { created, Login, LoginResponse } from '../Utils/WebServerUtils';
+import { created, ok, Login, LoginResponse, GetHealth } from '../Utils/WebServerUtils';
 
 export const sessionAuthName = 'user_auth'
 
@@ -28,3 +28,24 @@ export async function HandleLogin ({email, password, toggleRememberData, setUser
         return false;
       }
   };
+
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export async function HealthCheck (): Promise<Boolean> {
+  try {
+    const response = await GetHealth();
+    if (response.response_code == ok) {
+      if (response.health_response?.status == 'UP') {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } catch (err) {
+    console.log('Error : ' + err);
+    return false;
+  }
+}

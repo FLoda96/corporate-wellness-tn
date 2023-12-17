@@ -10,6 +10,7 @@ const login = '/login'
 const performance = '/routeperformance'
 const user = '/user'
 const routes = '/route/all'
+const health = '/q/health/ready'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -417,5 +418,49 @@ export async function GetRoutes (): Promise<RoutesResponse> {
   } catch (err) {
     console.log(err);
     return {response_code: 0, routes: null}
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface HealthResponseFormat {
+  status: string;
+  checks: Check[];
+}
+
+export interface Check {
+  name: string;
+  status: string;
+  data: string[];
+}
+
+export interface HealthResponse {
+  response_code: number;
+  health_response: HealthResponseFormat | null;
+}
+
+export async function GetHealth (): Promise<HealthResponse> {
+  console.log("Executing GetHealth");
+  try {
+    const response = await fetch(serverUrl + health, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      console.log("Body : " + body);
+      return {response_code: status, health_response: body}
+    } else {
+      return {response_code: status, health_response: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, health_response: null}
   }
 }

@@ -8,6 +8,7 @@ import { HandleLogin } from '../Utils/FunctionUtils';
 import CheckBox from '@react-native-community/checkbox';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
+import { WebServerUp } from '../Utils/WebServerUp'
 
 
 // TO DO : Loading animation during the login
@@ -98,6 +99,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       <View style={{marginBottom: 10}}></View>
       <Button title="Already Registered ?" onPress={() => navigation.navigate('Login')} />
       {isLoading && <LoadingScreen/>}
+      <WebServerUp/>
     </View>
   );
 };

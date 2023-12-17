@@ -6,6 +6,7 @@ interface RoutePerformanceTableProps {
   data: RoutePerformance[];
 }
 
+// TO DO : Fix the graphical presentation
 export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.Element {
     const [Routes, setRoutes] = useState<Routes[] | null>(null);
 
