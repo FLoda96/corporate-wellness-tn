@@ -255,6 +255,8 @@ interface SavePerformanceArguments {
   user_id: number;
   timestamp_start: string;
   heart_rate_start: number;
+  timestamp_end: string;
+  heart_rate_end: number;
 }
 
 export interface SavePerformanceResponse {
@@ -262,7 +264,7 @@ export interface SavePerformanceResponse {
   performance_id: number;
 }
 
-export async function SavePerformance ({route_id, user_id, timestamp_start, heart_rate_start}: SavePerformanceArguments): Promise<SavePerformanceResponse> {
+export async function SavePerformance ({route_id, user_id, timestamp_start, heart_rate_start, timestamp_end, heart_rate_end}: SavePerformanceArguments): Promise<SavePerformanceResponse> {
   console.log("Executing SavePerfromance");
   try {
     const response = await fetch(serverUrl + performance, {
@@ -275,7 +277,9 @@ export async function SavePerformance ({route_id, user_id, timestamp_start, hear
         route_id: route_id,
         user_id: user_id,
         timestamp_start: timestamp_start,
-        heart_rate_start: heart_rate_start
+        heart_rate_start: heart_rate_start,
+        timestamp_end: timestamp_end,
+        heart_rate_end: heart_rate_end
       }),
     });
 
@@ -291,46 +295,6 @@ export async function SavePerformance ({route_id, user_id, timestamp_start, hear
   } catch (err) {
     console.log(err);
     return {response_code: 0, performance_id: 0}
-  }
-}
-
-interface UpdatePerformanceArguments {
-  performance_id: number;
-  timestamp_end: string;
-  heart_rate_end: number;
-}
-
-export interface UpdatePerformanceResponse {
-  response_code: number;
-}
-
-export async function UpdatePerformance ({performance_id, timestamp_end, heart_rate_end}: UpdatePerformanceArguments): Promise<UpdatePerformanceResponse> {
-  console.log("Executing UpdatePerfromance");
-  try {
-    const response = await fetch(serverUrl + performance + '/' + performance_id, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
-      },
-      body: JSON.stringify({
-        timestamp_end: timestamp_end,
-        heart_rate_end: heart_rate_end
-      }),
-    });
-
-    const status = response.status;
-    console.log("Status : " + status)
-    if (status == ok) {
-      const body = await response.text();
-      console.log("Body : " + body);
-      return {response_code: status}
-    } else {
-      return {response_code: status}
-    }
-  } catch (err) {
-    console.log(err);
-    return {response_code: 0}
   }
 }
 
