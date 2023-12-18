@@ -79,3 +79,13 @@ export function parseDateString(dateString: string) {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  // Convert to number and limit to 3 digits
+export function formatNumber(input: string) {
+  const formatInput = input.replace(',','.')
+  const number = parseFloat(formatInput);
+  const limitedNumber = Math.min(Math.abs(number), 999.00);
+  const formattedNumber = limitedNumber.toFixed(2);
+  const finalNumber = parseFloat(formattedNumber);
+
+  return finalNumber;
+}

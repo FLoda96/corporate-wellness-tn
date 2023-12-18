@@ -8,7 +8,7 @@ import {UserContext, UserContextType, LoginContext, LoginContextType} from '../U
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
 import DatePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
-import { FormatDateofBirth, parseDateString } from '../Utils/FunctionUtils'
+import { FormatDateofBirth, parseDateString, formatNumber } from '../Utils/FunctionUtils'
 import {Picker} from '@react-native-picker/picker';
 
 
@@ -107,10 +107,10 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       nickname: nickname, 
       email: User, 
       sex: sex, 
-      waistline: parseFloat(waistline.replace(',','.')),
-      height: parseFloat(height.replace(',','.')), 
-      weight: parseFloat(weight.replace(',','.')), 
-      heart_rate: parseFloat(heartRate.replace(',','.')) });
+      waistline: formatNumber(waistline),
+      height: formatNumber(height), 
+      weight: formatNumber(weight), 
+      heart_rate: formatNumber(heartRate)});
     if (response.response_code == ok) {
       console.log('Profile Saved');
       setIsEditing(false);
