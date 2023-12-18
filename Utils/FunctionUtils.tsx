@@ -52,18 +52,25 @@ export async function HealthCheck (): Promise<Boolean> {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-export function FormatDateofBirth (date_of_birth: Date) {
+export function FormatDateofBirth(date_of_birth: Date) {
   let day;
   let month;
-  if (date_of_birth.getMonth()<10) {
-    month = '0' + date_of_birth.getMonth()
-  } else { month = date_of_birth.getMonth() }
 
-  if (date_of_birth.getDay()<10) {
-      day = '0' + date_of_birth.getDay()
-  } else { day = date_of_birth.getDay() }
+  if (date_of_birth.getMonth() + 1 < 10) {
+    month = '0' + (date_of_birth.getMonth() + 1);
+  } else {
+    month = '' + (date_of_birth.getMonth() + 1);
+  }
+
+  if (date_of_birth.getDate() < 10) {
+    day = '0' + date_of_birth.getDate();
+  } else {
+    day = '' + date_of_birth.getDate();
+  }
+
   return date_of_birth.getFullYear() + '-' + month + '-' + day;
 }
+
 
 export function parseDateString(dateString: string) {
   const [year, month, day] = dateString.split('-').map(Number);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext,  } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import {ProfilePageProps} from '../Utils/NavigationTypes'
 import {retrieveSessionData} from '../Utils/EncryptedStorageUtility'
@@ -9,6 +9,7 @@ import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
 import DatePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { FormatDateofBirth, parseDateString } from '../Utils/FunctionUtils'
+import {Picker} from '@react-native-picker/picker';
 
 
 // TO DO : Extensive testing on this thing here cause i don't trust dates
@@ -151,7 +152,22 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       <TextInput style={styles.input} value={nickname} editable={isEditing} onChangeText={(text) => setNickname(text)} />
 
       <Text style={styles.label}>Sex:</Text>
-      <TextInput style={styles.input} value={sex} editable={isEditing} onChangeText={(text) => setSex(text)} />
+      {isEditing ? (
+        <Picker
+          selectedValue={sex}
+          onValueChange={(itemValue) => setSex(itemValue)}
+          style={styles.input}
+          mode='dropdown'
+          dropdownIconRippleColor='#000000'
+          dropdownIconColor='#000000'
+        >
+          <Picker.Item label="Male" value="Male" />
+          <Picker.Item label="Female" value="Female" />
+          <Picker.Item label="Other" value="Other" />
+        </Picker>
+      ) : (
+        <TextInput style={styles.input} value={sex} editable={isEditing} onChangeText={(text) => setSex(text)} />
+      )}
 
       <Text style={styles.label}>Waistline (cm):</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={waistline} editable={isEditing} onChangeText={(text) => setWaistline(text)} />
