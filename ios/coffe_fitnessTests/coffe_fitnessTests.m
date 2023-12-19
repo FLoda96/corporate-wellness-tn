@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface coffe_fitnessTests : XCTestCase
+@interface MoveAppTests : XCTestCase
 
 @end
 
-@implementation coffe_fitnessTests
+@implementation MoveAppTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

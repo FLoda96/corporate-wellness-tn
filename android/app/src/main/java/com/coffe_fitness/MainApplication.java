@@ -1,4 +1,4 @@
-package com.coffe_fitness;
+package com.MoveApp;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

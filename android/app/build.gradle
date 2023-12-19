@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.coffe_fitness"
+    namespace "com.MoveApp"
     defaultConfig {
-        applicationId "com.coffe_fitness"
+        applicationId "com.MoveApp"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
