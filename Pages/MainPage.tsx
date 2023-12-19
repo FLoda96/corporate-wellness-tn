@@ -7,6 +7,7 @@ import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
 import { ok, GetRoutePerformanceByUser, RoutePerformance } from '../Utils/WebServerUtils';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { RoutePerformanceTable } from '../Utils/RoutePerformanceTable';
+import { styles } from '../Utils/Styles'
 
 // TO DO : How to make the table reload every time i return to the page
 // TO DO : Move disconnect as a general function in the header or something
@@ -46,7 +47,7 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.navigation}>
               {((performanceData == null) || (performanceData.length === 0)) && (
                 <Text style={{ color: 'black', textAlign: 'center', paddingHorizontal: 45, marginBottom: 10, fontSize: 20 }}>
                   {greeting}

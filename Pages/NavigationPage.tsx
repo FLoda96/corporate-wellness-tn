@@ -165,7 +165,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles.navigation}>
         { (cameraIsVisible && device !== undefined) && 
         <>
             <Camera

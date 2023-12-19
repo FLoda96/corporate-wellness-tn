@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Image } from 'react-native';
 import {RegisterPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import { validateEmail } from '../Utils/ValidationUtils';
@@ -74,7 +74,8 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   };
   // TO DO : Add confirm password field and related label
   return (
-    <View>
+    <View style={styles.backgroundColor}>
+      <View style={styles.center}><Image style={styles.image} source={require('../Images/MoveApp_Transparent_Background.png')}/></View>
       <Text style={styles.label}>Email:</Text>
       <TextInput style={styles.input} placeholder="Email" placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
       {emailAlreadyExist && (<Text style={styles.warningText}>This email is already in use</Text>)}

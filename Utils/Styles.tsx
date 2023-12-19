@@ -5,6 +5,11 @@ export const styles = StyleSheet.create({
       flex: 1,
       padding: 20,
     },
+    containerColor: {
+      flex: 1,
+      padding: 20,
+      backgroundColor: '#a6edd7',
+    },
     input: {
       height: 40,
       borderColor: 'gray',
@@ -16,6 +21,8 @@ export const styles = StyleSheet.create({
     label: {
       color: 'black', // Set label color to black
       marginBottom: 5,
+      marginLeft: 5,
+      marginTop: 3,
     },
     warningText: {
       color: 'red',
@@ -25,4 +32,21 @@ export const styles = StyleSheet.create({
       color: 'green',
       marginVertical: 5,
     },
+    image: {
+      width: 200,
+      height: 200, 
+      resizeMode: 'contain', // You can use 'cover', 'contain', 'stretch', etc.
+    },
+    center: {
+      alignItems: 'center',
+    },
+    backgroundColor: {
+      backgroundColor: '#a6edd7',
+    },
+    navigation: {
+      flex: 1, 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      backgroundColor: '#a6edd7'
+    }
   });

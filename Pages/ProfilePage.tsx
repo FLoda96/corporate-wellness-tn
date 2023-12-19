@@ -128,7 +128,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
 
   return ( 
     <>
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.containerColor}>
 
       <Text style={styles.label}>Name:</Text>
       <TextInput style={styles.input} value={name} editable={isEditing} onChangeText={(text) => setName(text)} />

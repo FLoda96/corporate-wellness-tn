@@ -1,5 +1,5 @@
 import React, {useContext, useState} from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Image } from 'react-native';
 import {LoginPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import CheckBox from '@react-native-community/checkbox';
@@ -36,7 +36,8 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   }
 
   return (
-    <View>
+    <View style={styles.backgroundColor}>
+      <View style={styles.center}><Image style={styles.image} source={require('../Images/MoveApp_Transparent_Background.png')}/></View>
       <Text style={styles.label}>Email:</Text>
       <TextInput style={styles.input} placeholder="Email" placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
       <Text style={styles.label}>Password:</Text>
