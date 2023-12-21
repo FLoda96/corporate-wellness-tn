@@ -10,6 +10,7 @@ import {RegisterPage} from './Pages/RegisterPage'
 import {NavigationPage} from './Pages/NavigationPage'
 import {AboutUsPage} from './Pages/AboutUsPage'
 import {MainPage} from './Pages/MainPage'
+import {TeamPage} from './Pages/TeamPage'
 import {UserContext, LoginContext, UserIdContext} from './Utils/AuthContext'
 import {retrieveSessionData} from './Utils/EncryptedStorageUtility'
 import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
@@ -50,7 +51,8 @@ export default function App() {
       <LoginContext.Provider value={{IsAuthenticated : isAuthenticated, SetIsAuthenticated : setIsAuthenticated}}>
       {isAuthenticated ? (
         <HomeDrawer.Navigator initialRouteName="Main" screenOptions={{headerStyle: {backgroundColor: '#11ab7a',}, headerTintColor: '#fff', headerTitleStyle: {fontWeight: 'bold',}}}>
-          <HomeDrawer.Screen name="Profile" component={ProfilePage}  />
+          <HomeDrawer.Screen name="Profile" component={ProfilePage} />
+          <HomeDrawer.Screen name="Teams" component={TeamPage} />
           <HomeDrawer.Screen name="AboutUs" component={AboutUsPage} />
           <HomeDrawer.Screen name="Main" component={MainPage} />
           <HomeDrawer.Screen name="Navigation" component={NavigationPage} />

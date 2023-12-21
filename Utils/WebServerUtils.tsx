@@ -4,6 +4,7 @@ export const basicAuth = 'Basic dGVzdDp0ZXN0'
 export const ok = 200;
 export const created = 201;
 export const bad_request = 400;
+export const no_content = 204;
 const profile = '/profile'
 const registration = '/registration'
 const login = '/login'
@@ -11,6 +12,10 @@ const performance = '/routeperformance'
 const user = '/user'
 const routes = '/route/all'
 const health = '/q/health/ready'
+const teamAll = '/team/all'
+const teamMember = '/teammember'
+const teamMembersTeam = '/teammember/team'
+const teamJoined = '/teammember/user'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,7 +52,7 @@ export async function RegisterUser ({company, email, username}: RegisterUserArgu
     console.log("Status : " + status)
     if (status == created) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return {response_code: status, user_id: body.user_id, email: body.email}
     } else {
       // TO DO : Consider the posssibility of a 400 but not because the email is already in use
@@ -108,7 +113,7 @@ export async function UpdateUser ({name, surname, date_of_birth, nickname, email
     console.log("Status : " + status)
     if (status == ok) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return {response_code: status}
     } else {
       return {response_code: status}
@@ -152,7 +157,7 @@ export async function RegisterAuth ({user_id, email, password}: RegisterAuthArgu
     
     if (status == created) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return status;
     } else {
       return status;
@@ -243,7 +248,7 @@ export async function SearchUserByEmail ({email}: SearchUserByEmailArguments): P
     
     if (status == ok) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return body;
     } else {
       return 0;
@@ -293,7 +298,7 @@ export async function SavePerformance ({route_id, user_id, timestamp_start, hear
     console.log("Status : " + status)
     if (status == created) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return {response_code: status, performance_id: body.performance_id}
     } else {
       return {response_code: status, performance_id: 0}
@@ -340,7 +345,7 @@ export async function GetRoutePerformanceByUser ({user_id}: GetRoutePerformanceB
     console.log("Status : " + status)
     if (status == ok) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return {response_code: status, routes: body}
     } else {
       return {response_code: status, routes: null}
@@ -366,7 +371,7 @@ export interface RoutesResponse {
 }
 
 export async function GetRoutes (): Promise<RoutesResponse> {
-  console.log("Executing UpdatePerfromance");
+  console.log("Executing GetRoutes");
   try {
     const response = await fetch(serverUrl + routes, {
       method: 'GET',
@@ -380,7 +385,7 @@ export async function GetRoutes (): Promise<RoutesResponse> {
     console.log("Status : " + status)
     if (status == ok) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return {response_code: status, routes: body}
     } else {
       return {response_code: status, routes: null}
@@ -424,7 +429,7 @@ export async function GetHealth (): Promise<HealthResponse> {
     console.log("Status : " + status)
     if (status == ok) {
       const body = await response.json();
-      console.log("Body : " + body);
+      
       return {response_code: status, health_response: body}
     } else {
       return {response_code: status, health_response: null}
@@ -432,5 +437,200 @@ export async function GetHealth (): Promise<HealthResponse> {
   } catch (err) {
     console.log(err);
     return {response_code: 0, health_response: null}
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface Team {
+  team_id: number;
+  name: string;
+  description: string;
+  logo_link: string;
+}
+
+export interface TeamResponse {
+  response_code: number;
+  teams: Team[] | null;
+}
+
+export async function GetTeams (): Promise<TeamResponse> {
+  console.log("Executing GetTeams");
+  try {
+    const response = await fetch(serverUrl + teamAll, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      
+      return {response_code: status, teams: body}
+    } else {
+      return {response_code: status, teams: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, teams: null}
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface TeamMembers {
+  teammember_id: number;
+  team_id: number;
+  user_id: number;
+}
+
+export interface TeamMembersResponse {
+  response_code: number;
+  team_members: TeamMembers[] | null;
+}
+
+export interface GetTeamMembersArguments {
+  teamId: number;
+}
+
+
+export async function GetTeamMembers ({teamId}: GetTeamMembersArguments): Promise<TeamMembersResponse> {
+  console.log("Executing GetTeamMembers");
+  try {
+    const response = await fetch(serverUrl + teamMembersTeam + '/' + teamId, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status : " + status)
+    if (status == ok || status == no_content) {
+      const body = await response.json();
+      
+      return {response_code: status, team_members: body}
+    } else {
+      return {response_code: status, team_members: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, team_members: null}
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface TeamJoinedResponse {
+  response_code: number;
+  team_members: TeamMembers[] | null;
+}
+
+export interface GetTeamJoinedArguments {
+  user_id: number;
+}
+
+
+export async function GetTeamJoined ({user_id}: GetTeamJoinedArguments): Promise<TeamMembersResponse> {
+  console.log("Executing GetTeamMembers");
+  try {
+    const response = await fetch(serverUrl + teamJoined + '/' + user_id, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status GetTeamJoined : " + status)
+    if (status == ok || status == no_content) {
+      const body = await response.json();
+      return {response_code: status, team_members: body}
+    } else {
+      return {response_code: status, team_members: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, team_members: null}
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface JoinTeamArguments {
+  user_id: number;
+  team_id: number
+}
+
+
+export async function JoinTeam ({user_id, team_id}: JoinTeamArguments): Promise<number> {
+  console.log("Executing JoinTeam");
+  try {
+    const response = await fetch(serverUrl + teamMember, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        team_id: team_id,
+      }),
+    });
+
+    const status = response.status;
+    console.log("Status JoinTeam : " + status)
+    if (status == created) {
+      const body = await response.json();
+      return status;
+    } else {
+      return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface LeaveTeamArguments {
+  user_id: number;
+  team_id: number
+}
+
+
+export async function LeaveTeam ({user_id, team_id}: LeaveTeamArguments): Promise<number> {
+  console.log("Executing LeaveTeam");
+  try {
+    const response = await fetch(serverUrl + teamMember, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        user_id: user_id,
+        team_id: team_id,
+      }),
+    });
+
+    const status = response.status;
+    console.log("Status LeaveTeam : " + status)
+    if (status == no_content) {
+      const body = await response.text();
+      return status;
+    } else {
+      return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
   }
 }

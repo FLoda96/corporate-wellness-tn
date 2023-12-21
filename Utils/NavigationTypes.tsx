@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 
 type RootDrawerParamList = {
   Auth: undefined;
+  Teams: undefined;
   Profile: undefined;
   AboutUs: undefined;
   Main: undefined;
@@ -16,6 +17,7 @@ export const HomeDrawer = createDrawerNavigator<RootDrawerParamList>();
 // Define the type for the navigation prop
 type AuthNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Auth'>;
 type ProfilePageNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Profile'>;
+type TeamsPageNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Teams'>;
 type AboutUsPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'AboutUs'>;
 type MainPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Main'>;
 type NavigationPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Navigation'>;
@@ -27,6 +29,10 @@ export interface AuthProps {
 
 export interface ProfilePageProps {
   navigation: ProfilePageNavigationProp;
+}
+
+export interface TeamsPageScreenProps {
+  navigation: TeamsPageNavigationProp;
 }
 
 export interface AboutUsPageScreenProps {

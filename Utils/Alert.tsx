@@ -34,3 +34,17 @@ export function showDataFailedToSave () {
     'Please scan again the QR code to start',
     [{ text: 'Ok', style: 'default',}]);
 }
+
+export function showTeamAlreadyJoined () {
+    Alert.alert(
+    'Failed to join team',
+    'You are already part of the selected team',
+    [{ text: 'Ok', style: 'default',}]);
+}
+
+export function showNotPartOfTeam () {
+    Alert.alert(
+    'Failed to leave team',
+    'You weren\'t part of the selected team',
+    [{ text: 'Ok', style: 'default',}]);
+}

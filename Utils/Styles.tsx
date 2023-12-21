@@ -16,10 +16,10 @@ export const styles = StyleSheet.create({
       borderWidth: 1,
       marginBottom: 10,
       paddingHorizontal: 10,
-      color: 'black', // Set text color to black
+      color: 'black',
     },
     label: {
-      color: 'black', // Set label color to black
+      color: 'black',
       marginBottom: 5,
       marginLeft: 5,
       marginTop: 3,
@@ -35,18 +35,24 @@ export const styles = StyleSheet.create({
     image: {
       width: 200,
       height: 200, 
-      resizeMode: 'contain', // You can use 'cover', 'contain', 'stretch', etc.
+      resizeMode: 'contain',
     },
     center: {
       alignItems: 'center',
     },
     backgroundColor: {
       backgroundColor: '#a6edd7',
+      flex: 1, 
     },
     navigation: {
       flex: 1, 
       alignItems: 'center', 
       justifyContent: 'center', 
       backgroundColor: '#a6edd7'
-    }
+    },
+    headerTeam: {
+      color : 'black',
+      fontSize: 25,
+      fontWeight: 'bold',
+    },
   });
