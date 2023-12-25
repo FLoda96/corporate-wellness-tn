@@ -37,6 +37,11 @@ export const styles = StyleSheet.create({
       height: 200, 
       resizeMode: 'contain',
     },
+    icon: {
+      width: 45,
+      height: 45, 
+      resizeMode: 'contain',
+    },
     center: {
       alignItems: 'center',
     },
@@ -54,5 +59,10 @@ export const styles = StyleSheet.create({
       color : 'black',
       fontSize: 25,
       fontWeight: 'bold',
+    },
+    languageContainer: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });

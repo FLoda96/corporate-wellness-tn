@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { View, TextInput, Button, StyleSheet, Text, Image } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {RegisterPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import { validateEmail } from '../Utils/ValidationUtils';
@@ -7,8 +7,10 @@ import { serverUrl, RegisterUser, RegisterAuth, created, bad_request, Login } fr
 import { HandleLogin } from '../Utils/FunctionUtils';
 import CheckBox from '@react-native-community/checkbox';
 import { LoadingScreen } from '../Utils/LoadingScreen';
-import { styles } from '../Utils/Styles'
-import { WebServerUp } from '../Utils/WebServerUp'
+import { styles } from '../Utils/Styles';
+import { WebServerUp } from '../Utils/WebServerUp';
+import { useTranslation } from 'react-i18next';
+import { LanguagePicker } from '../Languages/LanguagePicker'
 
 
 // TO DO : Loading animation during the login
@@ -26,6 +28,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [userId, setUserId] = useState(0);
   const [toggleRememberData, setToggleRememberData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { t, i18n } = useTranslation();
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
@@ -71,7 +74,9 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       setIsLoading(false);
       return;
     }
+
   };
+  
   // TO DO : Add confirm password field and related label
   return (
     <View style={styles.backgroundColor}>
@@ -95,10 +100,11 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
         />
         <Text style={{ color: 'black', marginLeft: 8 }}>Remember me</Text>
       </View>
-      <Button title="Register" onPress={() => handleRegister()} />
+      <Button title={t('register')} onPress={() => handleRegister()} />
       {registrationIsFailed && (<Text style={styles.warningText}>Registration Failed</Text>)}
       <View style={{marginBottom: 10}}></View>
       <Button title="Already Registered ?" onPress={() => navigation.navigate('Login')} />
+      <LanguagePicker/>
       {isLoading && <LoadingScreen/>}
       <WebServerUp/>
     </View>

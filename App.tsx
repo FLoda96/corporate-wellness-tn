@@ -1,6 +1,9 @@
 import {useState, useContext, useEffect} from 'react';
 import { Button, View } from 'react-native';
 
+import { useTranslation } from 'react-i18next';
+import './Languages/i18n'
+
 import { NavigationContainer } from '@react-navigation/native';
 import {HomeDrawer, AuthStack} from './Utils/NavigationTypes'
 
@@ -22,8 +25,11 @@ export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
   const [userId, setUserId] = useState(0);
+  const { t, i18n } = useTranslation();
   const toggleRememberDataPlaceholder = false;
 
+
+  // TO DO : Make i18n works with the screen names somehow
   // TO DO : Is loogin with the remembered credential the right move ? do i want the app to be accessible even offline ?
   useEffect(() => {
     const fetchData = async () => {

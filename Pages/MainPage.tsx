@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import {MainPageScreenProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtility'
@@ -7,7 +7,9 @@ import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
 import { ok, GetRoutePerformanceByUser, RoutePerformance } from '../Utils/WebServerUtils';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { RoutePerformanceTable } from '../Utils/RoutePerformanceTable';
-import { styles } from '../Utils/Styles'
+import { styles } from '../Utils/Styles';
+import { useTranslation } from 'react-i18next';
+import { LanguagePicker } from '../Languages/LanguagePicker'
 
 // TO DO : How to make the table reload every time i return to the page
 // TO DO : Move disconnect as a general function in the header or something
@@ -17,6 +19,7 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
+  const { t, i18n } = useTranslation();
   const greeting = 'Hi, it appears that you don\'t have any logged routes, you can start by going to the navigation page, don\'t forget to update your profile first!'
 //  const sessionAuthName = 'user_auth'
 
@@ -52,9 +55,9 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
                 <Text style={{ color: 'black', textAlign: 'center', paddingHorizontal: 45, marginBottom: 10, fontSize: 20 }}>
                   {greeting}
                 </Text>
-
               )}
-            <Button title="Disconnect" onPress={() => Disconnect()} />
+            <LanguagePicker/>
+            <Button title={t('disconnect')} onPress={() => Disconnect()} />
             <View style={{marginBottom: 10}}></View>
             <Button title="Reload Table" onPress={() => LoadRoutePerformance()} />
             {((performanceData != null) && (performanceData[0] != null)) && <RoutePerformanceTable data={performanceData}></RoutePerformanceTable>}
