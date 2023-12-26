@@ -91,11 +91,13 @@
     "missing_info_notice": "Missing Info Notice",
     "team_already_joined_notice": "Team already joined notice",
     "not_part_of_team_notice": "Failed to leave team",
+    "loading_notice": "Loading",
     "permission_alert": "You can't start the route without giving the app permission to use the camera",
     "camera_alert": "It looks like your phone doesn't have an avaliable back camera",
     "missing_info_start_alert": "Before starting the route you need to set your heart rate",
     "missing_info_end_alert": "Before saving the route data you need to set your heart rate",
     "team_already_joined_alert": "You are already part of the selected team",
-    "not_part_of_team_alert": "You weren't part of the selected team"
+    "not_part_of_team_alert": "You weren't part of the selected team",
+    "loading_alert": "The camera component might take some time to load, please wait"
   }
   }

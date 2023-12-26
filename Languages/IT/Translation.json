@@ -91,11 +91,13 @@
     "missing_info_notice": "Avviso riguardo informazioni mancanti",
     "team_already_joined_notice": "Avviso riguardo al team",
     "not_part_of_team_notice": "Avviso riguardo al team",
+    "loading_notice": "Caricamento",
     "permission_alert": "Non puoi iniziare il percorso senza dare all'app il permesso di usare la telecamera",
     "camera_alert": "Sembra che il tuo telefono non abbia una telecamera disponibile",
     "missing_info_start_alert": "Prima di iniziare il percorso devi segnare la tua frequenza cardiaca",
     "missing_info_end_alert": "Prima di salvare i dati devi segnare la tua frequenza cardiaca",
     "team_already_joined_alert": "Sei già parte del team selezionato",
-    "not_part_of_team_alert": "Non eri parte del team selezionato"
+    "not_part_of_team_alert": "Non eri parte del team selezionato",
+    "loading_alert": "Il componente della videocamera può richiedere qualche secondo per caricarsi"
   }
   }
