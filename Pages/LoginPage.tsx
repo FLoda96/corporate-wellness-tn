@@ -8,6 +8,7 @@ import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
 import { WebServerUp } from '../Utils/WebServerUp'
 import { useTranslation } from 'react-i18next';
+import { LanguagePicker } from '../Languages/LanguagePicker'
 
   // TO DO : Add function to recover password
   // TO DO : Add function to delete user
@@ -44,23 +45,23 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   return (
     <View style={styles.backgroundColor}>
       <View style={styles.center}><Image style={styles.image} source={require('../Images/MoveApp_Transparent_Background.png')}/></View>
+
       <Text style={styles.label}>{placeholder_email}:</Text>
       <TextInput style={styles.input} placeholder={placeholder_email} placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
       <Text style={styles.label}>{placeholder_password}:</Text>
       <TextInput style={styles.input} placeholder={placeholder_password} placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={password} onChangeText={(text) => setPassword(text)} />
+      
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <CheckBox
-          disabled={false}
-          value={toggleRememberData}
-          tintColors={{ true: '#17202a', false: 'black' }}
-          onValueChange={(newValue) => setToggleRememberData(newValue)}
-        />
+        <CheckBox disabled={false} value={toggleRememberData} tintColors={{ true: '#17202a', false: 'black' }} onValueChange={(newValue) => setToggleRememberData(newValue)}/>
         <Text style={{ color: 'black', marginLeft: 8 }}>{remember_me}</Text>
       </View>
+      
       <Button title={login_button} onPress={() => Login()} />
       {loginIsFailed && (<Text style={styles.warningText}>{login_failed}</Text>)}
       <View style={{marginBottom: 10}}></View>
       <Button title={register_instead_button} onPress={() => navigation.navigate('Register')} />
+      
+      <LanguagePicker/>
       {isLoading && <LoadingScreen/>}
       <WebServerUp/>
     </View>

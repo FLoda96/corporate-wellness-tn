@@ -30,7 +30,7 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
-  
+
   const placeholder_email = t('register_page.email_placeholder');
   const placeholder_password = t('register_page.password_placeholder');
   const placeholder_repeat_password = t('register_page.repeat_password_placeholder');
@@ -87,10 +87,10 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
 
   };
   
-  // TO DO : Add confirm password field and related label
   return (
     <View style={styles.backgroundColor}>
       <View style={styles.center}><Image style={styles.image} source={require('../Images/MoveApp_Transparent_Background.png')}/></View>
+      
       <Text style={styles.label}>{placeholder_email}:</Text>
       <TextInput style={styles.input} placeholder={placeholder_email} placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
       {emailAlreadyExist && (<Text style={styles.warningText}>{email_already_exist_warning}</Text>)}
@@ -99,21 +99,20 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       <TextInput style={styles.input} placeholder={placeholder_password} placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={password} onChangeText={(text) => setPassword(text)} />
       <Text style={styles.label}>{placeholder_repeat_password}:</Text>
       <TextInput style={styles.input} placeholder={placeholder_repeat_password} placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={repeatPassword} onChangeText={(text) => setRepeatPassword(text)} />
+      
       {!passwordsMinLenght && (<Text style={styles.warningText}>{password_min_lenght_warning}</Text>)}
       {!passwordsMatch && (<Text style={styles.warningText}>{passwords_match_warning}</Text>)}
+
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <CheckBox
-          disabled={false}
-          value={toggleRememberData}
-          tintColors={{ true: '#17202a', false: 'black' }}
-          onValueChange={(newValue) => setToggleRememberData(newValue)}
-        />
+        <CheckBox disabled={false} value={toggleRememberData} tintColors={{ true: '#17202a', false: 'black' }} onValueChange={(newValue) => setToggleRememberData(newValue)}/>
         <Text style={{ color: 'black', marginLeft: 8 }}>{remember_me}</Text>
       </View>
+
       <Button title={registration_button} onPress={() => handleRegister()} />
       {registrationIsFailed && (<Text style={styles.warningText}>{registration_failed}</Text>)}
       <View style={{marginBottom: 10}}></View>
       <Button title={already_registered} onPress={() => navigation.navigate('Login')} />
+      
       <LanguagePicker/>
       {isLoading && <LoadingScreen/>}
       <WebServerUp/>
