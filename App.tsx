@@ -28,8 +28,15 @@ export default function App() {
   const { t, i18n } = useTranslation();
   const toggleRememberDataPlaceholder = false;
 
+  const register = t('pages_names.register');
+  const login = t('pages_names.login');
+  const profile = t('pages_names.profile');
+  const main_page = t('pages_names.main_page');
+  const teams = t('pages_names.teams');
+  const about_us = t('pages_names.about_us');
+  const navigation = t('pages_names.navigation');
 
-  // TO DO : Make i18n works with the screen names somehow
+
   // TO DO : Is loogin with the remembered credential the right move ? do i want the app to be accessible even offline ?
   useEffect(() => {
     const fetchData = async () => {
@@ -57,16 +64,16 @@ export default function App() {
       <LoginContext.Provider value={{IsAuthenticated : isAuthenticated, SetIsAuthenticated : setIsAuthenticated}}>
       {isAuthenticated ? (
         <HomeDrawer.Navigator initialRouteName="Main" screenOptions={{headerStyle: {backgroundColor: '#11ab7a',}, headerTintColor: '#fff', headerTitleStyle: {fontWeight: 'bold',}}}>
-          <HomeDrawer.Screen name="Profile" component={ProfilePage} />
-          <HomeDrawer.Screen name="Teams" component={TeamPage} />
-          <HomeDrawer.Screen name="AboutUs" component={AboutUsPage} />
-          <HomeDrawer.Screen name="Main" component={MainPage} />
-          <HomeDrawer.Screen name="Navigation" component={NavigationPage} />
+          <HomeDrawer.Screen name="Profile" component={ProfilePage} options={{ title: profile}} />
+          <HomeDrawer.Screen name="Teams" component={TeamPage} options={{ title: teams}} />
+          <HomeDrawer.Screen name="AboutUs" component={AboutUsPage} options={{ title: about_us}} />
+          <HomeDrawer.Screen name="Main" component={MainPage} options={{ title: main_page}} />
+          <HomeDrawer.Screen name="Navigation" component={NavigationPage} options={{ title: navigation}} />
         </HomeDrawer.Navigator>
       ) : (
         <AuthStack.Navigator initialRouteName="Register" screenOptions={{headerStyle: {backgroundColor: '#11ab7a',}, headerTintColor: '#fff', headerTitleStyle: {fontWeight: 'bold',}}}>
-          <AuthStack.Screen name="Register" component={RegisterPage} options={{ title: 'Register'}} />
-          <AuthStack.Screen name="Login" component={LoginPage} options={{ title: 'Login'}}/>
+          <AuthStack.Screen name="Register" component={RegisterPage} options={{ title: register}} />
+          <AuthStack.Screen name="Login" component={LoginPage} options={{ title: login}}/>
         </AuthStack.Navigator>
       )}
       </LoginContext.Provider>

@@ -1,4 +1,13 @@
 {
+  "pages_names": {
+    "register": "Register",
+    "login": "Login",
+    "profile": "Profile",
+    "teams": "Teams",
+    "main_page": "Main page",
+    "about_us": "About Us",
+    "navigation": "Navigation"
+  },
   "register_page": {
     "email_placeholder": "Email",
     "password_placeholder": "Password",

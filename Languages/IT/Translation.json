@@ -1,4 +1,13 @@
 {
+  "pages_names": {
+    "register": "Registrati",
+    "login": "Login",
+    "profile": "Profilo",
+    "teams": "Teams",
+    "main_page": "Pagina principale",
+    "about_us": "Chi siamo",
+    "navigation": "Percorsi"
+  },
   "register_page": {
     "email_placeholder": "Email",
     "password_placeholder": "Password",
