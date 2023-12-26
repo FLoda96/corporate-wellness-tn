@@ -1,10 +1,10 @@
 // TeamList.js
 
 import React, {useContext, useEffect, useState, useRef} from 'react';
-import { FlatList, View, Text, Image, StyleSheet, ScrollView, Button } from 'react-native';
+import { FlatList, View, Text, Image, StyleSheet, ScrollView, Button, Alert } from 'react-native';
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import { ok, created, bad_request, no_content, GetRoutePerformanceByUser, Team, GetTeams, JoinTeam, LeaveTeam } from '../Utils/WebServerUtils';
-import {showTeamAlreadyJoined, showNotPartOfTeam} from '../Utils/Alert'
+import { useTranslation } from 'react-i18next';
 
 
 interface TeamTableProps {
@@ -17,9 +17,11 @@ interface TeamTableProps {
 // TO DO : What if the images do not load ?
 // TO DO : Where to store the images ?
 export function TeamList({teams, join, leave, refresh_function}: TeamTableProps): JSX.Element {
-  const JoinGroupButtonTitle = 'Join Group'
-  const LeaveGroupButtonTitle = 'Leave Group'
+  const { t, i18n } = useTranslation();
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
+
+  const join_group = t('team_table.join_team');
+  const leave_group = t('team_table.leave_team');
 
   async function JoinTeamButtonPress (team_id: number) {
     try {
@@ -54,11 +56,32 @@ export function TeamList({teams, join, leave, refresh_function}: TeamTableProps)
         <Text style={styles.teamName}>{item.name}</Text>
         <Image style={styles.logo} source = {{uri : item.logo_link}} />
         <Text style={styles.description}>{item.description}</Text>
-        {join && <Button title={JoinGroupButtonTitle} onPress={() => JoinTeamButtonPress(item.team_id)}/>}
-        {leave && <Button title={LeaveGroupButtonTitle} onPress={() => LeaveTeamButtonPress(item.team_id)}/>}
+        {join && <Button title={join_group} onPress={() => JoinTeamButtonPress(item.team_id)}/>}
+        {leave && <Button title={leave_group} onPress={() => LeaveTeamButtonPress(item.team_id)}/>}
       </View>
     </ScrollView>
   );
+
+     // Alerts added here because i can't use i18next outside of a component
+     const team_already_joined_notice = t('alerts.team_already_joined_notice');
+     const not_part_of_team_notice = t('alerts.not_part_of_team_notice');
+   
+     const team_already_joined_alert = t('alerts.team_already_joined_alert');
+     const not_part_of_team_alert = t('alerts.not_part_of_team_alert');
+   
+     function showTeamAlreadyJoined () {
+       Alert.alert(
+       team_already_joined_notice,
+       team_already_joined_alert,
+       [{ text: 'Ok', style: 'default',}]);
+   }
+   
+   function showNotPartOfTeam () {
+       Alert.alert(
+       not_part_of_team_notice,
+       not_part_of_team_alert,
+       [{ text: 'Ok', style: 'default',}]);
+   }
 
   return (
     <FlatList

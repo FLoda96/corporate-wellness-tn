@@ -2,20 +2,30 @@ import React, { useState, useEffect, useContext, useRef } from 'react';
 import { View, ScrollView, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
 import {NavigationPageScreenProps} from '../Utils/NavigationTypes'
 import { Camera, CameraDevice, useCameraDevice, useCameraPermission, useCodeScanner, Code } from "react-native-vision-camera"
-import {showPermissionAlert, showDeviceAlert, showHearthRateMissingAlert, showDataFailedToSave, showSaveHearthRateMissingAlert} from '../Utils/Alert'
+// import {showPermissionAlert, showDeviceAlert, showHearthRateMissingAlert, showSaveHearthRateMissingAlert} from '../Utils/Alert'
 import {Stopwatch} from '../Utils/Stopwatch'
 //import {StepCounter} from '../Utils/StepCounter'
 import {Sensors} from '../Utils/Sensors'
 import { UserIdContext, UserIdContextType } from '../Utils/AuthContext'
 import { ok, created, SavePerformance, SavePerformanceResponse } from '../Utils/WebServerUtils'
 import { styles } from '../Utils/Styles'
+import { useTranslation } from 'react-i18next';
 
 // TO DO : Any kind of limitations on result accepted ? like less than 3 minutes it's a no or so ?
 // TO DO : Open a notification when the user is routing like google maps
 export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.Element {
-    const StartingRoute = "Starting Route";
-    const StartRouteText = "Start Route";
-    const EndRouteText = "End Route";
+    const { t, i18n } = useTranslation();
+    const starting_route = t('navigation_table.starting_route');
+    const end_route = t('navigation_table.end_route');
+    const save_result = t('navigation_table.save_result');
+    const final_stats = t('navigation_table.final_stats');
+    const final_time = t('navigation_table.final_time');
+    const starting_heart_rate = t('navigation_table.starting_heart_rate');
+    const ending_heart_rate = t('navigation_table.ending_heart_rate');
+    const failed_save = t('navigation_table.failed_save');
+    const successfull_save = t('navigation_table.successfull_save');
+    const starting_route_qr_code = "Starting Route";
+
     const { hasPermission, requestPermission } = useCameraPermission();
     const [cameraIsVisible, setCameraIsVisible] = useState(false);
     const [isCounting, setIsCounting] = useState(false);
@@ -26,7 +36,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     //const [isSensorsVisible, setIsSensorsVisible] = useState(false);
     const [isFinalStatsVisible, setIsFinalStatsVisible] = useState(false);
     const [isStartButtonVisible, setIsStartButtonVisible] = useState(true);
-    const [buttonTitle, setButtonTitle] = useState(StartingRoute);
+    const [buttonTitle, setButtonTitle] = useState(starting_route);
     const [isRouting, setIsRouting] = useState(false);
     const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
     const [routeId, setRouteId] = useState(1); // Hardcoded for now
@@ -39,8 +49,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const [workoutUpdateSuccessfully, setProfileUpdateSuccessfully] = useState(false);
     const timestampStart = useRef('');
     const timestampEnd = useRef('');
-    
-    var FinalResultButtonTitle = 'Save Result';   
+       
 
     // First thing happening upon entering the page
     // I tried doing it after starting the route but
@@ -70,12 +79,12 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         try {
             for (const code of codes) {
                 console.log('QR Code value : ' + code.value)
-                if (code.value === StartingRoute && !(isRouting)) {
+                if (code.value === starting_route_qr_code && !(isRouting)) {
                     timestampStart.current = (Date.now().toString());
                     setIsRouting(true);
                     setIsCounting(true);
                     setCameraIsVisible(false);
-                    setButtonTitle(EndRouteText)
+                    setButtonTitle(end_route)
                     setIsStartButtonVisible(true);
                     setIsStopwatchVisible(true);
                     //setIsStepcounterVisible(true);
@@ -86,12 +95,12 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
                     setIsSaveFinalResultButtonVisible(false);
                     console.log('Started Routing');
                 }
-                if (code.value === StartingRoute && isRouting) {
+                if (code.value === starting_route_qr_code && isRouting) {
                     timestampEnd.current = Date.now().toString();
                     setIsRouting(false);
                     setIsCounting(false);
                     setCameraIsVisible(false);
-                    setButtonTitle(StartRouteText)
+                    setButtonTitle(starting_route)
                     setIsStartButtonVisible(false);
                     setIsStopwatchVisible(false);
                     //setIsStepcounterVisible(false);
@@ -131,12 +140,20 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
 
     function FinalStats () {
         return ( <>
-            <Text style={{color: 'black'}}> Your final stats are : </Text>
-            <Text style={{color: 'black'}}> Your final time is : {finalTime.toFixed(2)} </Text>
+            <Text style={{color: 'black'}}>{final_stats}: </Text>
+            <Text style={{color: 'black'}}>{final_time}: {formatTimeDifference(finalTime)} </Text>
             {/*<Text style={{color: 'black'}}> Your final number of steps is : {finalSteps} </Text>*/}
             </>
         )
     }
+
+    const formatTimeDifference = (final_time: number): string => {
+      
+        const minutes = Math.floor(final_time / 60);
+        const seconds = final_time % 60;
+      
+        return `${minutes}m ${seconds}s`;
+      };
 
     // TO DO : Some kind of notice about the fact that if the saving failed they can try later when they have internet ?
     // Worth considering if to save in local storage keyed to user and remember eventual status later ?
@@ -164,6 +181,44 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         }       
     }
 
+    // Alerts added here because i can't use i18next outside of a component
+    const permission_notice = t('alerts.permission_notice');
+    const camera_notice = t('alerts.camera_notice');
+    const missing_info_notice = t('alerts.missing_info_notice');
+
+    const permission_alert = t('alerts.permission_alert');
+    const camera_alert = t('alerts.camera_alert');
+    const missing_info_start_alert = t('alerts.missing_info_start_alert');
+    const missing_info_end_alert = t('alerts.missing_info_end_alert');
+
+    function showPermissionAlert () {
+        Alert.alert(
+        permission_notice,
+        permission_alert,
+        [{ text: 'Ok', style: 'default',}]);
+    }
+    
+    function showDeviceAlert () {
+        Alert.alert(
+        camera_notice,
+        camera_alert,
+        [{ text: 'Ok', style: 'default',}]);
+    }
+    
+    function showHearthRateMissingAlert () {
+        Alert.alert(
+        missing_info_notice,
+        missing_info_start_alert,
+        [{ text: 'Ok', style: 'default',}]);
+    }
+    
+    function showSaveHearthRateMissingAlert () {
+        Alert.alert(
+        missing_info_notice,
+        missing_info_end_alert,
+        [{ text: 'Ok', style: 'default',}]);
+    }
+
     return (
         <View style={styles.navigation}>
         { (cameraIsVisible && device !== undefined) && 
@@ -181,19 +236,19 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         {/*<View style={!isSensorsVisible && {display: 'none'}}><Sensors isCounting={isCounting}></Sensors></View>*/}
         {   isHeartRateStartVisible &&
             <>
-            <Text style={styles.label}>Starting Heart Rate (beats/minute):</Text>
+            <Text style={styles.label}>{starting_heart_rate}:</Text>
             <TextInput style={styles.input} keyboardType="numeric" placeholder="0.0" placeholderTextColor="grey" value={heartRateStart} onChangeText={(text) => setHeartRateStart(text)} />
             </> 
         }
         {   isHeartRateEndVisible &&
             <>
-            <Text style={styles.label}>Ending Heart Rate (beats/minute):</Text>
+            <Text style={styles.label}>{ending_heart_rate}:</Text>
             <TextInput style={styles.input} keyboardType="numeric" placeholder="0.0" placeholderTextColor="grey" value={heartRateEnd} onChangeText={(text) => setHeartRateEnd(text)} />
             </> 
         }
-        {isSaveFinalResultButtonVisible && <Button onPress={() => SaveFinalResult()} title={FinalResultButtonTitle} />}
-        {workoutUpdateIsFailed && (<Text style={styles.warningText}>Failed to save workout data</Text>)}
-        {workoutUpdateSuccessfully && (<Text style={styles.successText}>Workout saved successfully</Text>)}
+        {isSaveFinalResultButtonVisible && <Button onPress={() => SaveFinalResult()} title={save_result} />}
+        {workoutUpdateIsFailed && (<Text style={styles.warningText}>{failed_save}</Text>)}
+        {workoutUpdateSuccessfully && (<Text style={styles.successText}>{successfull_save}</Text>)}
         {isStartButtonVisible && <Button onPress={() => StartRoute()} title={buttonTitle} />}
         {isFinalStatsVisible && <FinalStats></FinalStats>}
       </View>

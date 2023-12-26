@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState, useRef} from 'react';
-import { View, TextInput, Button, StyleSheet, Text } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Text, Alert } from 'react-native';
 import {TeamsPageScreenProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtility'
@@ -9,8 +9,10 @@ import { LoadingScreen } from '../Utils/LoadingScreen';
 import { RoutePerformanceTable } from '../Utils/RoutePerformanceTable';
 import { styles } from '../Utils/Styles'
 import { TeamList } from '../Utils/TeamList'
+import { useTranslation } from 'react-i18next';
 
-
+// TO DO : Team Description in multilanguage
+// TO DO : Make the reload button the classic refresh icon
 // TO DO : How to make the table reload every time i return to the page
 // TO DO : Move disconnect as a general function in the header or something
 export function TeamPage({ navigation }: TeamsPageScreenProps): JSX.Element {
@@ -21,7 +23,12 @@ export function TeamPage({ navigation }: TeamsPageScreenProps): JSX.Element {
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const teams = useRef<Team[] | null>(null);
   const joinedTeams = useRef<TeamMembers[] | null>(null);
+  const { t, i18n } = useTranslation();
   //  const sessionAuthName = 'user_auth'
+
+  const reload_table = t('team_page.reload_table');
+  const your_teams = t('team_page.your_teams');
+  const other_teams = t('team_page.other_teams');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,18 +102,18 @@ export function TeamPage({ navigation }: TeamsPageScreenProps): JSX.Element {
     return (
         <View style={styles.navigation}>
             <View style={{marginBottom: 10}}></View>
-            <Button title="Reload Table" onPress={() => LoadTeamTables()} />
+            <Button title={reload_table} onPress={() => LoadTeamTables()} />
 
             {((teamsJoined != null) && (teamsJoined[0] != null)) && 
             <>
-                <Text style={styles.headerTeam}>Your Teams</Text>
+                <Text style={styles.headerTeam}>{your_teams}</Text>
                 <TeamList teams={teamsJoined} join={false} leave={true} refresh_function={LoadTeamTables}></TeamList>
             </>
             }
             {isLoading && <LoadingScreen/>}
             {((teamsOpen != null) && (teamsOpen[0] != null)) &&
             <>
-                <Text style={styles.headerTeam}>Other Teams</Text>
+                <Text style={styles.headerTeam}>{other_teams}</Text>
                 <TeamList teams={teamsOpen} join={true} leave={false} refresh_function={LoadTeamTables}></TeamList>
             </>
             }

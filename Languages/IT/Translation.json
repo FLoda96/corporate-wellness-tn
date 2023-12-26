@@ -19,5 +19,74 @@
     "register_instead_button": "Hai bisogno di registrarti ?",
     "login_failed": "Login fallito",
     "remember_me": "Ricordami"
+  },
+  "main_page": {
+    "greeting": "Ciao, sembra che tu non abbia nessun percorso salvato, puoi iniziare andando sulla pagina di navigazione, prima però non dimenticare di aggiornare il tuo profilo",
+    "disconnect": "Disconnetti",
+    "reload_table": "Ricarica tabella",
+    "register_instead_button": "Need to register instead ?",
+    "login_failed": "Login failed",
+    "remember_me": "Remember me"
+  },
+  "route_table": {
+    "route": "Percorso",
+    "time": "Tempo",
+    "heart_rate_start": "Freq. card. iniziale",
+    "heart_rate_end": "Freq. card. finale"
+  },
+  "about_us_page": {
+    "about_us": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, velit eget interdum semper, ante risus mattis dui, quis consectetur libero velit ac nisi. Donec rhoncus sed enim sed sagittis. Mauris metus elit, placerat quis turpis vitae, luctus blandit urna. Nam tempor mauris non lectus pellentesque, in luctus nibh consectetur. Proin nibh tellus, interdum vitae porta a, ultricies sit amet odio. Maecenas varius id eros ut elementum. Integer feugiat nulla libero, non scelerisque nisi faucibus vestibulum. Pellentesque ac eros tristique purus aliquam scelerisque. Aenean semper eu quam eu molestie. Nullam accumsan magna quis lobortis semper. Phasellus suscipit accumsan hendrerit. "
+  },
+  "profile_page": {
+    "name_label": "Nome",
+    "surname_label": "Cognome",
+    "date_of_birth_label": "Data di Nascita",
+    "email_label": "Email",
+    "nickname_label": "Nickname",
+    "sex_label": "Sesso",
+    "male": "Maschio",
+    "female": "Femmina",
+    "other": "Altro",
+    "waistline_label": "Girovita (cm)",
+    "height_label": "Altezza (m)",
+    "weight_label": "Peso (kg)",
+    "heart_rate_label": "Frequenza Cardiaca (battiti/minuto)",
+    "edit_button": "Modifica",
+    "save_button": "Salva",
+    "failed_update": "Aggiornamento del profilo fallito",
+    "successfull_update": "Profilo aggiornato con successo"
+  },
+  "team_page": {
+    "reload_table": "Ricarica tabella",
+    "your_teams": "I tuoi Teams",
+    "other_teams": "Altri Teams"
+  },
+  "team_table": {
+    "join_team": "Unisciti al team +",
+    "leave_team": "Lascia il team -"
+  },
+  "navigation_table": {
+    "starting_route": "Inizia percorso",
+    "end_route": "Termina percorso",
+    "save_result": "Salva risultato",
+    "final_stats": "Le tue statistiche per questo percorso sono",
+    "final_time": "Tempo",
+    "starting_heart_rate": "Frequenza cardiaca iniziale (battiti/minuto)",
+    "ending_heart_rate": "Frequenza cardiaca finale (battiti/minuto)",
+    "failed_save": "Salvataggio dei dati fallito",
+    "successfull_save": "Dati salvati con successo"
+  },
+  "alerts": {
+    "permission_notice": "Avviso riguardo ai permessi",
+    "camera_notice": "Avviso riguardo alla telecamera",
+    "missing_info_notice": "Avviso riguardo informazioni mancanti",
+    "team_already_joined_notice": "Avviso riguardo al team",
+    "not_part_of_team_notice": "Avviso riguardo al team",
+    "permission_alert": "Non puoi iniziare il percorso senza dare all'app il permesso di usare la telecamera",
+    "camera_alert": "Sembra che il tuo telefono non abbia una telecamera disponibile",
+    "missing_info_start_alert": "Prima di iniziare il percorso devi segnare la tua frequenza cardiaca",
+    "missing_info_end_alert": "Prima di salvare i dati devi segnare la tua frequenza cardiaca",
+    "team_already_joined_alert": "Sei già parte del team selezionato",
+    "not_part_of_team_alert": "Non eri parte del team selezionato"
   }
   }

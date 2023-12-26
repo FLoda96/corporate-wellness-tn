@@ -19,5 +19,74 @@
     "register_instead_button": "Need to register instead ?",
     "login_failed": "Login failed",
     "remember_me": "Remember me"
+  },
+  "main_page": {
+    "greeting": "Hi, it appears that you don't have any logged routes, you can start by going to the navigation page, don't forget to update your profile first",
+    "disconnect": "Disconnect",
+    "reload_table": "Reload table",
+    "register_instead_button": "Need to register instead ?",
+    "login_failed": "Login failed",
+    "remember_me": "Remember me"
+  },
+  "route_table": {
+    "route": "Route",
+    "time": "Time",
+    "heart_rate_start": "Heart rate start",
+    "heart_rate_end": "Heart rate end"
+  },
+  "about_us_page": {
+    "about_us": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent semper, velit eget interdum semper, ante risus mattis dui, quis consectetur libero velit ac nisi. Donec rhoncus sed enim sed sagittis. Mauris metus elit, placerat quis turpis vitae, luctus blandit urna. Nam tempor mauris non lectus pellentesque, in luctus nibh consectetur. Proin nibh tellus, interdum vitae porta a, ultricies sit amet odio. Maecenas varius id eros ut elementum. Integer feugiat nulla libero, non scelerisque nisi faucibus vestibulum. Pellentesque ac eros tristique purus aliquam scelerisque. Aenean semper eu quam eu molestie. Nullam accumsan magna quis lobortis semper. Phasellus suscipit accumsan hendrerit. "
+  },
+  "profile_page": {
+    "name_label": "Name",
+    "surname_label": "Surname",
+    "date_of_birth_label": "Date of Birth",
+    "email_label": "Email",
+    "nickname_label": "Nickname",
+    "sex_label": "Sex",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "waistline_label": "Waistline (cm)",
+    "height_label": "Height (m)",
+    "weight_label": "Weight (kg)",
+    "heart_rate_label": "Heart Rate (beats/minute)",
+    "edit_button": "Edit",
+    "save_button": "Save",
+    "failed_update": "Failed to update Profile",
+    "successfull_update": "Profile updated successfully"
+  },
+  "team_page": {
+    "reload_table": "Reload table",
+    "your_teams": "Your Teams",
+    "other_teams": "Other Teams"
+  },
+  "team_table": {
+    "join_team": "Join Team +",
+    "leave_team": "Leave Team -"
+  },
+  "navigation_table": {
+    "starting_route": "Start route",
+    "end_route": "End route",
+    "save_result": "Save result",
+    "final_stats": "Your stats for this route are",
+    "final_time": "Time",
+    "starting_heart_rate": "Starting heart rate (beats/minute)",
+    "ending_heart_rate": "Ending heart rate (beats/minute)",
+    "failed_save": "Failed to save route data",
+    "successfull_save": "Route data saved successfully"
+  },
+  "alerts": {
+    "permission_notice": "Permission Notice",
+    "camera_notice": "Camera Notice",
+    "missing_info_notice": "Missing Info Notice",
+    "team_already_joined_notice": "Team already joined notice",
+    "not_part_of_team_notice": "Failed to leave team",
+    "permission_alert": "You can't start the route without giving the app permission to use the camera",
+    "camera_alert": "It looks like your phone doesn't have an avaliable back camera",
+    "missing_info_start_alert": "Before starting the route you need to set your heart rate",
+    "missing_info_end_alert": "Before saving the route data you need to set your heart rate",
+    "team_already_joined_alert": "You are already part of the selected team",
+    "not_part_of_team_alert": "You weren't part of the selected team"
   }
   }

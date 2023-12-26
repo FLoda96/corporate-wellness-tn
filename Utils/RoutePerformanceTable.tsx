@@ -1,6 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import { FlatList, Text, View, StyleSheet } from 'react-native';
 import { ok, RoutePerformance, GetRoutes, Routes } from './WebServerUtils';
+import { useTranslation } from 'react-i18next';
+
 
 interface RoutePerformanceTableProps {
   data: RoutePerformance[];
@@ -8,7 +10,13 @@ interface RoutePerformanceTableProps {
 
 // TO DO : Fix the graphical presentation
 export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.Element {
+    const { t, i18n } = useTranslation();
     const [Routes, setRoutes] = useState<Routes[] | null>(null);
+
+    const route = t('route_table.route');
+    const time = t('route_table.time');
+    const heart_rate_start = t('route_table.heart_rate_start');
+    const heart_rate_end = t('route_table.heart_rate_end');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,11 +68,10 @@ export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.E
       renderItem={renderRow}
       ListHeaderComponent={() => (
         <View style={[styles.row, styles.header]}>
-          <Text style={[styles.cell, styles.headerText]}>Route</Text>
-          <Text style={[styles.cell, styles.headerText]}>Time</Text>
-          <Text style={[styles.cell, styles.headerText]}>Heart Rate Start</Text>
-          <Text style={[styles.cell, styles.headerText]}>Heart Rate End</Text>
-          {/* Add more header columns as needed */}
+          <Text style={[styles.cell, styles.headerText]}>{route}</Text>
+          <Text style={[styles.cell, styles.headerText]}>{time}</Text>
+          <Text style={[styles.cell, styles.headerText]}>{heart_rate_start}</Text>
+          <Text style={[styles.cell, styles.headerText]}>{heart_rate_end}</Text>
         </View>
       )}
     />

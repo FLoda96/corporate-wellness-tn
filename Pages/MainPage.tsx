@@ -20,8 +20,10 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
   const { t, i18n } = useTranslation();
-  const greeting = 'Hi, it appears that you don\'t have any logged routes, you can start by going to the navigation page, don\'t forget to update your profile first!'
-//  const sessionAuthName = 'user_auth'
+
+  const greeting = t('main_page.greeting');
+  const disconnect = t('main_page.disconnect')
+  const reload_table = t('main_page.reload_table')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -57,9 +59,9 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
                 </Text>
               )}
             <LanguagePicker/>
-            <Button title={t('disconnect')} onPress={() => Disconnect()} />
+            <Button title={disconnect} onPress={() => Disconnect()} />
             <View style={{marginBottom: 10}}></View>
-            <Button title="Reload Table" onPress={() => LoadRoutePerformance()} />
+            <Button title={reload_table} onPress={() => LoadRoutePerformance()} />
             {((performanceData != null) && (performanceData[0] != null)) && <RoutePerformanceTable data={performanceData}></RoutePerformanceTable>}
             {isLoading && <LoadingScreen/>}
       </View>

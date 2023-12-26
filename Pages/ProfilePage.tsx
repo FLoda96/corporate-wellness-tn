@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import {ProfilePageProps} from '../Utils/NavigationTypes'
-import {retrieveSessionData} from '../Utils/EncryptedStorageUtility'
+import { ProfilePageProps } from '../Utils/NavigationTypes'
+import { retrieveSessionData } from '../Utils/EncryptedStorageUtility'
 import { sessionAuthName } from '../Utils/FunctionUtils';
 import { SearchUserByEmailResponse, SearchUserByEmail, UpdateUser, ok } from '../Utils/WebServerUtils';
-import {UserContext, UserContextType, LoginContext, LoginContextType} from '../Utils/AuthContext';
+import { UserContext, UserContextType, LoginContext, LoginContextType } from '../Utils/AuthContext';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
 import DatePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { FormatDateofBirth, parseDateString, formatNumber } from '../Utils/FunctionUtils'
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 
 
 // TO DO : Extensive testing on this thing here cause i don't trust dates
@@ -31,7 +32,27 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const {User, SetUser} = useContext(UserContext) as UserContextType;
+  const { t, i18n } = useTranslation();
   var user: SearchUserByEmailResponse | number;
+
+  const name_label = t('profile_page.name_label');
+  const surname_label = t('profile_page.surname_label');
+  const date_of_birth_label = t('profile_page.date_of_birth_label');
+  const email_label = t('profile_page.email_label');
+  const nickname_label = t('profile_page.nickname_label');
+  const sex_label = t('profile_page.sex_label');
+  const male = t('profile_page.male');
+  const female = t('profile_page.female');
+  const other = t('profile_page.other');
+  const waistline_label = t('profile_page.waistline_label');
+  const height_label = t('profile_page.height_label');
+  const weight_label = t('profile_page.weight_label');
+  const heart_rate_label = t('profile_page.heart_rate_label');
+  const edit_button = t('profile_page.edit_button');
+  const save_button = t('profile_page.save_button');
+  const failed_update = t('profile_page.failed_update');
+  const successfull_update = t('profile_page.successfull_update');
+
 
   // TO DO : Maybe a scroll view just for the variables so that the buttons are always visible ?
   // Get the profile data from DB
@@ -66,7 +87,15 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
             setNickname(user.nickname);
           }
           if (user.sex != null) {
-            setSex(user.sex);
+            if (user.sex == "Male") {
+              setSex(male);
+            }
+            if (user.sex == "Female") {
+              setSex(female);
+            }
+            if (user.sex == "Other") {
+              setSex(other);
+            }
           }
           if (user.waistline != null) {
             setWaistline(user.waistline.toString());
@@ -130,28 +159,28 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
     <>
     <ScrollView style={styles.containerColor}>
 
-      <Text style={styles.label}>Name:</Text>
+      <Text style={styles.label}>{name_label}:</Text>
       <TextInput style={styles.input} value={name} editable={isEditing} onChangeText={(text) => setName(text)} />
 
-      <Text style={styles.label}>Surname:</Text>
+      <Text style={styles.label}>{surname_label}:</Text>
       <TextInput style={styles.input} value={surname} editable={isEditing} onChangeText={(text) => setSurname(text)} />
 
-      <Text style={styles.label}>Date of Birth:</Text>
+      <Text style={styles.label}>{date_of_birth_label}:</Text>
       <TouchableOpacity disabled={!isEditing} onPress={() => setShowDatePicker(true)}>
         <TextInput style={styles.input} value={dateOfBirth.toDateString()} editable={false}/>
       </TouchableOpacity>
 
       {showDatePicker && ( <DatePicker value={dateOfBirth} mode="date" display="default" onChange={handleDateChange}/>)}
 
-      <Text style={styles.label}>Email:</Text>
+      <Text style={styles.label}>{email_label}:</Text>
       <Text style={styles.label}>{email}</Text>
 
       {isLoading && <LoadingScreen/>}
 
-      <Text style={styles.label}>Nickname:</Text>
+      <Text style={styles.label}>{nickname_label}:</Text>
       <TextInput style={styles.input} value={nickname} editable={isEditing} onChangeText={(text) => setNickname(text)} />
 
-      <Text style={styles.label}>Sex:</Text>
+      <Text style={styles.label}>{sex_label}:</Text>
       {isEditing ? (
         <Picker
           selectedValue={sex}
@@ -161,31 +190,31 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
           dropdownIconRippleColor='#000000'
           dropdownIconColor='#000000'
         >
-          <Picker.Item label="Male" value="Male" />
-          <Picker.Item label="Female" value="Female" />
-          <Picker.Item label="Other" value="Other" />
+          <Picker.Item label={male} value="Male" />
+          <Picker.Item label={female} value="Female" />
+          <Picker.Item label={other} value="Other" />
         </Picker>
       ) : (
         <TextInput style={styles.input} value={sex} editable={isEditing} onChangeText={(text) => setSex(text)} />
       )}
 
-      <Text style={styles.label}>Waistline (cm):</Text>
+      <Text style={styles.label}>{waistline_label}:</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={waistline} editable={isEditing} onChangeText={(text) => setWaistline(text)} />
 
-      <Text style={styles.label}>Height (m):</Text>
+      <Text style={styles.label}>{height_label}:</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={height} editable={isEditing} onChangeText={(text) => setHeight(text)} />
 
-      <Text style={styles.label}>Weight (kg):</Text>
+      <Text style={styles.label}>{weight_label}:</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={weight} editable={isEditing} onChangeText={(text) => setWeight(text)} />
 
-      <Text style={styles.label}>Heart Rate (beats/minute):</Text>
+      <Text style={styles.label}>{heart_rate_label}:</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={heartRate} editable={isEditing} onChangeText={(text) => setHeartRate(text)} />
       </ScrollView>
       <View>
-        {!isEditing && (<Button title="Edit" onPress={() => setIsEditing(true)} />)}
-        <Button title="Save" onPress={saveProfile} disabled={!isEditing} />
-        {profileUpdateIsFailed && (<Text style={styles.warningText}>Failed to update Profile</Text>)}
-        {profileUpdateSuccessfully && (<Text style={styles.successText}>Profile updated successfully</Text>)}
+        {!isEditing && (<Button title={edit_button} onPress={() => setIsEditing(true)} />)}
+        <Button title={save_button} onPress={saveProfile} disabled={!isEditing} />
+        {profileUpdateIsFailed && (<Text style={styles.warningText}>{failed_update}</Text>)}
+        {profileUpdateSuccessfully && (<Text style={styles.successText}>{successfull_update}</Text>)}
       </View>
       </>
   );
