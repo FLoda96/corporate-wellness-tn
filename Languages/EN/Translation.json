@@ -1,11 +1,23 @@
 {
-    "registration" : "Registration",
+  "register_page": {
+    "email_placeholder": "Email",
+    "password_placeholder": "Password",
+    "repeat_password_placeholder": "Repeat password",
+    "email_already_exist_warning": "This email is already in use",
+    "email_badly_formatted_warning": "This is not a valid email",
+    "password_min_lenght_warning": "The password must be at least 6 characters long",
+    "passwords_match_warning": "Passwords do not match",
+    "remember_me": "Remember me",
+    "registration_failed": "Registration failed",
     "register" : "Register",
-    "disconnect" : "Disconnect",
-    "title": "Welcome to react using react-i18next",
-    "description": {
-      "part1": "To get started, edit <1>src/App.js</1> and save to reload.",
-      "part2": "Switch language between english and german using buttons above."
-    }
-
+    "already_registered" : "Already registered ?"
+  },
+  "login_page": {
+    "email_placeholder": "Email",
+    "password_placeholder": "Password",
+    "login_button": "Login",
+    "register_instead_button": "Need to register instead ?",
+    "login_failed": "Login failed",
+    "remember_me": "Ricordami"
+  }
   }

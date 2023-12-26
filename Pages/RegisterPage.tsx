@@ -12,8 +12,7 @@ import { WebServerUp } from '../Utils/WebServerUp';
 import { useTranslation } from 'react-i18next';
 import { LanguagePicker } from '../Languages/LanguagePicker'
 
-
-// TO DO : Loading animation during the login
+// TO DO : Check that an email actually exist
 export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [company, setCompany] = useState(1);
   const [username, setUsername] = useState('');
@@ -25,13 +24,24 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [repeatPassword, setRepeatPassword] = useState('aaaaaa');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [passwordsMinLenght, setPasswordsMinLenght] = useState(true);
-  const [userId, setUserId] = useState(0);
   const [toggleRememberData, setToggleRememberData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;
+  
+  const placeholder_email = t('register_page.email_placeholder');
+  const placeholder_password = t('register_page.password_placeholder');
+  const placeholder_repeat_password = t('register_page.repeat_password_placeholder');
+  const email_already_exist_warning = t('register_page.email_already_exist_warning');
+  const email_badly_formatted_warning = t('register_page.email_badly_formatted_warning');
+  const password_min_lenght_warning = t('register_page.password_min_lenght_warning');
+  const passwords_match_warning = t('register_page.passwords_match_warning');
+  const remember_me = t('register_page.remember_me');
+  const registration_failed = t('register_page.registration_failed');
+  const registration_button = t('register_page.register');
+  const already_registered = t('register_page.already_registered');
 
   async function handleRegister () {
     setIsLoading(true);
@@ -81,16 +91,16 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   return (
     <View style={styles.backgroundColor}>
       <View style={styles.center}><Image style={styles.image} source={require('../Images/MoveApp_Transparent_Background.png')}/></View>
-      <Text style={styles.label}>Email:</Text>
-      <TextInput style={styles.input} placeholder="Email" placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
-      {emailAlreadyExist && (<Text style={styles.warningText}>This email is already in use</Text>)}
-      {!emailIsWellFormatted && (<Text style={styles.warningText}>This is not a valid email</Text>)}
-      <Text style={styles.label}>Password:</Text>
-      <TextInput style={styles.input} placeholder="Password" placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={password} onChangeText={(text) => setPassword(text)} />
-      <Text style={styles.label}>Repeat Password:</Text>
-      <TextInput style={styles.input} placeholder="Repeat Password" placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={repeatPassword} onChangeText={(text) => setRepeatPassword(text)} />
-      {!passwordsMinLenght && (<Text style={styles.warningText}>The password must be at least 6 characters long</Text>)}
-      {!passwordsMatch && (<Text style={styles.warningText}>Passwords do not match!</Text>)}
+      <Text style={styles.label}>{placeholder_email}:</Text>
+      <TextInput style={styles.input} placeholder={placeholder_email} placeholderTextColor="grey" keyboardType="email-address" autoCapitalize="none" value={email} onChangeText={(text) => setEmail(text)} />
+      {emailAlreadyExist && (<Text style={styles.warningText}>{email_already_exist_warning}</Text>)}
+      {!emailIsWellFormatted && (<Text style={styles.warningText}>{email_badly_formatted_warning}</Text>)}
+      <Text style={styles.label}>{placeholder_password}:</Text>
+      <TextInput style={styles.input} placeholder={placeholder_password} placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={password} onChangeText={(text) => setPassword(text)} />
+      <Text style={styles.label}>{placeholder_repeat_password}:</Text>
+      <TextInput style={styles.input} placeholder={placeholder_repeat_password} placeholderTextColor="grey" secureTextEntry autoCapitalize="none" value={repeatPassword} onChangeText={(text) => setRepeatPassword(text)} />
+      {!passwordsMinLenght && (<Text style={styles.warningText}>{password_min_lenght_warning}</Text>)}
+      {!passwordsMatch && (<Text style={styles.warningText}>{passwords_match_warning}</Text>)}
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <CheckBox
           disabled={false}
@@ -98,12 +108,12 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
           tintColors={{ true: '#17202a', false: 'black' }}
           onValueChange={(newValue) => setToggleRememberData(newValue)}
         />
-        <Text style={{ color: 'black', marginLeft: 8 }}>Remember me</Text>
+        <Text style={{ color: 'black', marginLeft: 8 }}>{remember_me}</Text>
       </View>
-      <Button title={t('register')} onPress={() => handleRegister()} />
-      {registrationIsFailed && (<Text style={styles.warningText}>Registration Failed</Text>)}
+      <Button title={registration_button} onPress={() => handleRegister()} />
+      {registrationIsFailed && (<Text style={styles.warningText}>{registration_failed}</Text>)}
       <View style={{marginBottom: 10}}></View>
-      <Button title="Already Registered ?" onPress={() => navigation.navigate('Login')} />
+      <Button title={already_registered} onPress={() => navigation.navigate('Login')} />
       <LanguagePicker/>
       {isLoading && <LoadingScreen/>}
       <WebServerUp/>

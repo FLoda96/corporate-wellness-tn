@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
     },
     label: {
       color: 'black',
+      fontWeight: 'bold',
       marginBottom: 5,
       marginLeft: 5,
       marginTop: 3,

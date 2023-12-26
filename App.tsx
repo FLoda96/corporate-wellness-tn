@@ -19,7 +19,7 @@ import {retrieveSessionData} from './Utils/EncryptedStorageUtility'
 import { HandleLogin, sessionAuthName } from './Utils/FunctionUtils';
 
 
-
+// TO DO : Save the language in the storage to recover the preference
 // TO DO : Extend the WebServerUp to all pages
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
