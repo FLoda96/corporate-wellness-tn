@@ -1,16 +1,17 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { View, TextInput, Button, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import {RegisterPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import { validateEmail } from '../Utils/ValidationUtils';
 import { serverUrl, RegisterUser, RegisterAuth, created, bad_request, Login } from '../Utils/WebServerUtils';
-import { HandleLogin } from '../Utils/FunctionUtils';
+import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
 import CheckBox from '@react-native-community/checkbox';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles';
 import { WebServerUp } from '../Utils/WebServerUp';
 import { useTranslation } from 'react-i18next';
 import { LanguagePicker } from '../Languages/LanguagePicker'
+import {retrieveSessionData} from '../Utils/EncryptedStorageUtility'
 
 // TO DO : Check that an email actually exist
 export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
@@ -42,6 +43,28 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const registration_failed = t('register_page.registration_failed');
   const registration_button = t('register_page.register');
   const already_registered = t('register_page.already_registered');
+
+    // TO DO : Is loogin with the remembered credential the right move ? do i want the app to be accessible even offline ?
+    useEffect(() => {
+      setIsLoading(true);
+      const fetchData = async () => {
+        try {
+          const session = await retrieveSessionData(sessionAuthName);
+          if (session !== undefined) {
+            const parsedSession = JSON.parse(session);
+            if ((parsedSession.email !== null) && (parsedSession.password !== null)) {
+              HandleLogin({email : parsedSession.email, password : parsedSession.password, toggleRememberData : toggleRememberData, setUser : SetUser, setUserId : SetUserId, setIsAuthenticated : SetIsAuthenticated})
+            }
+          } else {
+            setIsLoading(false);
+          }
+        } catch (error) {
+          console.error('Error retrieving session: ' + error);
+        }
+      };
+      // Roundabout way to call the above but async TO DO : search a library that does this
+      fetchData();
+    }, []);
 
   async function handleRegister () {
     setIsLoading(true);

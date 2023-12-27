@@ -49,16 +49,12 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const [workoutUpdateSuccessfully, setProfileUpdateSuccessfully] = useState(false);
     const timestampStart = useRef('');
     const timestampEnd = useRef('');
-       
 
-    // First thing happening upon entering the page
-    // I tried doing it after starting the route but
-    // For some reasons it didn't returned the value even with an async function
-    useEffect(() => {
-        if (!hasPermission) {
-            requestPermission();
-        }
-    }, []);
+    const unsubscribe = navigation.addListener('focus', () => {
+            if (!hasPermission) {
+                requestPermission();
+            }
+      })
 
     // For some reason in the useEffect the code doesn't run
     // Camera initialization
