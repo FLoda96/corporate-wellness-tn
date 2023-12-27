@@ -135,8 +135,6 @@ interface RegisterAuthArguments {
 export async function RegisterAuth ({user_id, email, password}: RegisterAuthArguments): Promise<number> {
   console.log("Executing RegisterAuth");
   console.log("user_id " + user_id + ", email " + email + ", password " + password);
-  // TO DO : Create an actual algorithm for the salt
-  const salt = "salt";
   
   try {
     const response = await fetch(serverUrl + registration, {

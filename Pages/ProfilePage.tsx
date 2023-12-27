@@ -54,7 +54,6 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const successfull_update = t('profile_page.successfull_update');
 
 
-  // TO DO : Maybe a scroll view just for the variables so that the buttons are always visible ?
   // Get the profile data from DB
   useEffect(() => {
     const fetchData = async () => {
