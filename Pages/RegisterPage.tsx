@@ -4,7 +4,7 @@ import {RegisterPageProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import { validateEmail } from '../Utils/ValidationUtils';
 import { serverUrl, RegisterUser, RegisterAuth, created, bad_request, Login } from '../Utils/WebServerUtils';
-import { HandleLogin, sessionAuthName } from '../Utils/FunctionUtils';
+import { HandleLogin, sessionAuthName, sessionLanguage } from '../Utils/FunctionUtils';
 import CheckBox from '@react-native-community/checkbox';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles';
@@ -49,6 +49,15 @@ export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
       setIsLoading(true);
       const fetchData = async () => {
         try {
+          
+          const sessionLanguagePreference = await retrieveSessionData(sessionLanguage);
+          if (sessionLanguagePreference !== undefined) {
+            const parsedSessionLanguage = JSON.parse(sessionLanguagePreference);
+            if (parsedSessionLanguage.language !== null) {
+              i18n.changeLanguage(parsedSessionLanguage.language);
+            }
+          }
+
           const session = await retrieveSessionData(sessionAuthName);
           if (session !== undefined) {
             const parsedSession = JSON.parse(session);

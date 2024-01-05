@@ -2,12 +2,15 @@ import { useState, useRef, useEffect } from 'react';
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { styles } from '../Utils/Styles';
 import { useTranslation } from 'react-i18next';
+import { saveSessionData } from '../Utils/EncryptedStorageUtility'
+import { sessionLanguage } from '../Utils/FunctionUtils';
 
 export const LanguagePicker: React.FC = () => {
 const { t, i18n } = useTranslation();
 
 function ChangeLanguage (language: string) {
     i18n.changeLanguage(language);
+    saveSessionData(sessionLanguage, {'language' : language})
 };
   
   return (

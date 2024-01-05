@@ -62,6 +62,7 @@ export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
             <Button title={disconnect} onPress={() => Disconnect()} />
             <View style={{marginBottom: 10}}></View>
             <Button title={reload_table} onPress={() => LoadRoutePerformance()} />
+            <View style={{marginBottom: 10}}></View>
             {((performanceData != null) && (performanceData[0] != null)) && <RoutePerformanceTable data={performanceData}></RoutePerformanceTable>}
             {isLoading && <LoadingScreen/>}
       </View>

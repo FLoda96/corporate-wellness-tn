@@ -2,6 +2,7 @@ import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtili
 import { created, ok, Login, LoginResponse, GetHealth } from '../Utils/WebServerUtils';
 
 export const sessionAuthName = 'user_auth'
+export const sessionLanguage = 'user_language'
 
 interface HandleLoginArguments {
     email: string;
