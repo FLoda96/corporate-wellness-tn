@@ -8,7 +8,6 @@ interface RoutePerformanceTableProps {
   data: RoutePerformance[];
 }
 
-// TO DO : Fix the graphical presentation
 export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.Element {
     const { t, i18n } = useTranslation();
     const [Routes, setRoutes] = useState<Routes[] | null>(null);
@@ -63,6 +62,7 @@ export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.E
 
   return (
     <FlatList
+      style={styles.list}
       data={data}
       keyExtractor={(item) => item.performance_id.toString()}
       renderItem={renderRow}
@@ -82,6 +82,10 @@ const styles = StyleSheet.create({
     container: {
       margin: 10,
     },
+    list: {
+      height: '100%',
+      width: '100%',
+    },
     row: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -90,6 +94,7 @@ const styles = StyleSheet.create({
       borderBottomColor: '#ccc', // Border color
     },
     cell: {
+      flex: 1,
       padding: 5,
       color: 'black',
       textAlign: 'center',
