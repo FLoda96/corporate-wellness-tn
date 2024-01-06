@@ -4,9 +4,6 @@
   <uses-permission android:name="android.permission.CAMERA" />
   <uses-permission android:name="android.permission.INTERNET" />
 
-  <!-- React Native Step Counter -->
-  <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-  <uses-permission android:name="android.permission.BODY_SENSORS_BACKGROUND" />
   <uses-feature
     android:name="android.hardware.sensor.stepcounter"
     android:required="false" />
@@ -20,8 +17,8 @@
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
-      android:theme="@style/AppTheme">
-
+      android:theme="@style/AppTheme"
+      android:networkSecurityConfig="@xml/network_security_config">
       <!-- React Native Vision Camera Qr code scanning -->
       <meta-data
           android:name="com.google.mlkit.vision.DEPENDENCIES"
@@ -37,6 +34,20 @@
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <intent-filter>
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:scheme="moveapp"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data
+            android:host="www.moveappapp.com"
+            android:scheme="http"/>
         </intent-filter>
       </activity>
     </application>

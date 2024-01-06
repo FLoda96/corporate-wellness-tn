@@ -1,0 +1,3 @@
+To test :
+adb shell am start -W -a android.intent.action.VIEW -d "moveapp://"
+adb shell am start -W -a android.intent.action.VIEW -d "http://www.moveappapp.com"

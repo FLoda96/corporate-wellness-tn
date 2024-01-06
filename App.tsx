@@ -1,12 +1,11 @@
 import {useState, useContext, useEffect} from 'react';
-import { Button, View, Alert, ActivityIndicator } from 'react-native';
+import { Button, View, Alert, ActivityIndicator, Linking } from 'react-native';
 
 import { useTranslation } from 'react-i18next';
 import './Languages/i18n'
 
 import { NavigationContainer } from '@react-navigation/native';
 import {HomeDrawer, AuthStack} from './Utils/NavigationTypes'
-
 import {ProfilePage} from './Pages/ProfilePage'
 import {LoginPage} from './Pages/LoginPage'
 import {RegisterPage} from './Pages/RegisterPage'
@@ -17,14 +16,16 @@ import {TeamPage} from './Pages/TeamPage'
 import {UserContext, LoginContext, UserIdContext} from './Utils/AuthContext'
 
 
-// TO DO : Save the language in the storage to recover the preference
-// TO DO : Extend the WebServerUp to all pages
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState('');
   const [userId, setUserId] = useState(0);
   const { t, i18n } = useTranslation();
   const toggleRememberDataPlaceholder = false;
+
+  const linking = {
+    prefixes: ['moveapp://', 'http://www.moveappapp.com'],
+  };
 
   const register = t('pages_names.register');
   const login = t('pages_names.login');
@@ -34,24 +35,12 @@ export default function App() {
   const about_us = t('pages_names.about_us');
   const navigation = t('pages_names.navigation');
 
-  /*
-  const loading_notice = t('alerts.loading_notice');
-  const loading_alert = t('alerts.loading_alert');
-
-    function showLoadingAlert () {
-        Alert.alert(
-        loading_notice,
-        loading_alert,
-        [{ text: 'Ok', style: 'default',}]);
-    }
-    // {<HomeDrawer.Screen name="Navigation" component={NavigationPage} options={{ title: navigation}} listeners={{drawerItemPress: (e) => {showLoadingAlert()}}} />}
-  */
 
   // options={{ headerTitle : () =>  <Button title='Disconnect'/>}}
   // <HomeDrawer.Screen name="Navigation" component={NavigationPage} options={{ title: navigation, lazy: false}}  listeners={{drawerItemPress: (e) => {setIsLoading(true)}, focus: (e) => {setIsLoading(false)}}} />
   // TO DO : There must be a way to put the option in some style file, probably some TypeScript annoyance
   return (
-    <NavigationContainer>
+    <NavigationContainer linking={linking}>
       <UserContext.Provider value={{User : user, SetUser : setUser}}>
       <UserIdContext.Provider value={{UserId : userId, SetUserId : setUserId}}>
       <LoginContext.Provider value={{IsAuthenticated : isAuthenticated, SetIsAuthenticated : setIsAuthenticated}}>
