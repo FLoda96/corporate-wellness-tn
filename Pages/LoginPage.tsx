@@ -9,6 +9,7 @@ import { styles } from '../Utils/Styles'
 import { WebServerUp } from '../Utils/WebServerUp'
 import { useTranslation } from 'react-i18next';
 import { LanguagePicker } from '../Languages/LanguagePicker'
+import { GoogleSigninButton, statusCodes } from '@react-native-google-signin/google-signin';
 
   // TO DO : Add function to recover password
   // TO DO : Add function to delete user
@@ -30,6 +31,7 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const placeholder_password = t('login_page.password_placeholder');
   const login_button = t('login_page.login_button');
   const register_instead_button = t('login_page.register_instead_button');
+  const forgot_password_button = t('login_page.forgot_password_button');
   const remember_me = t('login_page.remember_me');
   const login_failed = t('login_page.login_failed');
 
@@ -60,7 +62,9 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
       {loginIsFailed && (<Text style={styles.warningText}>{login_failed}</Text>)}
       <View style={{marginBottom: 10}}></View>
       <Button title={register_instead_button} onPress={() => navigation.navigate('Register')} />
-      
+      <View style={{marginBottom: 10}}></View>
+      <Button title={forgot_password_button} onPress={() => navigation.navigate('ForgotPassword')} />
+      {/*<GoogleSigninButton size={GoogleSigninButton.Size.Wide} color={GoogleSigninButton.Color.Dark} onPress={() => {}}/>*/}
       <LanguagePicker/>
       {isLoading && <LoadingScreen/>}
       <WebServerUp/>

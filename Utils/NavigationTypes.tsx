@@ -51,6 +51,9 @@ export interface NavigationPageScreenProps {
 type RootStackParamList = {
   Login: undefined;
   Register: undefined;
+  ForgotPassword: undefined;
+  ResetPassword: undefined;
+  //ResetPassword: {email_prop: string} | undefined;
   // Add other screens as needed
 };
 
@@ -60,6 +63,10 @@ export const AuthStack = createStackNavigator<RootStackParamList>();
 // Define the type for the navigation prop
 type LoginPageNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 type RegisterPageScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Register'>;
+type ForgotPasswordPageScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ForgotPassword'>;
+type ResetPasswordPageScreenNavigationProp = StackNavigationProp<RootStackParamList, 'ResetPassword'>;
+
+
 
 // Use the defined type for your component
 export interface LoginPageProps {
@@ -68,4 +75,13 @@ export interface LoginPageProps {
 
 export interface RegisterPageProps {
   navigation: RegisterPageScreenNavigationProp;
+}
+
+export interface ForgotPasswordPageProps {
+  navigation: ForgotPasswordPageScreenNavigationProp;
+}
+
+export interface ResetPasswordPageProps {
+  navigation: ResetPasswordPageScreenNavigationProp;
+  //email_prop: string;
 }

@@ -125,7 +125,6 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   };
 
   // Function to handle saving the profile changes
-  // TO DO : If the profile is the same as before do nothing
   async function saveProfile () {
     setIsLoading(true);
     const response = await UpdateUser({

@@ -16,6 +16,7 @@ const teamAll = '/team/all'
 const teamMember = '/teammember'
 const teamMembersTeam = '/teammember/team'
 const teamJoined = '/teammember/user'
+const forgotpassword = '/forgotpassword'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -623,6 +624,45 @@ export async function LeaveTeam ({user_id, team_id}: LeaveTeamArguments): Promis
     console.log("Status LeaveTeam : " + status)
     if (status == no_content) {
       const body = await response.text();
+      return status;
+    } else {
+      return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface SendForgotPasswordEmailArguments {
+  email: string;
+  timestamp_request: string;
+}
+
+export async function SendForgotPasswordEmail ({email, timestamp_request}: SendForgotPasswordEmailArguments): Promise<number> {
+  console.log("Executing SendForgotPasswordEmail");
+  try {
+    const response = await fetch(serverUrl + forgotpassword, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        email: email,
+        timestamp_request: timestamp_request,
+      }),
+    });
+    console.log(JSON.stringify({
+      email: email,
+      timestamp_now: timestamp_request,
+    }),)
+    const status = response.status;
+    console.log("Status SendForgotPasswordEmail : " + status)
+    if (status == created) {
+      const body = await response.json();
       return status;
     } else {
       return status;

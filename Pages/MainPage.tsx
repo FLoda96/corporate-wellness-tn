@@ -11,7 +11,6 @@ import { styles } from '../Utils/Styles';
 import { useTranslation } from 'react-i18next';
 import { LanguagePicker } from '../Languages/LanguagePicker'
 
-// TO DO : How to make the table reload every time i return to the page
 // TO DO : Move disconnect as a general function in the header or something
 export function MainPage({ navigation }: MainPageScreenProps): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
