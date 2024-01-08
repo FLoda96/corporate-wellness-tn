@@ -2,6 +2,8 @@
   "pages_names": {
     "register": "Register",
     "login": "Login",
+    "forgot_password": "Forgot Password",
+    "reset_password": "Reset Password",
     "profile": "Profile",
     "teams": "Teams",
     "main_page": "Main page",
@@ -26,8 +28,24 @@
     "password_placeholder": "Password",
     "login_button": "Login",
     "register_instead_button": "Need to register instead ?",
+    "forgot_password_button": "Forgot password ?",
     "login_failed": "Login failed",
     "remember_me": "Remember me"
+  },
+  "forgot_password": {
+    "email_placeholder": "Email",
+    "send_email_button": "Send Email",
+    "error_message": "Error"
+  },
+  "reset_password": {
+    "email_placeholder": "Email",
+    "password_placeholder": "Password",
+    "repeat_password_placeholder": "Repeat password",
+    "password_min_lenght_warning": "The password must be at least 6 characters long",
+    "passwords_match_warning": "Passwords do not match",
+    "reset_password_button": "Save new password",
+    "error_message": "The renewal link is not valid",
+    "go_back_to_login_button": "Return to login"
   },
   "main_page": {
     "greeting": "Hi, it appears that you don't have any logged routes, you can start by going to the navigation page, don't forget to update your profile first",

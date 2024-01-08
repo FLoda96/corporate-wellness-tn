@@ -17,6 +17,7 @@ const teamMember = '/teammember'
 const teamMembersTeam = '/teammember/team'
 const teamJoined = '/teammember/user'
 const forgotpassword = '/forgotpassword'
+const checkvalidity = '/checkvalidity'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -157,6 +158,44 @@ export async function RegisterAuth ({user_id, email, password}: RegisterAuthArgu
     if (status == created) {
       const body = await response.json();
       
+      return status;
+    } else {
+      return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface UpdateAuthArguments {
+  email: string;
+  password: string;
+}
+
+export async function UpdateAuth ({email, password}: UpdateAuthArguments): Promise<number> {
+  console.log("Executing UpdateAuth");
+
+  try {
+    const response = await fetch(serverUrl + registration, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        email: email,
+        hashed_password: password
+      }),
+    });
+
+    const status = response.status;
+    console.log("Status : " + status);
+    
+    if (status == ok) {
+      const body = await response.json();
       return status;
     } else {
       return status;
@@ -663,6 +702,45 @@ export async function SendForgotPasswordEmail ({email, timestamp_request}: SendF
     console.log("Status SendForgotPasswordEmail : " + status)
     if (status == created) {
       const body = await response.json();
+      return status;
+    } else {
+      return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+interface CheckMailForgetPasswordArguments {
+  email: string;
+  code: string;
+}
+
+export async function CheckMailForgetPassword ({email, code}: CheckMailForgetPasswordArguments): Promise<number> {
+  console.log("Executing CheckMailForgetPassword");
+  console.log("Mail : " + email);
+
+  try {
+    const response = await fetch(serverUrl + forgotpassword + checkvalidity, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify({
+        email: email,
+        unique_code: code
+      }),
+    });
+
+    const status = response.status;
+    console.log("Status : " + status);
+    
+    if (status == ok) {
+      const body = await response.text();
       return status;
     } else {
       return status;

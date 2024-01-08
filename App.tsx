@@ -10,12 +10,12 @@ import {ProfilePage} from './Pages/ProfilePage'
 import {LoginPage} from './Pages/LoginPage'
 import {RegisterPage} from './Pages/RegisterPage'
 import {ForgotPasswordPage} from './Pages/ForgotPasswordPage'
+import {ResetPasswordPage} from './Pages/ResetPasswordPage'
 import {NavigationPage} from './Pages/NavigationPage'
 import {AboutUsPage} from './Pages/AboutUsPage'
 import {MainPage} from './Pages/MainPage'
 import {TeamPage} from './Pages/TeamPage'
 import {UserContext, LoginContext, UserIdContext} from './Utils/AuthContext'
-
 
 
 export default function App() {
@@ -37,11 +37,13 @@ export default function App() {
   const register = t('pages_names.register');
   const login = t('pages_names.login');
   const forgot_password = t('pages_names.forgot_password');
+  const reset_password = t('pages_names.reset_password');
   const profile = t('pages_names.profile');
   const main_page = t('pages_names.main_page');
   const teams = t('pages_names.teams');
   const about_us = t('pages_names.about_us');
   const navigation = t('pages_names.navigation');
+
 
   // options={{ headerTitle : () =>  <Button title='Disconnect'/>}}
   // <HomeDrawer.Screen name="Navigation" component={NavigationPage} options={{ title: navigation, lazy: false}}  listeners={{drawerItemPress: (e) => {setIsLoading(true)}, focus: (e) => {setIsLoading(false)}}} />
@@ -66,6 +68,7 @@ export default function App() {
           <AuthStack.Screen name="Register" component={RegisterPage} options={{ title: register}} />
           <AuthStack.Screen name="Login" component={LoginPage} options={{ title: login}}/>
           <AuthStack.Screen name="ForgotPassword" component={ForgotPasswordPage} options={{ title: forgot_password}}/>
+          <AuthStack.Screen name="ResetPassword" component={ResetPasswordPage} options={{ title: reset_password}}/>
         </AuthStack.Navigator>
       )}
       </LoginContext.Provider>

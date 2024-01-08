@@ -2,6 +2,8 @@
   "pages_names": {
     "register": "Registrati",
     "login": "Login",
+    "forgot_password": "Password Dimenticata",
+    "reset_password": "Reset Password",
     "profile": "Profilo",
     "teams": "Teams",
     "main_page": "Pagina principale",
@@ -26,8 +28,24 @@
     "password_placeholder": "Password",
     "login_button": "Login",
     "register_instead_button": "Hai bisogno di registrarti ?",
+    "forgot_password_button": "Password dimenticata ?",
     "login_failed": "Login fallito",
     "remember_me": "Ricordami"
+  },
+  "forgot_password": {
+    "email_placeholder": "Email",
+    "send_email_button": "Invia Email",
+    "error_message": "Errore"
+  },
+  "reset_password": {
+    "email_placeholder": "Email",
+    "password_placeholder": "Password",
+    "repeat_password_placeholder": "Ripeti password",
+    "password_min_lenght_warning": "La password deve essere lunga almeno 6 caratteri",
+    "passwords_match_warning": "Le passwords non sono uguali",
+    "reset_password_button": "Aggiorna password",
+    "error_message": "Il link di rinnovo non è valido",
+    "go_back_to_login_button": "Ritorna al login"
   },
   "main_page": {
     "greeting": "Ciao, sembra che tu non abbia nessun percorso salvato, puoi iniziare andando sulla pagina di navigazione, prima però non dimenticare di aggiornare il tuo profilo",
