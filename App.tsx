@@ -15,6 +15,7 @@ import {NavigationPage} from './Pages/NavigationPage'
 import {AboutUsPage} from './Pages/AboutUsPage'
 import {MainPage} from './Pages/MainPage'
 import {TeamPage} from './Pages/TeamPage'
+import {QuestionnairePage} from './Pages/QuestionnairePage'
 import {UserContext, LoginContext, UserIdContext} from './Utils/AuthContext'
 
 
@@ -43,6 +44,7 @@ export default function App() {
   const teams = t('pages_names.teams');
   const about_us = t('pages_names.about_us');
   const navigation = t('pages_names.navigation');
+  const questionnaire = t('pages_names.questionnaire');
 
 
   // options={{ headerTitle : () =>  <Button title='Disconnect'/>}}
@@ -57,6 +59,7 @@ export default function App() {
         <>
         <HomeDrawer.Navigator initialRouteName="Main" screenOptions={{headerStyle: {backgroundColor: '#11ab7a',}, headerTintColor: '#fff', headerTitleStyle: {fontWeight: 'bold',}}} backBehavior='none'>
           <HomeDrawer.Screen name="Profile" component={ProfilePage} options={{ title: profile}} />
+          <HomeDrawer.Screen name="Questionnaire" component={QuestionnairePage} options={{ title: questionnaire}} />
           <HomeDrawer.Screen name="Teams" component={TeamPage} options={{ title: teams}} />
           <HomeDrawer.Screen name="AboutUs" component={AboutUsPage} options={{ title: about_us}} />
           <HomeDrawer.Screen name="Main" component={MainPage} options={{ title: main_page}} />
@@ -76,4 +79,4 @@ export default function App() {
       </UserContext.Provider>
     </NavigationContainer>
   );
-}
+} 

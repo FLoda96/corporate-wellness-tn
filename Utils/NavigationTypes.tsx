@@ -4,6 +4,7 @@ import { RouteProp } from '@react-navigation/native';
 
 type RootDrawerParamList = {
   Auth: undefined;
+  Questionnaire: undefined;
   Teams: undefined;
   Profile: undefined;
   AboutUs: undefined;
@@ -16,6 +17,7 @@ export const HomeDrawer = createDrawerNavigator<RootDrawerParamList>();
 
 // Define the type for the navigation prop
 type AuthNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Auth'>;
+type QuestionnaireNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Questionnaire'>;
 type ProfilePageNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Profile'>;
 type TeamsPageNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'Teams'>;
 type AboutUsPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamList, 'AboutUs'>;
@@ -25,6 +27,10 @@ type NavigationPageScreenNavigationProp = DrawerNavigationProp<RootDrawerParamLi
 // Use the defined type for your component
 export interface AuthProps {
   navigation: AuthNavigationProp;
+}
+
+export interface QuestionnaireProps {
+  navigation: QuestionnaireNavigationProp;
 }
 
 export interface ProfilePageProps {

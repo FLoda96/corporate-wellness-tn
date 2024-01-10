@@ -8,7 +8,8 @@
     "teams": "Teams",
     "main_page": "Pagina principale",
     "about_us": "Chi siamo",
-    "navigation": "Percorsi"
+    "navigation": "Percorsi",
+    "questionnaire": "Questionari"
   },
   "register_page": {
     "email_placeholder": "Email",
@@ -92,6 +93,13 @@
     "join_team": "Unisciti al team +",
     "leave_team": "Lascia il team -"
   },
+  "question_page": {
+    "send_answer_button": "Invia risposte",
+    "reload_table": "Ricarica tabella"
+  },
+  "question_list": {
+    "question": "Domanda "
+  },
   "navigation_table": {
     "starting_route": "Inizia percorso",
     "end_route": "Termina percorso",
@@ -116,6 +124,8 @@
     "missing_info_end_alert": "Prima di salvare i dati devi segnare la tua frequenza cardiaca",
     "team_already_joined_alert": "Sei già parte del team selezionato",
     "not_part_of_team_alert": "Non eri parte del team selezionato",
-    "loading_alert": "Il componente della videocamera può richiedere qualche secondo per caricarsi"
+    "loading_alert": "Il componente della videocamera può richiedere qualche secondo per caricarsi",
+    "sumbit_notice": "Avviso",
+    "submit_alert": "Sei sicuro di voler inviare i dati ?"
   }
   }

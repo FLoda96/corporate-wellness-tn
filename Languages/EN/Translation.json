@@ -8,7 +8,8 @@
     "teams": "Teams",
     "main_page": "Main page",
     "about_us": "About Us",
-    "navigation": "Navigation"
+    "navigation": "Navigation",
+    "questionnaire": "Questionnaires"
   },
   "register_page": {
     "email_placeholder": "Email",
@@ -92,6 +93,13 @@
     "join_team": "Join Team +",
     "leave_team": "Leave Team -"
   },
+  "question_page": {
+    "send_answer_button": "Send Answer",
+    "reload_table": "Reload table"
+  },
+  "question_list": {
+    "question": "Question "
+  },
   "navigation_table": {
     "starting_route": "Start route",
     "end_route": "End route",
@@ -116,6 +124,8 @@
     "missing_info_end_alert": "Before saving the route data you need to set your heart rate",
     "team_already_joined_alert": "You are already part of the selected team",
     "not_part_of_team_alert": "You weren't part of the selected team",
-    "loading_alert": "The camera component might take some time to load, please wait"
+    "loading_alert": "The camera component might take some time to load, please wait",
+    "sumbit_notice": "Alert",
+    "submit_alert": "Are you sure you want to submit ?"
   }
   }

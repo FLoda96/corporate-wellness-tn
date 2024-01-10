@@ -1,3 +1,5 @@
+import { Timestamp } from "react-native-reanimated/lib/typescript/reanimated2/commonTypes";
+
 //export const serverUrl = 'https://192.168.1.124:8443'
 export const serverUrl = 'http://192.168.1.124:8090'
 export const basicAuth = 'Basic dGVzdDp0ZXN0'
@@ -18,6 +20,10 @@ const teamMembersTeam = '/teammember/team'
 const teamJoined = '/teammember/user'
 const forgotpassword = '/forgotpassword'
 const checkvalidity = '/checkvalidity'
+const questionnaire = '/questionnaire'
+const questionlist = '/questionlist'
+const answer = '/answer'
+const list = '/list'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -750,3 +756,117 @@ export async function CheckMailForgetPassword ({email, code}: CheckMailForgetPas
     return 0;
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export interface Questionnaire {
+  questionnaire_id: number;
+  company_id: number;
+}
+export interface QuestionnaireData {
+  questionnaire_data_id: number;
+  questionnaire_id: number;
+  language_code: string;
+  title: string;
+  description: string;
+}
+export interface Question {
+  question_id: number;
+  questionnaire_id: number;
+}
+
+export interface QuestionData {
+  question_data_id: number;
+  question_id: number;
+  language_code: string;
+  question_text: string;
+  question_type: string;
+  obligatory: boolean;
+  question_order: number;
+}
+
+export interface Answer {
+  //answer_id: number;
+  user_id: number;
+  questionnaire_id: number;
+  question_id: number;
+  answer_type: string;
+  language_code: string;
+  answer_numeric: number;
+  answer: string;
+  timestamp_answer: string;
+}
+
+export interface GetQuestionListResponse {
+  response_code: number;
+  question_data: QuestionData[] | null;
+}
+
+export interface GetQuestionListArguments {
+  questionnaire_id: number;
+  language_code: string;
+}
+
+
+export async function GetQuestionList({questionnaire_id, language_code}: GetQuestionListArguments): Promise<GetQuestionListResponse> {
+  console.log("Executing GetQuestionList");
+  try {
+    const response = await fetch(serverUrl + questionnaire + questionlist + '/' + questionnaire_id + '/' + language_code, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status GetQuestionList : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      return {response_code: status, question_data: body}
+    } else {
+      return {response_code: status, question_data: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, question_data: null}
+  }
+}
+
+export interface SaveAnswersQuestionnaireArguments {
+  answer_list: Answer[];
+}
+
+export async function SaveAnswersQuestionnaire({answer_list}: SaveAnswersQuestionnaireArguments): Promise<number> {
+  console.log("Executing SaveAnswersQuestionnaire");
+  // insert timestamp
+  for (const question of answer_list) {
+    question.timestamp_answer = Date.now().toString();
+  }
+
+  try {
+    const response = await fetch(serverUrl + answer + list, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+      body: JSON.stringify(answer_list),
+    });
+
+    const status = response.status;
+    console.log("Status : " + status);
+    
+    if (status == created) {
+      const body = await response.text();
+      return status;
+    } else {
+      return status;
+    }
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
