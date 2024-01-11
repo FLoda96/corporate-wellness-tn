@@ -95,7 +95,10 @@
   },
   "question_page": {
     "send_answer_button": "Send Answer",
-    "reload_table": "Reload table"
+    "load_questionnaire": "Load Selected Questionnaire",
+    "reload_table": "Reload table",
+    "ok_alert": "Ok",
+    "cancel_alert": "Cancel"
   },
   "question_list": {
     "question": "Question "

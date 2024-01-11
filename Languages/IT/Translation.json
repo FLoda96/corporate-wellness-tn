@@ -95,7 +95,10 @@
   },
   "question_page": {
     "send_answer_button": "Invia risposte",
-    "reload_table": "Ricarica tabella"
+    "load_questionnaire": "Carica questionario selezionato",
+    "reload_table": "Ricarica tabella",
+    "ok_alert": "Ok",
+    "cancel_alert": "Annulla"
   },
   "question_list": {
     "question": "Domanda "

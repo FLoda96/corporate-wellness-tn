@@ -24,6 +24,7 @@ const questionnaire = '/questionnaire'
 const questionlist = '/questionlist'
 const answer = '/answer'
 const list = '/list'
+const company = '/company'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -797,6 +798,41 @@ export interface Answer {
   timestamp_answer: string;
 }
 
+export interface GetQuestionnaireListResponse {
+  response_code: number;
+  questionnaire_data: QuestionnaireData[] | null;
+}
+
+export interface GetQuestionnaireListArguments {
+  company_id: number;
+  language_code: string;
+}
+
+export async function GetQuestionnaireList({company_id, language_code}: GetQuestionnaireListArguments): Promise<GetQuestionnaireListResponse> {
+  console.log("Executing GetQuestionnaireList");
+  try {
+    const response = await fetch(serverUrl + questionnaire + company + '/' + company_id + '/' + language_code, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        //'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status GetQuestionnaireList : " + status)
+    if (status == ok) {
+      const body = await response.json();
+      return {response_code: status, questionnaire_data: body}
+    } else {
+      return {response_code: status, questionnaire_data: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, questionnaire_data: null}
+  }
+}
+
 export interface GetQuestionListResponse {
   response_code: number;
   question_data: QuestionData[] | null;
@@ -806,7 +842,6 @@ export interface GetQuestionListArguments {
   questionnaire_id: number;
   language_code: string;
 }
-
 
 export async function GetQuestionList({questionnaire_id, language_code}: GetQuestionListArguments): Promise<GetQuestionListResponse> {
   console.log("Executing GetQuestionList");
