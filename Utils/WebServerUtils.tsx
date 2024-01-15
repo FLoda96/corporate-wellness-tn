@@ -150,7 +150,7 @@ export async function RegisterAuth ({user_id, email, password}: RegisterAuthArgu
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         user_id: user_id,
@@ -190,7 +190,7 @@ export async function UpdateAuth ({email, password}: UpdateAuthArguments): Promi
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         email: email,
@@ -232,7 +232,7 @@ export async function Login ({email, password}: LoginArguments): Promise<LoginRe
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         email: email,
@@ -327,7 +327,7 @@ export async function SavePerformance ({route_id, user_id, timestamp_start, hear
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         route_id: route_id,
@@ -382,7 +382,7 @@ export async function GetRoutePerformanceByUser ({user_id}: GetRoutePerformanceB
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -422,7 +422,7 @@ export async function GetRoutes (): Promise<RoutesResponse> {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -466,7 +466,7 @@ export async function GetHealth (): Promise<HealthResponse> {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -506,7 +506,7 @@ export async function GetTeams (): Promise<TeamResponse> {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -550,7 +550,7 @@ export async function GetTeamMembers ({teamId}: GetTeamMembersArguments): Promis
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -588,7 +588,7 @@ export async function GetTeamJoined ({user_id}: GetTeamJoinedArguments): Promise
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -621,7 +621,7 @@ export async function JoinTeam ({user_id, team_id}: JoinTeamArguments): Promise<
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         user_id: user_id,
@@ -658,7 +658,7 @@ export async function LeaveTeam ({user_id, team_id}: LeaveTeamArguments): Promis
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         user_id: user_id,
@@ -694,7 +694,7 @@ export async function SendForgotPasswordEmail ({email, timestamp_request}: SendF
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         email: email,
@@ -735,7 +735,7 @@ export async function CheckMailForgetPassword ({email, code}: CheckMailForgetPas
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify({
         email: email,
@@ -815,7 +815,7 @@ export async function GetQuestionnaireList({company_id, language_code}: GetQuest
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -850,7 +850,7 @@ export async function GetQuestionList({questionnaire_id, language_code}: GetQues
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
     });
 
@@ -884,7 +884,7 @@ export async function SaveAnswersQuestionnaire({answer_list}: SaveAnswersQuestio
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        //'Authorization': basicAuth,
+        'Authorization': basicAuth,
       },
       body: JSON.stringify(answer_list),
     });
