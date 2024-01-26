@@ -103,6 +103,9 @@
   "question_list": {
     "question": "Domanda "
   },
+  "webserverup": {
+    "text": "Non sei connesso alla rete Unitn "
+  },
   "navigation_table": {
     "starting_route": "Inizia percorso",
     "end_route": "Termina percorso",

@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { HealthCheck } from '../Utils/FunctionUtils';
+import { useTranslation } from 'react-i18next';
 
 // TO DO : How specific can the error message be ?
 export const WebServerUp = () => {
     const [isVisible, setIsVisible] = useState(false);
+    const { t, i18n } = useTranslation();
+
+    const webserverup_text = t('webserverup.text');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,7 +24,7 @@ export const WebServerUp = () => {
 
   return (
     <View>
-    { isVisible && (<Text style={{color: 'red', marginVertical: 5}}>Internet connection not avaliable</Text>)}
+    { isVisible && (<Text style={{color: 'red', marginVertical: 5}}>{webserverup_text}</Text>)}
     </View>
     
   );
