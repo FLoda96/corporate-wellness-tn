@@ -59,6 +59,7 @@
   "route_table": {
     "route": "Route",
     "time": "Time",
+    "date": "Date",
     "heart_rate_start": "Heart rate start",
     "heart_rate_end": "Heart rate end"
   },

@@ -14,6 +14,7 @@ export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.E
 
     const route = t('route_table.route');
     const time = t('route_table.time');
+    const date = t('route_table.date');
     const heart_rate_start = t('route_table.heart_rate_start');
     const heart_rate_end = t('route_table.heart_rate_end');
 
@@ -32,6 +33,7 @@ export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.E
     <View style={styles.row}>
       <Text style={styles.cell}>{lookupRouteName(item.route_id)}</Text>
       <Text style={styles.cell}>{formatTimeDifference(item.timestamp_start, item.timestamp_end)}</Text>
+      <Text style={styles.cell}>{formatDate(item.timestamp_start)}</Text>
       <Text style={styles.cell}>{item.heart_rate_start}</Text>
       <Text style={styles.cell}>{item.heart_rate_end}</Text>
       {/* Add more columns as needed */}
@@ -46,6 +48,11 @@ export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.E
   
     return `${minutes}m ${seconds}s`;
   };
+
+  // TO DO : Technically the go on next line should adapt to the screen, but we'll deal with that later
+  const formatDate = (date: string ): string => {
+    return date.substring(8,10)+'-'+date.substring(5,7)+'-'+'\n'+date.substring(0,4)
+  }
 
   function lookupRouteName(RouteId: number): string {
     if (Routes != null) {
@@ -70,6 +77,7 @@ export function RoutePerformanceTable({data}: RoutePerformanceTableProps): JSX.E
         <View style={[styles.row, styles.header]}>
           <Text style={[styles.cell, styles.headerText]}>{route}</Text>
           <Text style={[styles.cell, styles.headerText]}>{time}</Text>
+          <Text style={[styles.cell, styles.headerText]}>{date}</Text>
           <Text style={[styles.cell, styles.headerText]}>{heart_rate_start}</Text>
           <Text style={[styles.cell, styles.headerText]}>{heart_rate_end}</Text>
         </View>

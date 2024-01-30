@@ -59,6 +59,7 @@
   "route_table": {
     "route": "Percorso",
     "time": "Tempo",
+    "date": "Data",
     "heart_rate_start": "Freq. card. iniziale",
     "heart_rate_end": "Freq. card. finale"
   },
