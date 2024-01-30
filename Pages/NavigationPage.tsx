@@ -25,6 +25,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const failed_save = t('navigation_table.failed_save');
     const successfull_save = t('navigation_table.successfull_save');
     const starting_route_qr_code = "Starting Route";
+    const reset_page_button = t('navigation_table.reset_page_button')
 
     const { hasPermission, requestPermission } = useCameraPermission();
     const [cameraIsVisible, setCameraIsVisible] = useState(false);
@@ -47,6 +48,7 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const [isSaveFinalResultButtonVisible, setIsSaveFinalResultButtonVisible] = useState(false);
     const [workoutUpdateIsFailed, setProfileUpdateIsFailed] = useState(false);
     const [workoutUpdateSuccessfully, setProfileUpdateSuccessfully] = useState(false);
+    const [isResetButtonVisible, setIsResetButtonVisible] = useState(true);
     const timestampStart = useRef('');
     const timestampEnd = useRef('');
 
@@ -112,6 +114,14 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         }
     }
 
+    function StartEndRouteController () {
+        if (buttonTitle != end_route) {
+            StartRoute();
+        } else {
+            CheckIfSureEnding();
+        }
+    }
+
     function StartRoute () {
         if (hasPermission && device !== undefined && heartRateStart !== '') {
             setIsCounting(false);
@@ -141,6 +151,29 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
             {/*<Text style={{color: 'black'}}> Your final number of steps is : {finalSteps} </Text>*/}
             </>
         )
+    }
+
+    function ResetPage () {
+        setIsRouting(false);
+        setIsCounting(false);
+        setCameraIsVisible(false);
+        setButtonTitle(starting_route)
+        setIsStartButtonVisible(true);
+        setIsStopwatchVisible(false);
+        //setIsStepcounterVisible(true);
+        //setIsSensorsVisible(true);
+        setIsFinalStatsVisible(false);
+        setIsHeartRateStartVisible(true);
+        setHeartRateStart('0.0')
+        setIsHeartRateEndVisible(false);
+        setHeartRateEnd('0.0');
+        setIsSaveFinalResultButtonVisible(false);
+        setFinalTime(0);
+        setProfileUpdateIsFailed(false);
+        setProfileUpdateSuccessfully(false);
+
+        timestampStart.current = '';
+        timestampEnd.current = '';
     }
 
     const formatTimeDifference = (final_time: number): string => {
@@ -181,11 +214,17 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const permission_notice = t('alerts.permission_notice');
     const camera_notice = t('alerts.camera_notice');
     const missing_info_notice = t('alerts.missing_info_notice');
+    const end_route_notice = t('alerts.end_route_notice');
 
     const permission_alert = t('alerts.permission_alert');
     const camera_alert = t('alerts.camera_alert');
     const missing_info_start_alert = t('alerts.missing_info_start_alert');
     const missing_info_end_alert = t('alerts.missing_info_end_alert');
+    const end_route_alert = t('alerts.end_route_alert');
+    const reset_alert = t('alerts.reset_alert');
+
+    const cancel_alert = t('alerts.cancel_alert');
+    const ok_alert = t('alerts.ok_alert');
 
     function showPermissionAlert () {
         Alert.alert(
@@ -214,6 +253,52 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         missing_info_end_alert,
         [{ text: 'Ok', style: 'default',}]);
     }
+
+    async function CheckIfSureEnding () {
+        Alert.alert(
+        end_route_notice,
+        end_route_alert,
+          [
+            {
+              text: cancel_alert,
+              style: 'cancel',
+              onPress: () => {
+                console.log('Cancel pressed');
+              },
+            },
+            {
+              text: ok_alert,
+              style: 'default',
+              onPress: () => {
+                StartRoute();
+              },
+            },
+          ]
+        );
+      }
+
+      async function CheckIfSureReset () {
+        Alert.alert(
+        end_route_notice,
+        reset_alert,
+          [
+            {
+              text: cancel_alert,
+              style: 'cancel',
+              onPress: () => {
+                console.log('Cancel pressed');
+              },
+            },
+            {
+              text: ok_alert,
+              style: 'default',
+              onPress: () => {
+                ResetPage();
+              },
+            },
+          ]
+        );
+      }
 
     return (
         <View style={styles.navigation}>
@@ -245,8 +330,16 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
         {isSaveFinalResultButtonVisible && <Button onPress={() => SaveFinalResult()} title={save_result} />}
         {workoutUpdateIsFailed && (<Text style={styles.warningText}>{failed_save}</Text>)}
         {workoutUpdateSuccessfully && (<Text style={styles.successText}>{successfull_save}</Text>)}
-        {isStartButtonVisible && <Button onPress={() => StartRoute()} title={buttonTitle} />}
+        {isStartButtonVisible && <Button onPress={() => StartEndRouteController()} title={buttonTitle} />}
         {isFinalStatsVisible && <FinalStats></FinalStats>}
+        {isResetButtonVisible && 
+        <>
+            <View style={styles.resetButtonWrapper}>
+                <Button onPress={() => CheckIfSureReset()} title={reset_page_button} />
+            </View>
+            
+        </>
+        }
       </View>
     );
   };

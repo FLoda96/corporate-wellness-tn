@@ -117,7 +117,8 @@
     "starting_heart_rate": "Starting heart rate (beats/minute) (opzional)",
     "ending_heart_rate": "Ending heart rate (beats/minute) (opzional)",
     "failed_save": "Failed to save route data",
-    "successfull_save": "Route data saved successfully"
+    "successfull_save": "Route data saved successfully",
+    "reset_page_button": "Reset Route"
   },
   "alerts": {
     "permission_notice": "Permission Notice",
@@ -134,6 +135,11 @@
     "not_part_of_team_alert": "You weren't part of the selected team",
     "loading_alert": "The camera component might take some time to load, please wait",
     "sumbit_notice": "Alert",
-    "submit_alert": "Are you sure you want to submit ?"
+    "submit_alert": "Are you sure you want to submit ?",
+    "end_route_notice": "Notice",
+    "end_route_alert": "Are you sure you want to end the route ?",
+    "cancel_alert": "Cancel",
+    "ok_alert": "Ok",
+    "reset_alert": "Are you sure you want to reset the page ?"
   }
   }

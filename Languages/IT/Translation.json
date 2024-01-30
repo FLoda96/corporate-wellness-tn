@@ -117,7 +117,8 @@
     "starting_heart_rate": "Frequenza cardiaca iniziale (battiti/minuto) (opzionale)",
     "ending_heart_rate": "Frequenza cardiaca finale (battiti/minuto) (opzionale)",
     "failed_save": "Salvataggio dei dati fallito",
-    "successfull_save": "Dati salvati con successo"
+    "successfull_save": "Dati salvati con successo",
+    "reset_page_button": "Resetta Percorso"
   },
   "alerts": {
     "permission_notice": "Avviso riguardo ai permessi",
@@ -134,6 +135,11 @@
     "not_part_of_team_alert": "Non eri parte del team selezionato",
     "loading_alert": "Il componente della videocamera può richiedere qualche secondo per caricarsi",
     "sumbit_notice": "Avviso",
-    "submit_alert": "Sei sicuro di voler inviare i dati ?"
+    "submit_alert": "Sei sicuro di voler inviare i dati ?",
+    "end_route_notice": "Aviso",
+    "end_route_alert": "Sei sicuro di voler terminare il percorso ?",
+    "cancel_alert": "Annulla",
+    "ok_alert": "Ok",
+    "reset_alert": "Sei sicuro di voler resettare la pagina ?"
   }
   }

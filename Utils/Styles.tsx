@@ -66,4 +66,11 @@ export const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
     },
+    resetButtonWrapper: {
+      position: 'absolute',
+      bottom: 0,
+      width: '100%', // Make sure it takes the full width
+      paddingHorizontal: 16, // Optional: Add padding for better styling
+      alignItems: 'center'
+    },
   });
