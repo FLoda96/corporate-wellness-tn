@@ -27,6 +27,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const [height, setHeight] = useState<string>('0.0');
   const [weight, setWeight] = useState<string>('0.0');
   const [heartRate, setHeartRate] = useState<string>('0.0');
+  const [stepLength, setStepLength] = useState<string>('0.0');
   const [profileUpdateIsFailed, setProfileUpdateIsFailed] = useState(false);
   const [profileUpdateSuccessfully, setProfileUpdateSuccessfully] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -48,6 +49,7 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
   const height_label = t('profile_page.height_label');
   const weight_label = t('profile_page.weight_label');
   const heart_rate_label = t('profile_page.heart_rate_label');
+  const step_length_label = t('profile_page.step_length_label');
   const edit_button = t('profile_page.edit_button');
   const save_button = t('profile_page.save_button');
   const failed_update = t('profile_page.failed_update');
@@ -108,6 +110,9 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
           if (user.heart_rate != null) {
             setHeartRate(user.heart_rate.toString());
           }
+          if (user.step_length != null) {
+            setStepLength(user.step_length.toString());
+          }
           setIsLoading(false);
         }
       }
@@ -137,7 +142,8 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
       waistline: formatNumber(waistline),
       height: formatNumber(height), 
       weight: formatNumber(weight), 
-      heart_rate: formatNumber(heartRate)});
+      heart_rate: formatNumber(heartRate),
+      step_length: formatNumber(stepLength)});
     if (response.response_code == ok) {
       console.log('Profile Saved');
       setIsEditing(false);
@@ -207,6 +213,12 @@ export function ProfilePage({ navigation }: ProfilePageProps): JSX.Element {
 
       <Text style={styles.label}>{heart_rate_label}:</Text>
       <TextInput style={styles.input} keyboardType="numeric" value={heartRate} editable={isEditing} onChangeText={(text) => setHeartRate(text)} />
+
+      <Text style={styles.label}>{step_length_label}:</Text>
+      <TextInput style={styles.input} keyboardType="numeric" value={stepLength} editable={isEditing} onChangeText={(text) => setStepLength(text)} />
+
+      <View style={{marginBottom: 20}}></View>
+
       </ScrollView>
       <View>
         {!isEditing && (<Button title={edit_button} onPress={() => setIsEditing(true)} />)}

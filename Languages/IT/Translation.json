@@ -79,6 +79,7 @@
     "height_label": "Altezza (m)",
     "weight_label": "Peso (kg)",
     "heart_rate_label": "Frequenza Cardiaca (battiti/minuto)",
+    "step_length_label": "Lunghezza Passo (m)",
     "edit_button": "Modifica",
     "save_button": "Salva",
     "failed_update": "Aggiornamento del profilo fallito",
@@ -112,8 +113,8 @@
     "save_result": "Salva risultato",
     "final_stats": "Le tue statistiche per questo percorso sono",
     "final_time": "Tempo",
-    "starting_heart_rate": "Frequenza cardiaca iniziale (battiti/minuto)",
-    "ending_heart_rate": "Frequenza cardiaca finale (battiti/minuto)",
+    "starting_heart_rate": "Frequenza cardiaca iniziale (battiti/minuto) (opzionale)",
+    "ending_heart_rate": "Frequenza cardiaca finale (battiti/minuto) (opzionale)",
     "failed_save": "Salvataggio dei dati fallito",
     "successfull_save": "Dati salvati con successo"
   },

@@ -40,9 +40,9 @@ export function NavigationPage({ navigation }: NavigationPageScreenProps): JSX.E
     const [isRouting, setIsRouting] = useState(false);
     const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
     const [routeId, setRouteId] = useState(1); // Hardcoded for now
-    const [heartRateStart, setHeartRateStart] = useState('');
+    const [heartRateStart, setHeartRateStart] = useState('0.0');
     const [isHeartRateStartVisible, setIsHeartRateStartVisible] = useState(true);
-    const [heartRateEnd, setHeartRateEnd] = useState('');
+    const [heartRateEnd, setHeartRateEnd] = useState('0.0');
     const [isHeartRateEndVisible, setIsHeartRateEndVisible] = useState(false);
     const [isSaveFinalResultButtonVisible, setIsSaveFinalResultButtonVisible] = useState(false);
     const [workoutUpdateIsFailed, setProfileUpdateIsFailed] = useState(false);

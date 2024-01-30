@@ -79,6 +79,7 @@
     "height_label": "Height (m)",
     "weight_label": "Weight (kg)",
     "heart_rate_label": "Heart Rate (beats/minute)",
+    "step_length_label": "Step Lenght (m)",
     "edit_button": "Edit",
     "save_button": "Save",
     "failed_update": "Failed to update Profile",
@@ -112,8 +113,8 @@
     "save_result": "Save result",
     "final_stats": "Your stats for this route are",
     "final_time": "Time",
-    "starting_heart_rate": "Starting heart rate (beats/minute)",
-    "ending_heart_rate": "Ending heart rate (beats/minute)",
+    "starting_heart_rate": "Starting heart rate (beats/minute) (opzional)",
+    "ending_heart_rate": "Ending heart rate (beats/minute) (opzional)",
     "failed_save": "Failed to save route data",
     "successfull_save": "Route data saved successfully"
   },

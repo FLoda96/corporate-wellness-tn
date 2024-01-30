@@ -2,6 +2,7 @@ import { Timestamp } from "react-native-reanimated/lib/typescript/reanimated2/co
 
 //export const serverUrl = 'https://192.168.1.124:8443'
 export const serverUrl = 'http://192.168.1.124:8090'
+//export const serverUrl = 'https://192.168.131.160:8443'
 export const basicAuth = 'Basic dGVzdDp0ZXN0'
 export const ok = 200;
 export const created = 201;
@@ -88,13 +89,14 @@ interface UpdateUserArguments {
   height: number;
   weight: number;
   heart_rate: number;
+  step_length: number;
 }
 
 export interface UpdateUserArgumentsResponse {
   response_code: number;
 }
 
-export async function UpdateUser ({name, surname, date_of_birth, nickname, email, sex, waistline, height, weight, heart_rate}: UpdateUserArguments): Promise<UpdateUserArgumentsResponse> {
+export async function UpdateUser ({name, surname, date_of_birth, nickname, email, sex, waistline, height, weight, heart_rate, step_length}: UpdateUserArguments): Promise<UpdateUserArgumentsResponse> {
   console.log("Executing UpdateUser");
   try {
     const response = await fetch(serverUrl + profile, {
@@ -115,6 +117,7 @@ export async function UpdateUser ({name, surname, date_of_birth, nickname, email
         height: height,
         weight: weight,
         heart_rate: heart_rate,
+        step_length: step_length,
       }),
     });
 
@@ -275,6 +278,7 @@ export interface SearchUserByEmailResponse {
   height: number;
   weight: number;
   heart_rate: number;
+  step_length: number;
 }
 
 export async function SearchUserByEmail ({email}: SearchUserByEmailArguments): Promise<SearchUserByEmailResponse | number> {
