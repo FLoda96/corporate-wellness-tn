@@ -118,7 +118,9 @@
     "ending_heart_rate": "Ending heart rate (beats/minute) (opzional)",
     "failed_save": "Failed to save route data",
     "successfull_save": "Route data saved successfully",
-    "reset_page_button": "Reset Route"
+    "reset_page_button": "Reset Route",
+    "notification_title": "Route notification",
+    "notification_text": "Active route"
   },
   "alerts": {
     "permission_notice": "Permission Notice",

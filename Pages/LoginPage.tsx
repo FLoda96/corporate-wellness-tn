@@ -20,8 +20,8 @@ export function LoginPage({ navigation }: LoginPageProps): JSX.Element {
   const [loginIsFailed, setLoginIsFailed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
-  const [email, setEmail] = useState('test@abc.com');
-  const [password, setPassword] = useState('aaaaaa');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   //const [name, setName] = useState('test-name');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;

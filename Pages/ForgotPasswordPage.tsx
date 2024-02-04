@@ -17,7 +17,7 @@ export function ForgotPasswordPage({ navigation }: ForgotPasswordPageProps): JSX
   const [loginIsFailed, setLoginIsFailed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
-  const [email, setEmail] = useState('test@abc.com');
+  const [email, setEmail] = useState('');
   const {User, SetUser} = useContext(UserContext) as UserContextType;
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
   const {IsAuthenticated, SetIsAuthenticated} = useContext(LoginContext) as LoginContextType;

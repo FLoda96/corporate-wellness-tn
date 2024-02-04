@@ -118,7 +118,9 @@
     "ending_heart_rate": "Frequenza cardiaca finale (battiti/minuto) (opzionale)",
     "failed_save": "Salvataggio dei dati fallito",
     "successfull_save": "Dati salvati con successo",
-    "reset_page_button": "Resetta Percorso"
+    "reset_page_button": "Resetta Percorso",
+    "notification_title": "Notifica Percorso",
+    "notification_text": "Percorso attivo"
   },
   "alerts": {
     "permission_notice": "Avviso riguardo ai permessi",

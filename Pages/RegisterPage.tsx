@@ -17,12 +17,12 @@ import {retrieveSessionData} from '../Utils/EncryptedStorageUtility'
 export function RegisterPage({ navigation }: RegisterPageProps): JSX.Element {
   const [company, setCompany] = useState(1);
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('test@abc.com');
+  const [email, setEmail] = useState('');
   const [emailIsWellFormatted, setEmailIsWellFormatted] = useState(true);
   const [emailAlreadyExist, setEmailAlreadyExist] = useState(false);
   const [registrationIsFailed, setRegistrationIsFailed] = useState(false);
-  const [password, setPassword] = useState('aaaaaa');
-  const [repeatPassword, setRepeatPassword] = useState('aaaaaa');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [passwordsMinLenght, setPasswordsMinLenght] = useState(true);
   const [toggleRememberData, setToggleRememberData] = useState(false);
