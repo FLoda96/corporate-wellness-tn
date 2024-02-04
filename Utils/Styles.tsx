@@ -18,6 +18,16 @@ export const styles = StyleSheet.create({
       paddingHorizontal: 10,
       color: 'black',
     },
+    inputQuestionnaire: {
+      height: 120,
+      borderColor: 'gray',
+      borderWidth: 1,
+      marginBottom: 10,
+      paddingHorizontal: 10,
+      color: 'black',
+      width: "85%",
+      textAlignVertical: 'top'
+    },
     label: {
       color: 'black',
       fontWeight: 'bold',

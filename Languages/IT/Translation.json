@@ -100,10 +100,13 @@
     "load_questionnaire": "Carica questionario selezionato",
     "reload_table": "Ricarica tabella",
     "ok_alert": "Ok",
-    "cancel_alert": "Annulla"
+    "cancel_alert": "Annulla",
+    "last_time_taken_label": "L'ultima volta che hai risposto a questo questionario è stata : ",
+    "last_time_taken_label_never": "Non hai mai risposto a questo questionario"
   },
   "question_list": {
-    "question": "Domanda "
+    "question": "Domanda ",
+    "answer_placeholder" : "Rispondi qui"
   },
   "webserverup": {
     "text": "Non sei connesso alla rete Unitn "

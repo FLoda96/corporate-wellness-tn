@@ -1,5 +1,3 @@
-// TeamList.js
-
 import React, {useContext, useEffect, useState, useRef} from 'react';
 import { FlatList, View, Text, Image, StyleSheet, ScrollView, Button, Alert, TextInput } from 'react-native';
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from './AuthContext'
@@ -7,6 +5,7 @@ import { QuestionData, Answer } from './WebServerUtils';
 import { useTranslation } from 'react-i18next';
 import { styles as styles_import } from './Styles'
 import Slider from "react-native-a11y-slider";
+
 
 
 interface QuestionListProps {
@@ -51,7 +50,7 @@ export function QuestionList({questionData, answersList}: QuestionListProps): JS
     }
     return -1;
   }
-
+  // <View style={{marginBottom: 50}}></View>  Inserted because otherwise the scrollview and flatlist combo block from answering the last question because of missing space */
   const renderItem = ({ item }: { item: QuestionData }) => (
     <ScrollView style={styles.Edges}>
       <View>
@@ -61,10 +60,10 @@ export function QuestionList({questionData, answersList}: QuestionListProps): JS
           item.question_type == text ? 
             (<AnswerInput value={answers[item.question_id]} onChangeText={(text) => handleAnswerChange(item.question_id, text, item.question_type)}/>) 
             : 
-            // TO DO : Should be <Slider min={1} max={100} values={[5]} markerColor='black'/>
-            (<AnswerInput value={answers[item.question_id]} onChangeText={(text) => handleAnswerChange(item.question_id, text, item.question_type)}/>)
+            (<AnswerDial onChangeSlider={(number: number[]) => {handleAnswerChange(item.question_id, number[0].toString(), item.question_type);}}/>)
         }
       </View>
+      <View style={{marginBottom: 50}}/> 
     </ScrollView>
   );
 
@@ -125,16 +124,24 @@ interface AnswerProps {
 }
 
 function AnswerInput({ value, onChangeText }: AnswerProps): JSX.Element {
-  return <TextInput style={styles_import.input} value={value} onChangeText={onChangeText} />;
+  const { t, i18n } = useTranslation();
+  const answer_placeholder = t('question_list.answer_placeholder');
+  return <TextInput multiline={true} numberOfLines={5} placeholder={answer_placeholder} placeholderTextColor={"grey"} style={styles_import.inputQuestionnaire} value={value} onChangeText={onChangeText} />;
 }
 
 interface AnswerDialProps {
-
+  onChangeSlider: (number: number[]) => void;
 }
 
-function AnswerDial({}: AnswerDialProps): JSX.Element {
-  const [answer, setAnswer] = useState<string>('');
+function AnswerDial({ onChangeSlider }: AnswerDialProps): JSX.Element {
+  const [answer, setAnswer] = useState<number>(50); // Set initial value
+
+  const handleSliderChange = (values: number[]) => {
+    setAnswer(values[0]); // Update state when the slider value changes
+    onChangeSlider(values);
+  };
+
   return (
-    <TextInput style={styles_import.input} value={answer} keyboardType="numeric" onChangeText={(text) => setAnswer(text)} />
-  )
+    <Slider min={1} max={100} values={[answer]} markerColor='black' showLabel={true} labelStyle={{ backgroundColor: 'black' }} onChange={handleSliderChange}/>
+  );
 }

@@ -100,10 +100,13 @@
     "load_questionnaire": "Load Selected Questionnaire",
     "reload_table": "Reload table",
     "ok_alert": "Ok",
-    "cancel_alert": "Cancel"
+    "cancel_alert": "Cancel",
+    "last_time_taken_label": "The last time you answered this questionnaire was : ",
+    "last_time_taken_label_never": "You never answered this questionnaire"
   },
   "question_list": {
-    "question": "Question "
+    "question": "Question ",
+    "answer_placeholder" : "Answer here"
   },
   "webserverup": {
     "text": "You are not connected to the Unitn network "

@@ -2,8 +2,10 @@ import { Timestamp } from "react-native-reanimated/lib/typescript/reanimated2/co
 
 //export const serverUrl = 'https://192.168.1.124:8443'
 export const serverUrl = 'http://192.168.1.124:8090'
+
 //export const serverUrl = 'https://192.168.131.160:8443'
 export const basicAuth = 'Basic dGVzdDp0ZXN0'
+
 export const ok = 200;
 export const created = 201;
 export const bad_request = 400;
@@ -26,6 +28,7 @@ const questionlist = '/questionlist'
 const answer = '/answer'
 const list = '/list'
 const company = '/company'
+const lastanswer = '/lastanswer'
 
 // TO DO : Remove the various logs
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -905,6 +908,41 @@ export async function SaveAnswersQuestionnaire({answer_list}: SaveAnswersQuestio
   } catch (err) {
     console.log(err);
     return 0;
+  }
+}
+
+export interface GetLastAnswerResponse {
+  response_code: number;
+  last_answer: Answer | null;
+}
+
+export interface GetLastAnswerArguments {
+  questionnaire_id: number;
+  user_id: number;
+}
+
+export async function GetLastAnswer({questionnaire_id, user_id}: GetLastAnswerArguments): Promise<GetLastAnswerResponse> {
+  console.log("Executing GetLastAnswer");
+  try {
+    const response = await fetch(serverUrl + answer + lastanswer + '/' + user_id + '/' + questionnaire_id , {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': basicAuth,
+      },
+    });
+
+    const status = response.status;
+    console.log("Status GetLastAnswer : " + status);
+    if (status == ok) {
+      const body = await response.json();
+      return {response_code: status, last_answer: body}
+    } else {
+      return {response_code: status, last_answer: null}
+    }
+  } catch (err) {
+    console.log(err);
+    return {response_code: 0, last_answer: null}
   }
 }
 

@@ -4,7 +4,7 @@ import {QuestionnaireProps} from '../Utils/NavigationTypes'
 import {UserContext, UserContextType, LoginContext, LoginContextType, UserIdContext, UserIdContextType} from '../Utils/AuthContext'
 import {saveSessionData, removeSessionData} from '../Utils/EncryptedStorageUtility'
 import { HandleLogin, sessionAuthName, sessionLanguage } from '../Utils/FunctionUtils';
-import { ok, no_content, bad_request, created, GetQuestionList, QuestionData, SaveAnswersQuestionnaire, Answer, GetQuestionnaireList, QuestionnaireData } from '../Utils/WebServerUtils';
+import { ok, no_content, bad_request, created, GetQuestionList, QuestionData, SaveAnswersQuestionnaire, Answer, GetQuestionnaireList, QuestionnaireData, GetLastAnswer } from '../Utils/WebServerUtils';
 import { LoadingScreen } from '../Utils/LoadingScreen';
 import { styles } from '../Utils/Styles'
 import { useTranslation } from 'react-i18next';
@@ -23,6 +23,7 @@ export function QuestionnairePage({ navigation }: QuestionnaireProps): JSX.Eleme
   //const questionnaire_id = 1;
   const company_id = useRef(1);
   const language_code = useRef('IT');
+  const last_time_taken = useRef('');
   const {UserId, SetUserId} = useContext(UserIdContext) as UserIdContextType;
 
   const [openDropdown, setOpenDropdown] = useState(false);
@@ -36,6 +37,8 @@ export function QuestionnairePage({ navigation }: QuestionnaireProps): JSX.Eleme
   const reload_table = t('question_page.reload_table');
   const load_questionnaire = t('question_page.load_questionnaire');
   const send_answer_button = t('question_page.send_answer_button');
+  const last_time_taken_label = t('question_page.last_time_taken_label');
+  const last_time_taken_label_never = t('question_page.last_time_taken_label_never');
   
   const sumbit_notice = t('alerts.sumbit_notice');
   const submit_alert = t('alerts.submit_alert');
@@ -82,6 +85,17 @@ export function QuestionnairePage({ navigation }: QuestionnaireProps): JSX.Eleme
     }
   }
 
+  async function DetermineLastAnswer () {
+    if (valueDropdown != null) {
+      const response = await GetLastAnswer({questionnaire_id: valueDropdown, user_id: UserId});
+      if (response.response_code == ok) {
+        last_time_taken.current = last_time_taken_label + response.last_answer?.timestamp_answer.substring(0,10);
+      } else {
+        last_time_taken.current = last_time_taken_label_never;
+      }
+  }
+}
+
   function createDropdownList (data: QuestionnaireData[]) {
     if ((data != null) && (data[0] != null)) {
       const NewItemsDropdown = [];
@@ -96,6 +110,7 @@ export function QuestionnairePage({ navigation }: QuestionnaireProps): JSX.Eleme
 
   async function LoadQuestionData () {
     if (valueDropdown != null) {
+      DetermineLastAnswer();
       setQuestionData([]);
       setIsLoading(true);
       if ((questionnaireData != null) && (questionnaireData[0] != null)) {
@@ -127,7 +142,7 @@ export function QuestionnairePage({ navigation }: QuestionnaireProps): JSX.Eleme
           question_id: question.question_id,
           answer_type: question.question_type,
           language_code: language_code.current,
-          answer_numeric: 0,
+          answer_numeric: 50, // Because if they never move the dial that's the default value
           answer: '',
           timestamp_answer: ''
         }
@@ -192,6 +207,8 @@ export function QuestionnairePage({ navigation }: QuestionnaireProps): JSX.Eleme
 
             {((questionData != null) && (questionData[0] != null)) && 
             <>
+                <Text style={styles.label}>{last_time_taken.current}</Text>
+                <View style={{marginBottom: 10}}></View>
                 <QuestionList questionData={questionData} answersList={answerList.current}/>
                 <Button title={send_answer_button} onPress={() => PressButtonSubmitAnswer()} />
             </>
