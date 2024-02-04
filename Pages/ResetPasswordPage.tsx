@@ -17,8 +17,8 @@ export function ResetPasswordPage({ navigation }: ResetPasswordPageProps): JSX.E
   const [isLoading, setIsLoading] = useState(false);
   const { t, i18n } = useTranslation();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('aaaaaa');
-  const [repeatPassword, setRepeatPassword] = useState('aaaaaa');
+  const [password, setPassword] = useState('');
+  const [repeatPassword, setRepeatPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [passwordsMinLenght, setPasswordsMinLenght] = useState(true);
   const emailCheck = useRef('');
